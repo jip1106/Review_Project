@@ -1,5 +1,7 @@
 package adminReviewBoard.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,8 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import memberReviewBoard.model.vo.ReviewBoard;
-
-import static common.JDBCTemplate.*;
+import memberReviewBoard.model.vo.ReviewLike;
 public class ReviewBoardDao {
 
 	public int getReviewListCount(Connection con) {
@@ -166,6 +167,132 @@ public class ReviewBoardDao {
 		}
 		
 		return board;
+	}
+
+	public int addLikeCount(Connection con, int postNo) {
+		// 게시물의 좋아요 수 증가.
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "update review_board set likes=likes+1 where posting_no=?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, postNo);
+			
+			result = pstmt.executeUpdate();
+						
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int likeCheck(Connection con, String id, int postNo) {
+		// likes 테이블 like_yn =1, id,postNo 인설트
+		PreparedStatement pstmt = null;
+		String query = "insert into likes values (?,?,?)";
+		int result = 0;
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, postNo);
+			pstmt.setInt(3, 1);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<ReviewLike> getAllLikesList(Connection con) {
+		// Likes 리스트
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<ReviewLike> likesList= null;
+		
+		String query = "select * from likes";
+		
+		try{
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			likesList = new ArrayList<ReviewLike>();
+			
+			if(rset!=null){
+				while(rset.next()){
+					ReviewLike like = new ReviewLike();
+					like.setId(rset.getString("id"));
+					like.setReviewNo(rset.getInt("posting_no"));
+					like.setLikeCheck(rset.getInt("like_yn"));
+					
+					likesList.add(like);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(stmt);
+		}
+		
+		return likesList;
+	}
+
+
+	public int checkLikesInsert(Connection con, String id, int postNo) {
+		// likes 테이블에 insert 되 있는지 (좋아요 눌렀는지) 확인하는 메서드
+		Statement stmt = null;
+		ArrayList<ReviewLike> likeList = null;
+		String query = "select * from likes";
+		ResultSet rset = null;
+		int result = 0;
+		System.out.println("Id :  " + id);
+		System.out.println("postNo : " + postNo);
+		try{
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			likeList = getAllLikesList(con);
+			
+			if(rset!=null){
+				while(rset.next()){
+					ReviewLike like = new ReviewLike();
+					like.setId(rset.getString("id"));
+					like.setReviewNo(rset.getInt("posting_no"));
+					like.setLikeCheck(rset.getInt("like_yn"));
+					
+					likeList.add(like);
+				}
+			}			
+			System.out.println("likeList : " + likeList);
+			for(ReviewLike like : likeList){
+				if(like.getId().equals(id) && (like.getReviewNo()==postNo)){
+					result = 1;
+					break;
+				}else{
+					result = 0;
+				}
+			}
+			System.out.println("result : " + result);
+			
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(stmt);
+		}
+		
+		return result;
 	}
 
 }
