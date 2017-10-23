@@ -56,9 +56,9 @@ public class ReviewListViewServlet extends HttpServlet {
 		//해당 페이지용 목록 조회
 		if(location == null && category == null){
 			 list = rservice.selectReview(currentPage, limit);
-		}else if(location != null && category == null){
-			 list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);  
-		}else if(location == null && category != null){
+		}else if(category == null || category.trim() == ""){
+			 list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);   
+		}else if(location == null || location.trim() == ""){
 			list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);
 		}else if(location != null && category != null){
 			list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);

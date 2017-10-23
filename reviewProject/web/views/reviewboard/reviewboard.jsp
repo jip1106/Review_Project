@@ -85,7 +85,7 @@
 				</select>
 				&nbsp;&nbsp;&nbsp;
 				<label class="sr-only" for="nav-search">Search</label>
-				<input type="text" class="form-control" name="searchKeyWord">
+				<input type="text" class="form-control" name="searchKeyWord" placeholder="가게명">
 				<button type="submit" id="searchSubmit">
 					<i class="fa fa-search"></i>
 				</button> 

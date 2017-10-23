@@ -283,13 +283,13 @@ public class ReviewBoardDao {
 	}
 
 	public ArrayList<ReviewBoard> reviewLocationSearchList(Connection con, int currentPage, int limit,String location,String searchKeyWord) {
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null; 
 		ResultSet rset = null;
 		String query =  
 					"select * from "
 	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
 	              + "from (select * from review_board order by posting_no desc)) "
-	              + "where rnum>=? and rnum<=? and location = ? and address like ?"; 
+	              + "where rnum>=? and rnum<=? and location = ? and store_name like ?"; 
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		ReviewBoard review = null;
 		int startRow = (currentPage -1) * limit + 1;
@@ -339,7 +339,7 @@ public class ReviewBoardDao {
 					"select * from "
 	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
 	              + "from (select * from review_board order by posting_no desc)) "
-	              + "where rnum>=? and rnum<=? and category = ? and address like ?"; 
+	              + "where rnum>=? and rnum<=? and category = ? and store_name like ?"; 
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		ReviewBoard review = null;
 		int startRow = (currentPage -1) * limit + 1;
@@ -571,7 +571,7 @@ public class ReviewBoardDao {
 					"select * from "
 	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
 	              + "from (select * from review_board order by posting_no desc)) "
-	              + "where rnum>=? and rnum<=? and location = ? and category = ? and address like ?"; 
+	              + "where rnum>=? and rnum<=? and location = ? and category = ? and store_name like ?";  
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		ReviewBoard review = null;
 		int startRow = (currentPage -1) * limit + 1;

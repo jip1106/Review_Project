@@ -121,10 +121,10 @@ public class ReviewBoardService {
 
 	public ArrayList<ReviewBoard> reviewSearchList(int currentPage, int limit, String location,String category,String searchKeyWord) {
 		Connection con = getConnection();
-		ArrayList<ReviewBoard> list = null;
-		if (category == null) {
-			list = new ReviewBoardDao().reviewLocationSearchList(con, currentPage, limit,location,searchKeyWord); 
-		}else if(location == null) {
+		ArrayList<ReviewBoard> list = null; 
+		if (category == null || category.trim() == "") {
+			list = new ReviewBoardDao().reviewLocationSearchList(con, currentPage, limit,location,searchKeyWord);  
+		}else if(location == null || location.trim() == "") {
 			list = new ReviewBoardDao().reviewCategorySearchList(con, currentPage, limit,category,searchKeyWord);
 		}else if(category != null && location != null){
 			list = new ReviewBoardDao().reviewAllSearchList(con, currentPage, limit,location,category,searchKeyWord);
