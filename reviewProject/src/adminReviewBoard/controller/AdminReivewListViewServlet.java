@@ -3,6 +3,7 @@ package adminReviewBoard.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,11 +46,32 @@ public class AdminReivewListViewServlet extends HttpServlet {
 		
 		ReviewBoardService rservice = new ReviewBoardService();
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
-		
-		int listCount = rservice.getReviewListCount();
-		
-		if(listCount ==0){
 			
+		int listCount = rservice.getReviewListCount();
+		int maxPage = (int)((double)listCount/limit + 0.9);
+	
+		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;
+	
+		int endPage = startPage + limit - 1;
+		
+		if(maxPage < endPage){
+			endPage = maxPage;
+		}
+		
+		list = rservice.viewAllReviewBoard(currentPage,limit);
+		
+		if(list != null){
+			RequestDispatcher view = request.getRequestDispatcher("views/admin/board/reviewboard/adminreviewboard.jsp");
+			
+			request.setAttribute("list", list);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("maxPage", maxPage);
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("listCount", listCount);
+			
+			
+			view.forward(request, response);
 		}
 		
 	}
