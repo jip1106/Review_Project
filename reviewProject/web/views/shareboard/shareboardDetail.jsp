@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="memberSharedBoard.model.vo.SharedBoard"%>
 <%
+	//int pnum = Integer.parseInt(request.getParameter("pnum"));
 	SharedBoard sb = (SharedBoard)request.getAttribute("sharedBoard");
 	int index = (Integer)request.getAttribute("index");
 	int location = 0;
@@ -71,7 +72,76 @@
 	</div>
 </div>
 </div>
+<br>
 
+	
+	
 <!-- 댓글공간 -->
+	<div class="container">
+	<div class="col-sm-8 col-md-9">
+	<div class="well well">
+	
+	<!--  댓글 입력 테이블 -->
+	<form action="/review/screply" method="get">
+	<input type="hidden" name="pnum" value="<%=sb.getPostingNum() %>">
+	
+	<table>
+	<tr>
+		<th><%= member.getId() %></th> 
+		<td>&nbsp; &nbsp;<textarea cols="70" rows="3"></textarea></td>
+	</tr>
+	</table>
+
+<!-- 댓글 등록/취소 버튼 -->
+	<div align="right">
+		<input type="submit" value="댓글등록"></input>
+		<input type="reset" value="작성취소"></input>
+		
+	</div>
+	</form>
+	
+	</div>
+	</div>
+	</div>
+	
+	
+	<!--  댓글이 표시될 영역 -->
+		<div class="container">
+		<div class="col-sm-8 col-md-9">
+		<div>
+			<table id="replylist">
+			<hr>
+				<tr>
+					<th><%= member.getId()%></th>
+					<td>&nbsp; &nbsp;
+					<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+					<script type="text/javascript">
+						$(function(){
+							$.ajax({
+								url:"/review/screply" ,
+								type:"get" ,
+								dataType: "json",
+								success: function(data){
+									var json = JSON.parse(JSON.stringify(data));
+									var values="";
+									for(var i in json.list){
+										values += decodeURIComponent(json.list[i].content)
+									}
+									$('#replylist').html(values);
+								}
+								
+								
+							})
+						})
+					
+					</script>
+					</td>
+				</tr>
+			</table>
+		</div>
+	
+	</div>
+	</div>
+	
 </body>
 </html>
