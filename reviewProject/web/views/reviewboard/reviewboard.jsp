@@ -122,25 +122,25 @@
 								<a href="/review/ReviewDetail?no=<%=r.getPosting_no()%>&page=<%=currentPage%>">글제목: <%=r.getTitle()%></a></h3> 
 								<div class="portfolio__intro">
 								<%if(r.getEvaluation() == 1){%>
-									평점: <img src="/review/resources/img/one.PNG"> <%=r.getEvaluation()%>점<br>
+									평점: <img src="/review/resources/img/one.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 2){%>
-									평점: <img src="/review/resources/img/2점.PNG"> <%=r.getEvaluation()%>점<br>
+									평점: <img src="/review/resources/img/2점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 3){%>
-									평점: <img src="/review/resources/img/3점.PNG"> <%=r.getEvaluation()%>점<br>
+									평점: <img src="/review/resources/img/3점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 4){%>
-									평점: <img src="/review/resources/img/4점.PNG"> <%=r.getEvaluation()%>점<br>
+									평점: <img src="/review/resources/img/4점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 5){%>
-									평점: <img src="/review/resources/img/5점.PNG"> <%=r.getEvaluation()%>점<br>
+									평점: <img src="/review/resources/img/5점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 6){%>
-									평점: <img src="/review/resources/img/6점.PNG"> <%=r.getEvaluation()%>점<br>
+									평점: <img src="/review/resources/img/6점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 7){%>
-									평점: <img src="/review/resources/img/7점.PNG"> <%=r.getEvaluation()%>점<br>
+									평점: <img src="/review/resources/img/7점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 8){%>
-									평점: <img src="/review/resources/img/8점.PNG"> <%=r.getEvaluation()%>점<br>
+									평점: <img src="/review/resources/img/8점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 9){%>
-									평점: <img src="/review/resources/img/9점.PNG"> <%=r.getEvaluation()%>점<br>
+									평점: <img src="/review/resources/img/9점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() ==10){%>
-									평점: <img src="/review/resources/img/10점.PNG"> <%=r.getEvaluation()%>점<br>
+									평점: <img src="/review/resources/img/10점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}%>
 								가게명: <%=r.getStoreName()%><br>
 								지역: <%=r.getLocation()%><br>
