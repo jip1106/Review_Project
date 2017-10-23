@@ -88,4 +88,24 @@ public class ReviewBoardDao {
 		return list;
 	}
 
+	public int forceDeleteReviewBoard(Connection con, int postNo) {
+		// 관리자가 리뷰게시판 게시물 삭제하기 위한 메서드
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "delete from review_board where posting_no=?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,postNo);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

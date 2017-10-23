@@ -10,6 +10,7 @@
 	int startPage = ((Integer)request.getAttribute("startPage")).intValue();
 	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
 	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
+	System.out.println("currentPage ==========" + currentPage);
 %>
 <!DOCTYPE html>
 <html lang="en"> 
@@ -154,7 +155,8 @@
 						<!-- Captions -->
 						<div class="portfolio__caption">
 							<h3 class="portfolio__title">
-								<a href="#">글제목  : <%=r.getTitle() %></a> 	<a><button class = "btn btn-primary">삭제</button></a>
+								<a href="/review/adminReviewDetail">글제목  : <%=r.getTitle() %></a> 
+									<a href="/review/adminForceDelete?postNo=<%=r.getPosting_no()%>&page=<%=currentPage%>&limit=9"><button class = "btn btn-primary">삭제</button></a>
 							</h3>  
 							
 								<div class="portfolio__intro">
@@ -219,7 +221,7 @@
                <%if(currentPage>=maxPage){ %>
                   <li><span aria-hidden="true">»»»</span></li>               
                <%}else{ %>
-                  <li><a href="/review/adminReviewList?page=<%= currentPage+1 %>" aria-label="Next">
+                  <li><a href="/review/adminReviewList?page=<%=currentPage+1%>" aria-label="Next">
                      <span aria-hidden="true">»»»</span></a></li>
                <%} %>
             </ul>

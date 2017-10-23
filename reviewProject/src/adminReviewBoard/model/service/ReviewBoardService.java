@@ -25,4 +25,20 @@ public class ReviewBoardService {
 		return list;
 	}
 
+	public int forceDeleteReviewBoard(int postNo) {
+		// 리뷰게시판 게시물 삭제 메서드
+		Connection con = getConnection();
+		int result = new ReviewBoardDao().forceDeleteReviewBoard(con,postNo);
+		
+		if(result>0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+		close(con);
+				
+		return result;
+	}
+
 }
