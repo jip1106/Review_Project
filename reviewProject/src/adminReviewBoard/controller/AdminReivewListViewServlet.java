@@ -48,6 +48,9 @@ public class AdminReivewListViewServlet extends HttpServlet {
 		
 		int listCount = rservice.getReviewListCount();
 		
+		if(listCount ==0){
+			
+		}
 		
 	}
 
