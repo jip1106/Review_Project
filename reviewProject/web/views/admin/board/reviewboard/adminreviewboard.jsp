@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ page import="memberReviewBoard.model.vo.ReviewBoard ,java.util.ArrayList, java.sql.Date"%>
+    
+<%
+	ArrayList<ReviewBoard> list = (ArrayList<ReviewBoard>)request.getAttribute("list");
+	int listCount = ((Integer)request.getAttribute("listCount")).intValue();
+	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
+	int startPage = ((Integer)request.getAttribute("startPage")).intValue();
+	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
+	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
+%>
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
@@ -20,13 +31,58 @@
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
+    
+ <style type="text/css">
+ 	.stylish-input-group .input-group-addon {
+	background: white !important;
+}
+
+.stylish-input-group .form-control {
+	border-right: 0;
+	box-shadow: 0 0 0;
+	border-color: #ccc;
+}
+
+.stylish-input-group button {
+	border: 0;
+	background: transparent;
+}
+
+.btn {
+	background: #ff6347;
+	background-image: -webkit-linear-gradient(top, #ff6347, #ff6347);
+	background-image: -moz-linear-gradient(top, #ff6347, #ff6347);
+	background-image: -ms-linear-gradient(top, #ff6347, #ff6347);
+	background-image: -o-linear-gradient(top, #ff6347, #ff6347);
+	background-image: linear-gradient(to bottom, #ff6347, #ff6347);
+	-webkit-border-radius: 4;
+	-moz-border-radius: 4;
+	border-radius: 4px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #f75234;
+	background-image: -webkit-linear-gradient(top, #f75234, #f75234);
+	background-image: -moz-linear-gradient(top, #f75234, #f75234);
+	background-image: -ms-linear-gradient(top, #f75234, #f75234);
+	background-image: -o-linear-gradient(top, #f75234, #f75234);
+	background-image: linear-gradient(to bottom, #f75234, #f75234);
+	text-decoration: none;
+}
+ 
+ </style>
 </head>
 <body>
 <%@ include file="../../../../header.jsp"%>
 <br><br>
 
 <div class="row">
-		<div class="col-sm-2" align="center">    
+		<div class="col-lg-1" align="center">    
 			<form class="form-inline topbar__search" role="form" action="">
 				<select class="selectpicker" id="findLocationType">
 					<option value="">지역별</option>
@@ -42,7 +98,7 @@
 			</form>
 		</div>
 		
-		<div class="col-sm-2" align = "left">    
+		<div class="col-lg-1" align = "left">    
 			<form class="form-inline topbar__search" role="form" action="">
 				<select class="selectpicker" id="findCategoryType">
 					<option value="">카테고리별</option>
@@ -54,13 +110,20 @@
 			</form>
 		</div>
 		
-		<div class="col-sm-4" align ="left">    
+		<div class="col-lg-8" align ="left">    
 			<form class="form-inline topbar__search" role="form" action="">
-				<label class="sr-only" for="nav-search">Search</label>
-				<input type="text" class="form-control" id="searchKeyWord" name="">
-				<button type="submit" id="searchSubmit">
-					<i class="fa fa-search"></i>
-				</button>
+				<div align="left" style="margin-left: 0%; margin-right: 0%">
+					<div class="input-group stylish-input-group">
+						<input type="text" class="form-control" placeholder="가게 이름 검색" name="searchValue">
+						<span class="input-group-addon">
+			
+							<button type="submit">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span>
+			
+					</div>
+				</div>
 			</form>
 		</div>
 </div>
@@ -68,9 +131,7 @@
 <br>
 <h2 class="header">리뷰 게시판</h2> 
 <caption>리뷰를 남겨주세요</caption>
-<div class="ui__section" id="ui_buttons" align="right">
-		<a href="reviewboardWriteForm.jsp" class="btn btn-sm btn-primary">글작성</a>
-</div>
+
 
 <!-- PAGE CONTENT
     ============================== -->
@@ -97,7 +158,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> 
 		<!-- / .row -->
 	</div>
 	<!-- / .portfolio__items -->
@@ -105,19 +166,35 @@
 <!-- / .container -->
 
 	<!-- paging -->
-	<div class="ui__section" id="ui_pagination" align="center">
-		<nav>
-			<ul class="pagination">  
-				<li><a href="#">&laquo;</a>
-				<li><a href="#">1</a>
-				<li><a href="#">2</a>
-				<li><a href="#">3</a>
-				<li><a href="#">4</a>
-				<li><a href="#">5</a>
-				<li><a href="#">&raquo;</a>
-			
-			</ul>
-		</nav>
-	</div>
+      <div class="ui__section" id="ui_pagination" align="center">
+         <nav>
+            <ul class="pagination">
+               <!-- 이전페이지 처리 -->
+               <%if(currentPage<=1){ %> <!-- 현재 페이지가 1페이지면 이전페이지 못하게 -->
+                  <li><span aria-hidden="true">«««</span></li>
+               <%}else{ %>   <!-- 현재 페이지가 2페이지면 이전페이지 누룰 수 있음 할 수 있음 -->
+                  <li><a href="/review/adminReviewList?page=<%= currentPage-1 %>" aria-label="Previous"><span
+                        aria-hidden="true">«««</span></a></li>   
+               <%} %>
+               
+               <!-- 페이지 보여주기 -->
+               <%for(int p = startPage; p<=endPage; p++){ 
+                  if(p==currentPage){%>
+                     <li class="active"><a><%=p %></a></li>               
+                  <%}else{ %> 
+                     <li><a href = "/review/adminReviewList?page=<%=p %>"><%=p %></a></li>
+                  <%} %>
+               <%} %>
+               
+               <!-- 다음페이지 처리 -->
+               <%if(currentPage>=maxPage){ %>
+                  <li><span aria-hidden="true">»»»</span></li>               
+               <%}else{ %>
+                  <li><a href="/review/adminReviewList?page=<%= currentPage+1 %>" aria-label="Next">
+                     <span aria-hidden="true">»»»</span></a></li>
+               <%} %>
+            </ul>
+         </nav>
+      </div>
 </body>
 </html>
