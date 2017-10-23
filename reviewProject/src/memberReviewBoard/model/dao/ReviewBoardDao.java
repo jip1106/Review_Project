@@ -282,14 +282,14 @@ public class ReviewBoardDao {
 		return result;
 	}
 
-	public ArrayList<ReviewBoard> reviewLocationSearchList(Connection con, int currentPage, int limit, String searchKeyWord) {
+	public ArrayList<ReviewBoard> reviewLocationSearchList(Connection con, int currentPage, int limit,String location,String searchKeyWord) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query =  
 					"select * from "
 	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
 	              + "from (select * from review_board order by posting_no desc)) "
-	              + "where rnum>=? and rnum<=? and location like ?"; 
+	              + "where rnum>=? and rnum<=? and location = ? and address like ?"; 
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		ReviewBoard review = null;
 		int startRow = (currentPage -1) * limit + 1;
@@ -299,7 +299,8 @@ public class ReviewBoardDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			pstmt.setString(3, "%"+searchKeyWord+"%");
+			pstmt.setString(3, location);
+			pstmt.setString(4, "%"+searchKeyWord+"%");
 			
 			rset = pstmt.executeQuery();
 			
@@ -331,14 +332,14 @@ public class ReviewBoardDao {
 		return list;
 	}
 
-	public ArrayList<ReviewBoard> reviewCategorySearchList(Connection con,int currentPage, int limit, String searchKeyWord) {
+	public ArrayList<ReviewBoard> reviewCategorySearchList(Connection con,int currentPage, int limit,String category,String searchKeyWord) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query =  
 					"select * from "
 	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
 	              + "from (select * from review_board order by posting_no desc)) "
-	              + "where rnum>=? and rnum<=? and category like ?"; 
+	              + "where rnum>=? and rnum<=? and category = ? and address like ?"; 
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		ReviewBoard review = null;
 		int startRow = (currentPage -1) * limit + 1;
@@ -348,7 +349,8 @@ public class ReviewBoardDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			pstmt.setString(3, "%"+searchKeyWord+"%");
+			pstmt.setString(3, category);
+			pstmt.setString(4, "%"+searchKeyWord+"%");
 			
 			rset = pstmt.executeQuery();
 			
@@ -559,6 +561,58 @@ public class ReviewBoardDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<ReviewBoard> reviewAllSearchList(Connection con, int currentPage, int limit, String location,
+			String category, String searchKeyWord) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query =  
+					"select * from "
+	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
+	              + "from (select * from review_board order by posting_no desc)) "
+	              + "where rnum>=? and rnum<=? and location = ? and category = ? and address like ?"; 
+		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
+		ReviewBoard review = null;
+		int startRow = (currentPage -1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setString(3, location);
+			pstmt.setString(4, category);
+			pstmt.setString(5, "%"+searchKeyWord+"%"); 
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				review = new ReviewBoard();
+				review.setPosting_no(rset.getInt("posting_no")); 
+				review.setId(rset.getString("id"));
+				review.setTitle(rset.getString("title"));
+				review.setContent(rset.getString("content"));
+				review.setHits(rset.getInt("hits"));
+				review.setPostingDate(rset.getDate("posting_date"));
+				review.setDelYN(rset.getInt("del_yn"));
+				review.setLocation(rset.getString("location"));
+				review.setCategory(rset.getString("category"));
+				review.setAddress(rset.getString("address"));
+				review.setStoreName(rset.getString("store_name"));
+				review.setLikes(rset.getInt("likes"));
+				review.setImageName(rset.getString("image_name"));
+				review.setRenameImageName(rset.getString("re_image_name"));
+				review.setEvaluation(rset.getInt("evaluation"));  
+				list.add(review);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 
 }

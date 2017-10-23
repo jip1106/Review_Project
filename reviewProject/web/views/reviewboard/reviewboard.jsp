@@ -63,10 +63,27 @@
 <div class="row">
 		<div class="col-sm-5">    
 			<form class="form-inline topbar__search" role="form" action="/review/reviewList">
-				<select class="selectpicker" name="findType">
-					<option value="findByLocation">지역별</option>
-					<option value="findByCategory">카테고리별</option>
+				<select class="selectpicker" name="findLocationType">
+					<option value="">지역별</option>
+					<option value="서울특별시">서울특별시</option>
+					<option value="부산광역시">부산광역시</option>
+					<option value="대구광역시">대구광역시</option>
+					<option value="인천광역시">인천광역시</option>
+					<option value="광주광역시">광주광역시</option>
+					<option value="대전광역시">대전광역시</option>
+					<option value="울산광역시">울산광역시</option>
+					<option value="경기도">경기도</option>
+					<option value="제주도">제주도</option>
 				</select>
+				&nbsp;&nbsp;&nbsp;
+				<select class="selectpicker" name="findCategoryType">
+					<option value="">카테고리별</option> 
+					<option value="식당">식당</option>
+					<option value="카페">카페</option>
+					<option value="교통">교통</option>
+					<option value="숙박">숙박</option>
+				</select>
+				&nbsp;&nbsp;&nbsp;
 				<label class="sr-only" for="nav-search">Search</label>
 				<input type="text" class="form-control" name="searchKeyWord">
 				<button type="submit" id="searchSubmit">
@@ -89,8 +106,8 @@
 <div class="container">
 	<!-- Portfolio -->
 	<div class="portfolio__items">
-	<%for(ReviewBoard r : list){%>
-		<div class="cols">
+		<div class="row">
+		  <%for(ReviewBoard r : list){%>
 			<div class="col-xs-12 col-sm-4 filter__item filter_modernism">
 					<div class="portfolio__item">
 						<!-- Image -->
@@ -125,13 +142,15 @@
 								<%}else if(r.getEvaluation() ==10){%>
 									평점: <img src="/review/resources/img/10점.PNG"> <%=r.getEvaluation()%>점<br>
 								<%}%>
-								가게명: <%=r.getStoreName()%> 
+								가게명: <%=r.getStoreName()%><br>
+								지역: <%=r.getLocation()%><br>
+								카테고리: <%=r.getCategory()%>  
 								</div>
 						</div>
 					</div>
 				</div>
+			  <%}%>
 			</div>
-		<%}%>
 		<!-- / .row -->
 	</div>
 	<!-- / .portfolio__items -->
