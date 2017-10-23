@@ -155,8 +155,8 @@
 						<!-- Captions -->
 						<div class="portfolio__caption">
 							<h3 class="portfolio__title">
-								<a href="/review/adminReviewDetail">글제목  : <%=r.getTitle() %></a> 
-									<a href="/review/adminForceDelete?postNo=<%=r.getPosting_no()%>&page=<%=currentPage%>&limit=9"><button class = "btn btn-primary">삭제</button></a>
+								<a href="/review/adminReviewDetail?postNo=<%=r.getPosting_no()%>&page=<%=currentPage%>">글제목  : <%=r.getTitle() %></a>
+								<a href="/review/adminForceDelete?postNo=<%=r.getPosting_no()%>&page=<%=currentPage%>&limit=9"><button class = "btn btn-primary">삭제</button></a>
 							</h3>  
 							
 								<div class="portfolio__intro">

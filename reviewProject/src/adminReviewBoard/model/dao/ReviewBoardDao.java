@@ -108,4 +108,64 @@ public class ReviewBoardDao {
 		return result;
 	}
 
+	public int updateReadCount(Connection con, int postNo) {
+		// 조회수 처리 증가
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query ="update review_board set hits=hits+1 where posting_no = ?";
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, postNo);
+			
+			result = pstmt.executeUpdate();			
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}		
+		return result;
+	}
+
+	public ReviewBoard getReviewBoard(Connection con, int postNo) {
+		// 리뷰게시판 가져오는 메서드
+		ReviewBoard board = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,evaluation,rename_image_name from review_board "
+				+"join image using(posting_no) where posting_no = ?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, postNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				board = new ReviewBoard();
+				board.setPosting_no(postNo); 
+				board.setId(rset.getString("id"));
+				board.setTitle(rset.getString("title"));
+				board.setContent(rset.getString("content"));
+				board.setHits(rset.getInt("hits"));
+				board.setPostingDate(rset.getDate("posting_date"));
+				board.setDelYN(rset.getInt("del_yn"));
+				board.setLocation(rset.getString("location"));
+				board.setCategory(rset.getString("category"));
+				board.setAddress(rset.getString("address"));
+				board.setStoreName(rset.getString("store_name"));
+				board.setLikes(rset.getInt("likes"));
+				board.setRenameImageName(rset.getString("rename_image_name"));
+				board.setEvaluation(rset.getInt("evaluation"));  
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		return board;
+	}
+
 }

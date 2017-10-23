@@ -41,4 +41,27 @@ public class ReviewBoardService {
 		return result;
 	}
 
+	public void addReadCount(int postNo) {
+		// 조회수 증가 처리
+		Connection con = getConnection();
+		int result = new ReviewBoardDao().updateReadCount(con,postNo);
+		
+		if(result>0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+		
+	}
+
+	public ReviewBoard getReviewBoard(int postNo) {
+		// 게시글 번호로 리뷰 게시판 게시글 가져오는 메서드
+		Connection con = getConnection();
+		ReviewBoard board = new ReviewBoardDao().getReviewBoard(con,postNo);
+		close(con);
+		
+		return board;
+	}
+
 }
