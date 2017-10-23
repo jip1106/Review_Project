@@ -37,7 +37,7 @@ public class SharedBoardDetailServlet extends HttpServlet {
 		int index = 0;	//정보 공유 게시판에서 글 제목 눌렀을 때
 		
 		if(request.getParameter("index")!=null){
-			index = Integer.parseInt(request.getParameter("index"));//마이 페이지 에서 글 제목 눌렀을 때
+			index = Integer.parseInt(request.getParameter("index"));
 		}
 		
 		int no = Integer.parseInt(request.getParameter("no"));
