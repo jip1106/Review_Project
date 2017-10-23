@@ -41,7 +41,7 @@ public class ComplainListServlet extends HttpServlet {
 		if(request.getParameter("Page")!=null){
 			Page=Integer.parseInt(request.getParameter("Page"));
 		}
-		
+		System.out.println("안녕하세요");
 		ComplainBoardService Complainbordservice = new ComplainBoardService();
 		
 		int listCount = Complainbordservice.getListCount();
