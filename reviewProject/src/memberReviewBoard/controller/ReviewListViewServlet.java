@@ -49,14 +49,19 @@ public class ReviewListViewServlet extends HttpServlet {
 		//전체 목록 갯수 조회함
 		int listCount = rservice.getReviewListCount();
 		
-		String findType = request.getParameter("findType");
+		String location = request.getParameter("findLocationType");
+		String category = request.getParameter("findCategoryType");
 		String searchKeyWord = request.getParameter("searchKeyWord");
 		
 		//해당 페이지용 목록 조회
-		if(findType == null || findType.trim() == ""){
+		if(location == null && category == null){
 			 list = rservice.selectReview(currentPage, limit);
-		}else{
-			 list = rservice.reviewSearchList(currentPage, limit, findType, searchKeyWord); 
+		}else if(location != null && category == null){
+			 list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);  
+		}else if(location == null && category != null){
+			list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);
+		}else if(location != null && category != null){
+			list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);
 		}
 		
 		//총 페이지 수 계산 : 목록이 최소 1개일 때는 한 페이지로 처리함
