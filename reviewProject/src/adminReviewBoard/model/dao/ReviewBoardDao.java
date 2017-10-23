@@ -84,8 +84,7 @@ public class ReviewBoardDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("admin Dao ");
-		
+			
 		return list;
 	}
 
