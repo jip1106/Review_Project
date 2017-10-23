@@ -34,7 +34,6 @@ public class SharedBoardDetailServlet extends HttpServlet {
 		//정보공유 게시판 상세보기 
 		response.setContentType("text/html;charset=utf-8");
 		
-		System.out.println();
 		int index = 0;	//정보 공유 게시판에서 글 제목 눌렀을 때
 		
 		if(request.getParameter("index")!=null){
