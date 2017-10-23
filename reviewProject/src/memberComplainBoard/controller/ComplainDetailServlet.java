@@ -62,6 +62,7 @@ public class ComplainDetailServlet extends HttpServlet {
 					request.setAttribute("index", index);
 					view.forward(request, response);
 				}
+					
 	
 	}
 
