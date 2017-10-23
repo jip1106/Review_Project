@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import adminReviewBoard.model.dao.ReviewBoardDao;
 import memberReviewBoard.model.vo.ReviewBoard;
+import memberReviewBoard.model.vo.ReviewLike;
 public class ReviewBoardService {
 
 	public int getReviewListCount() {
@@ -62,6 +63,48 @@ public class ReviewBoardService {
 		close(con);
 		
 		return board;
+	}
+
+	public void addLikeCount(int postNo) {
+		// 게시물의 좋아요 수 증가
+		Connection con = getConnection();
+		int result = new ReviewBoardDao().addLikeCount(con,postNo);
+		
+		if(result>0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		
+	}
+
+	public int likeCheck(String id, int postNo) {
+		// likes 테이블 like_yn 1로 올리고, 아이디, 게시물 likes 테이블에 넣음
+		Connection con = getConnection();
+		int result = new ReviewBoardDao().likeCheck(con,id,postNo);
+		
+		if(result>0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		return result;
+	}
+
+	public int checkLikesInsert(String id, int postNo) {
+		// 좋아요 누른 아이디랑 게시물 체크하는 메서드
+		Connection con = getConnection();
+		int result = new ReviewBoardDao().checkLikesInsert(con,id,postNo);
+		close(con);
+		
+		return result;
+	}
+	
+	public ArrayList<ReviewLike> getAllLikesList(){
+		Connection con = getConnection();
+		ArrayList<ReviewLike> list = new ReviewBoardDao().getAllLikesList(con);
+		close(con);
+		return list;
 	}
 
 }

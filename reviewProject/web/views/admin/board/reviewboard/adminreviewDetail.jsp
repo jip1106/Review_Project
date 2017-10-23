@@ -2,8 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ page import="memberReviewBoard.model.vo.ReviewBoard ,java.util.ArrayList, java.sql.Date"%>
 <% 
-	ReviewBoard review = (ReviewBoard)request.getAttribute("board"); 
- 	int currentPage = (Integer)request.getAttribute("currentPage"); 
+	ReviewBoard review = null;
+	int currentPage = 1;
+
+	if(request.getAttribute("board")!=null){
+		review = (ReviewBoard)request.getAttribute("board");
+	}
+	
+	if(request.getAttribute("currentPage") !=null){
+		currentPage = (Integer)request.getAttribute("currentPage");	
+	}
+ 	 
 %> 
 <!DOCTYPE html>
 <html lang="en"> 
@@ -62,7 +71,7 @@
 							<td><%=review.getContent() %></td> 
 						</tr>
 					</table>
-					<br><br>
+					<br><br><br><br><hr>
 					<table align="left">
 						<tr>
 							<td>		
@@ -83,14 +92,13 @@
 									</div> 
 								<div id="map" style="width: 250px; height: 250px; align:right"></div>
 							</td>
-						</tr>
-						
+						</tr>						
 					</table>
 			
 							
-						<!-- 지도 api-->
-				<br><br>
-					
+						
+				<br><br><br>
+				<!-- 지도 api-->	
 				<script>
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 					mapOption = {
@@ -126,7 +134,7 @@
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<a href="/review/adminForceDelete?page=<%=currentPage %>&limit=9&postNo=<%=review.getPosting_no()%>" class="btn btn-default">삭제</a>
-						<a href="/review/reviewLikeUp" class="btn btn-default">좋아요</a>
+						<a href="/review/adminReviewLikeUp?id=<%=member.getId() %>&postNo=<%=review.getPosting_no() %>&page=<%=currentPage %>" class="btn btn-default">좋아요</a>
 					</div>
 				</div>				
 			</div>
