@@ -80,85 +80,114 @@
 <body>
 <%@ include file="../../../../header.jsp"%>
 <br><br>
-
-<div class="row">
-		<div class="col-lg-1" align="center">    
-			<form class="form-inline topbar__search" role="form" action="">
-				<select class="selectpicker" id="findLocationType">
-					<option value="">지역별</option>
-					<option value="">서울 특별시</option>
-					<option value="">인천 광역시</option>
-					<option value="">광주 광역시</option>
-					<option value="">대전 광역시</option>
-					<option value="">울산 광역시</option>
-					<option value="">경기도</option>
-					<option value="">제주도</option>
-					
-				</select> 
-			</form>
-		</div>
-		
-		<div class="col-lg-1" align = "left">    
-			<form class="form-inline topbar__search" role="form" action="">
-				<select class="selectpicker" id="findCategoryType">
-					<option value="">카테고리별</option>
-					<option value="">식당</option>
-					<option value="">카페</option>
-					<option value="">교통</option>
-					<option value="">숙박</option>
-				</select> 
-			</form>
-		</div>
-		
-		<div class="col-lg-8" align ="left">    
-			<form class="form-inline topbar__search" role="form" action="">
-				<div align="left" style="margin-left: 0%; margin-right: 0%">
-					<div class="input-group stylish-input-group">
-						<input type="text" class="form-control" placeholder="가게 이름 검색" name="searchValue">
-						<span class="input-group-addon">
+<div align="left" style="margin-left: 10%; margin-right:10%">
+	<div class="row">
+			<div class="col-lg-1" align="center">    
+				<form class="form-inline topbar__search" role="form" action="">
+					<select class="selectpicker" id="findLocationType">
+						<option value="">지역별</option>
+						<option value="">서울 특별시</option>
+						<option value="">인천 광역시</option>
+						<option value="">광주 광역시</option>
+						<option value="">대전 광역시</option>
+						<option value="">울산 광역시</option>
+						<option value="">경기도</option>
+						<option value="">제주도</option>
+						
+					</select> 
+				</form>
+			</div>
 			
-							<button type="submit">
-								<span class="glyphicon glyphicon-search"></span>
-							</button>
-						</span>
+			<div class="col-lg-1" align = "left">    
+				<form class="form-inline topbar__search" role="form" action="">
+					<select class="selectpicker" id="findCategoryType">
+						<option value="">카테고리별</option>
+						<option value="">식당</option>
+						<option value="">카페</option>
+						<option value="">교통</option>
+						<option value="">숙박</option>
+					</select> 
+				</form>
+			</div>
 			
+			<div class="col-lg-8" align ="left">    
+				<form class="form-inline topbar__search" role="form" action="">
+					<div align="left" style="margin-left: 0%; margin-right: 0%">
+						<div class="input-group stylish-input-group">
+							<input type="text" class="form-control" placeholder="가게 이름 검색" name="searchValue">
+							<span class="input-group-addon">
+				
+								<button type="submit">
+									<span class="glyphicon glyphicon-search"></span>
+								</button>
+							</span>
+				
+						</div>
 					</div>
-				</div>
-			</form>
-		</div>
+				</form>
+			</div>
+	</div>
 </div>
 
 <br>
-<h2 class="header">리뷰 게시판</h2> 
-<caption>리뷰를 남겨주세요</caption>
+<div align="left" style="margin-left: 10%; margin-right:10%">
+	<h2>리뷰 게시판</h2> 
+</div>
+
 
 
 <!-- PAGE CONTENT
     ============================== -->
-<div class="container">
+<div class="container" align="left" style="margin-left:8%; margin-right:10%">
 	<!-- Portfolio -->
 	<div class="portfolio__items">
-		<div class="row">
+	<%for(ReviewBoard r : list){ %>
+		<div class="cols">
 			<div class="col-xs-12 col-sm-4 filter__item filter_modernism">
 					<div class="portfolio__item">
 						<!-- Image -->
 						<div class="portfolio__img">
 							<a href="portfolio-item.html"> 
-							<img src="${pageContext.request.contextPath}/resources/img/beer.jpg" alt="Portfolio Image">
+							<img src="${pageContext.request.contextPath}/uploadfile/<%=r.getRenameImageName() %>" alt="Portfolio Image">
 							</a>
 						</div>
 						<!-- Captions -->
 						<div class="portfolio__caption">
 							<h3 class="portfolio__title">
-								<a href="reviewboardDetail.jsp">글제목</a></h3> 
+								<a href="#">글제목  : <%=r.getTitle() %></a> 	<a><button class = "btn btn-primary">삭제</button></a>
+							</h3>  
+							
 								<div class="portfolio__intro">
-								평점<br>
-								작성자
+								<%if(r.getEvaluation() == 1){%>
+									평점: <img src="/review/resources/img/one.PNG"> <%=r.getEvaluation()%>점<br>
+								<%}else if(r.getEvaluation() == 2){%>
+									평점: <img src="/review/resources/img/2점.PNG"> <%=r.getEvaluation()%>점<br>
+								<%}else if(r.getEvaluation() == 3){%>
+									평점: <img src="/review/resources/img/3점.PNG"> <%=r.getEvaluation()%>점<br>
+								<%}else if(r.getEvaluation() == 4){%>
+									평점: <img src="/review/resources/img/4점.PNG"> <%=r.getEvaluation()%>점<br>
+								<%}else if(r.getEvaluation() == 5){%>
+									평점: <img src="/review/resources/img/5점.PNG"> <%=r.getEvaluation()%>점<br>
+								<%}else if(r.getEvaluation() == 6){%>
+									평점: <img src="/review/resources/img/6점.PNG"> <%=r.getEvaluation()%>점<br>
+								<%}else if(r.getEvaluation() == 7){%>
+									평점: <img src="/review/resources/img/7점.PNG"> <%=r.getEvaluation()%>점<br>
+								<%}else if(r.getEvaluation() == 8){%>
+									평점: <img src="/review/resources/img/8점.PNG"> <%=r.getEvaluation()%>점<br>
+								<%}else if(r.getEvaluation() == 9){%>
+									평점: <img src="/review/resources/img/9점.PNG"> <%=r.getEvaluation()%>점<br>
+								<%}else if(r.getEvaluation() ==10){%>
+									평점: <img src="/review/resources/img/10점.PNG"> <%=r.getEvaluation()%>점<br>
+								<%}%>	
+								가게명: <%=r.getStoreName()%> <br>	
+								지역 : <%=r.getLocation() %>	<br>
+								카테고리 : <%=r.getCategory() %> <br>
 								</div>
 						</div>
 					</div>
 				</div>
 			</div> 
+			<%} %>
 		<!-- / .row -->
 	</div>
 	<!-- / .portfolio__items -->
