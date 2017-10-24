@@ -58,13 +58,14 @@ public class AdminSearchServlet extends HttpServlet {
 			listCount = rservice.getSearchByLocationCount(searchLocation,storeName);
 			list = rservice.getSearchByLocationList(currentPage,limit,searchLocation, storeName);
 			
-			
+			System.out.println("일로 와야됨");
 		}else{ //둘다 선택하고 검색한 경우
 			listCount = rservice.getSearchAllCount(searchCategory,searchLocation,storeName);
 			list = rservice.getSearchByAllList(currentPage,limit,searchCategory, searchLocation,storeName);
 			
-			
 		}		
+		
+		System.out.println("갯수 : ====" + listCount);
 		int maxPage = (int)((double)listCount/limit + 0.9);
 		
 		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;
