@@ -13,6 +13,7 @@ import memberReviewBoard.model.dao.ReviewBoardDao;
 import memberReviewBoard.model.vo.ReviewBoard;
 import memberReviewBoard.model.vo.ReviewBoardImage;
 import memberReviewBoard.model.vo.ReviewLike;
+import memberReviewComment.model.vo.ReviewComment;
 
 public class ReviewBoardService {
 
@@ -119,13 +120,15 @@ public class ReviewBoardService {
 		return result;
 	}
 
-	public ArrayList<ReviewBoard> reviewSearchList(int currentPage, int limit, String findType, String searchKeyWord) {
-		Connection con = getConnection();
+	public ArrayList<ReviewBoard> reviewSearchList(int currentPage, int limit, String location,String category,String searchKeyWord){
+		Connection con = getConnection(); 
 		ArrayList<ReviewBoard> list = null;
-		if (findType.equals("findByLocation")) {
-			list = new ReviewBoardDao().reviewLocationSearchList(con, currentPage, limit, searchKeyWord);
-		} else {
-			list = new ReviewBoardDao().reviewCategorySearchList(con, currentPage, limit, searchKeyWord);
+		if(category == null || category.trim() == ""){  
+			list = new ReviewBoardDao().reviewLocationSearchList(con, currentPage,limit,location,searchKeyWord);
+		}else if(location == null || location.trim() == ""){
+			list = new ReviewBoardDao().reviewCategorySearchList(con, currentPage,limit,category,searchKeyWord); 
+		}else if(category != null && location != null){
+			list = new ReviewBoardDao().reviewAllSearchList(con, currentPage, limit,location,category,searchKeyWord); 
 		}
 		close(con);
 		return list;
@@ -168,6 +171,13 @@ public class ReviewBoardService {
 			rollback(con);
 		}
 		return result;
+	}
+
+	public ArrayList<ReviewComment> selectCommentList(int reviewNo) {
+		Connection con = getConnection();
+		ArrayList<ReviewComment> list = new ReviewBoardDao().selectCommentList(con,reviewNo);
+		close(con);
+		return list;
 	}
 
 }

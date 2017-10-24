@@ -63,10 +63,27 @@
 <div class="row">
 		<div class="col-sm-5">    
 			<form class="form-inline topbar__search" role="form" action="/review/reviewList">
-				<select class="selectpicker" name="findType">
-					<option value="findByLocation">지역별</option>
-					<option value="findByCategory">카테고리별</option>
+				<select class="selectpicker" name="findLocationType">
+					<option value="">지역별</option>
+					<option value="서울특별시">서울특별시</option>
+					<option value="부산광역시">부산광역시</option>
+					<option value="대구광역시">대구광역시</option>
+					<option value="인천광역시">인천광역시</option>
+					<option value="광주광역시">광주광역시</option>
+					<option value="대전광역시">대전광역시</option>
+					<option value="울산광역시">울산광역시</option>
+					<option value="경기도">경기도</option>
+					<option value="제주도">제주도</option>
 				</select>
+				&nbsp;&nbsp;&nbsp;
+				<select class="selectpicker" name="findCategoryType">
+					<option value="">카테고리별</option> 
+					<option value="식당">식당</option>
+					<option value="카페">카페</option>
+					<option value="교통">교통</option>
+					<option value="숙박">숙박</option>
+				</select>
+				&nbsp;&nbsp;&nbsp;
 				<label class="sr-only" for="nav-search">Search</label>
 				<input type="text" class="form-control" name="searchKeyWord">
 				<button type="submit" id="searchSubmit">
@@ -89,52 +106,54 @@
 <div class="container">
 	<!-- Portfolio -->
 	<div class="portfolio__items">
-	<%for(ReviewBoard r : list){%>
-		<div class="cols">
-			<div class="col-xs-12 col-sm-4 filter__item filter_modernism">
+	  	<div class="row">
+	  		<%for(int i = 0; i<list.size(); i++){%> 
+				<div class="col-xs-12 col-sm-4 filter__item filter_modernism">
 					<div class="portfolio__item">
 						<!-- Image -->
 						<div class="portfolio__img">
 							<a href="portfolio-item.html"> 
-							<img src="${pageContext.request.contextPath}/uploadfile/<%=r.getRenameImageName()%>" alt="Portfolio Image">
+							<img src="${pageContext.request.contextPath}/uploadfile/<%=list.get(i).getRenameImageName()%>" alt="Portfolio Image">
 							</a>
 						</div>
 						<!-- Captions -->
 						<div class="portfolio__caption">
 							<h3 class="portfolio__title">
-								<a href="/review/ReviewDetail?no=<%=r.getPosting_no()%>&page=<%=currentPage%>">글제목: <%=r.getTitle()%></a></h3> 
+								<a href="/review/ReviewDetail?no=<%=list.get(i).getPosting_no()%>&page=<%=currentPage%>">글제목: <%=list.get(i).getTitle()%></a></h3> 
 								<div class="portfolio__intro">
-								<%if(r.getEvaluation() == 1){%>
-									평점: <img src="/review/resources/img/one.PNG"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 2){%>
-									평점: <img src="/review/resources/img/2점.PNG"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 3){%>
-									평점: <img src="/review/resources/img/3점.PNG"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 4){%>
-									평점: <img src="/review/resources/img/4점.PNG"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 5){%>
-									평점: <img src="/review/resources/img/5점.PNG"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 6){%>
-									평점: <img src="/review/resources/img/6점.PNG"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 7){%>
-									평점: <img src="/review/resources/img/7점.PNG"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 8){%>
-									평점: <img src="/review/resources/img/8점.PNG"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 9){%>
-									평점: <img src="/review/resources/img/9점.PNG"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() ==10){%>
-									평점: <img src="/review/resources/img/10점.PNG"> <%=r.getEvaluation()%>점<br>
+								<%if(list.get(i).getEvaluation() == 1){%>
+									평점: <img src="/review/resources/img/one.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 2){%>
+									평점: <img src="/review/resources/img/2점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 3){%>
+									평점: <img src="/review/resources/img/3점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 4){%>
+									평점: <img src="/review/resources/img/4점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 5){%>
+									평점: <img src="/review/resources/img/5점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 6){%>
+									평점: <img src="/review/resources/img/6점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 7){%>
+									평점: <img src="/review/resources/img/7점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 8){%>
+									평점: <img src="/review/resources/img/8점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 9){%>
+									평점: <img src="/review/resources/img/9점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br> 
+								<%}else if(list.get(i).getEvaluation() ==10){%>
+									평점: <img src="/review/resources/img/10점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
 								<%}%>
-								가게명: <%=r.getStoreName()%> 
+								가게명: <%=list.get(i).getStoreName()%><br>
+								지역: <%=list.get(i).getLocation()%><br>
+								카테고리: <%=list.get(i).getCategory()%> 
 								</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		<%}%>
-		<!-- / .row -->
-	</div>
-	<!-- / .portfolio__items -->
+			  <%}%> 
+		    </div>
+			<!-- / .row -->
+		</div>
+	 <!-- / .portfolio__items -->
 </div>
 
 <!-- / .container -->
