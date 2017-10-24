@@ -84,8 +84,8 @@
 <div align="left" style="margin-left: 10%; margin-right:10%">
 	<div class="row">
 			<div class="col-lg-1" align="center">    
-				<form class="form-inline topbar__search" role="form" action="" name="searchLocation">
-					<select class="selectpicker" id="findLocationType">
+				<form class="form-inline topbar__search" role="form" action="">
+					<select class="selectpicker" id="findLocationType" name="searchLocation">
 						<option value="\">지역별</option>
 						<option value="">서울 특별시</option>
 						<option value="">인천 광역시</option>
@@ -100,8 +100,8 @@
 			</div>
 			
 			<div class="col-lg-1" align = "left">    
-				<form class="form-inline topbar__search" role="form" action="" name="searchCategory">
-					<select class="selectpicker" id="findCategoryType">
+				<form class="form-inline topbar__search" role="form" action="" >
+					<select class="selectpicker" id="findCategoryType" name="searchCategory">
 						<option value="">카테고리별</option>
 						<option value="">식당</option>
 						<option value="">카페</option>
