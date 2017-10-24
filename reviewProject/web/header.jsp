@@ -44,7 +44,7 @@
 .header {
 	padding-bottom: 60;
 	magin: 0;
-	background-image: url("/review/resources/img/backgroundsomi.png");
+	background-image: url("/review/resources/img/새싹비빔밥.jpg");
 }
 
 ul.navi li {
@@ -60,8 +60,8 @@ ul.navi li {
 	-moz-box-shadow: 1px 1px 1px white;
 	box-shadow: 1px 1px 1px white;
 	/* background-color: #c9c9c9; */
-	background: -webkit-gradient(linear, left top, left bottom, from(gray),
-		to(gray));
+	background: -webkit-gradient(linear, left top, left bottom, from(tomato),
+		to(tomato));
 	/* background: -moz-linear-gradient(top, white, #a1a1a1, #848484); */
 }
 
@@ -81,7 +81,7 @@ ul.navi li:hover {
 }
 
 ul.navi li:hover>a {
-	color: black; /* 글자색*/
+	color: tomato; /* 글자색*/
 	/* text-shadow: 0px 1px 0px #fff */; /* 텍스트그림자*/
 }
 
@@ -109,9 +109,9 @@ ul.navi li {
 	<div class="header">
 		<h1 align="center">
 		<%if(member.getUserType()==1){ %>
-  			<a href=/review/views/main/main.jsp style="text-decoration: none; color: white">Review</a></h1> 	<!-- 회원 -->
+  			<a href=/review/views/main/main.jsp style="text-decoration: none">Review</a></h1> 	<!-- 회원 -->
   		<%}else{ %>
-	  		<a href=/review/views/admin/main/adminMain.jsp style="text-decoration: none; color: white">Review</a></h1> <!-- 관리자 -->
+	  		<a href=/review/views/admin/main/adminMain.jsp style="text-decoration: none">Review</a></h1> <!-- 관리자 -->
   		<%} %>
 		<div>
 
@@ -131,7 +131,7 @@ ul.navi li {
 </div>
 			<%if(member.getUserType() == 1){ %> <!-- 회원 -->
 			<ul class="navi" style="align-self: center;">
-				<li><a href="/review/reviewList">리뷰게시판</a></li>
+				<li><a href="/review/views/reviewboard/reviewboard.jsp">리뷰게시판</a></li>
 	   			<li><a href="/review/slist">정보공유게시판</a></li>
 	  			<li><a href="/review/clist">신고게시판</a></li> 
 	   			<li><a href="/review/views/mypage/member/memberupdateview.jsp">마이페이지</a></li>
@@ -139,7 +139,7 @@ ul.navi li {
 			
 			 <%}else{ %> <!-- 관리자 -->
 			  <ul class="navi" style="align-self: center;">
-			   	<li><a href="/review/adminReviewList">리뷰게시판</a></li>
+			   	<li><a href="/review/views/admin/board/reviewboard/adminreviewboard.jsp">리뷰게시판</a></li>
 			   	<li><a href="/review/adminsblist">정보공유게시판</a></li>
 			   	<li><a href="/review/cblist?page=1">신고게시판</a></li> 
 			  	<li><a href="/review/mlist">회원관리</a></li> <!-- 관리자 MemberManagementServlet 호출 -->
