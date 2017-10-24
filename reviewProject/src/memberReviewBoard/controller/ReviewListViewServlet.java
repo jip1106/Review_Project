@@ -51,13 +51,16 @@ public class ReviewListViewServlet extends HttpServlet {
 		
 		String location = request.getParameter("findLocationType");
 		String category = request.getParameter("findCategoryType");
+		
+
 		String searchKeyWord = request.getParameter("searchKeyWord");
+		System.out.println(searchKeyWord);
 		
 		//해당 페이지용 목록 조회
 		if(location == null && category == null){
 			 list = rservice.selectReview(currentPage, limit);
 		}else if(category == null || category.trim() == ""){
-			 list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);   
+			 list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);  
 		}else if(location == null || location.trim() == ""){
 			list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);
 		}else if(location != null && category != null){

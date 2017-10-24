@@ -1,6 +1,7 @@
 package memberReviewBoard.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import memberReviewBoard.model.service.ReviewBoardService;
 import memberReviewBoard.model.vo.ReviewBoard;
+import memberReviewComment.model.vo.ReviewComment;
 
 /**
  * Servlet implementation class ReviewDetailServlet
@@ -39,14 +41,16 @@ public class ReviewDetailServlet extends HttpServlet {
 		
 		ReviewBoardService rservice = new ReviewBoardService(); 
 		
-		int result = rservice.reviewHitUp(reviewNo); 
+		int result = rservice.reviewHitUp(reviewNo);  
 		
-		ReviewBoard review = rservice.reviewDetail(reviewNo);  
+		ReviewBoard review = rservice.reviewDetail(reviewNo);
+		ArrayList<ReviewComment> list = rservice.selectCommentList(reviewNo);
 		
 		if(review != null && result > 0){
 			RequestDispatcher view = request.getRequestDispatcher("views/reviewboard/reviewboardDetail.jsp");
 			request.setAttribute("review", review);
 			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("commentList", list);
 			view.forward(request, response);
 		}
 	}

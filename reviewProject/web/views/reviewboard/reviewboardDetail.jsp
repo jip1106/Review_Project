@@ -1,21 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="memberReviewBoard.model.vo.ReviewBoard ,java.util.ArrayList, java.sql.Date"%>
+<%@ page import="memberReviewBoard.model.vo.ReviewBoard ,memberReviewComment.model.vo.ReviewComment, java.util.ArrayList, java.sql.Date"%>
 <% 
 	ReviewBoard review = (ReviewBoard)request.getAttribute("review");
 	int currentPage = (Integer)request.getAttribute("currentPage");
+	ArrayList<ReviewComment> commentList = (ArrayList<ReviewComment>)request.getAttribute("commentList");
 %> 
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5a5f74b55c137eef83dc34e43b7a72b7&libraries=services"></script>
-
-<script type="text/javascript">
-	$('#like').onclick(function(){
-		
-	});
-</script>
+<script type="text/javascript" src="/review/js/jquery-3.2.1.min.js"></script> 
 
 <title>reviewboardDetail</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,7 +31,8 @@
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
-</head>
+    
+</head> 
 <body>
 <%@include file="../../header.jsp" %> 
 
@@ -120,6 +117,210 @@
 			}
 		});
 	</script>
+	<br><br><br><br>
 	<!-- 댓글공간 -->
+<script type="text/javascript">
+    	$(document).ready(function(){
+    		var boardNo = "<%=review.getPosting_no()%>";
+    		var userId = "<%=member.getId()%>";
+    		var content = "";
+			var commentNo = "";
+			$("#sendComment").click(function() {
+								var comment = $("#sendContent").val(); 
+								var queryString = {no: boardNo, id: userId, content: comment};
+								$.ajax({
+											type : "get",
+											url : "/review/insertReviewCommentAjax",
+											data : queryString,
+											dataType: "json",
+											success : function(data) { 
+												var json = "";
+												var j = JSON.parse(JSON.stringify(data));
+												
+												for (var i in j.list) {
+													json += "<div class='comment'>";
+													json += "<div class='comment__content' id='commentresetView'>";
+													json += "<div class='comment__author_name'>"
+													json += "아이디: "+decodeURIComponent(j.list[i].userId);
+													json += "</div>";
+													json += "시간: "+j.list[i].timePosted;
+													json += "<br> 댓글내용";
+													json += "<p>";
+													json += decodeURIComponent(j.list[i].content);
+													json += "</p>";
+													var id = decodeURIComponent(j.list[i].userId);
+													var nowid="";
+													nowid = "<%=member.getId()%>";   
+													if (id == nowid) {
+														json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
+														json += " <a  id='removeComment' class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
+														json += " <a  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
+														json += "</div>"
+													}
+													json += "<input type='hidden' id='commentNo'  value="
+													json += j.list[i].commentNo
+													json +=">"
+													json += "</div></div>";
+												}
+												 $("#commentView").html(json);
+											}
+											//callback			
+										}); //ajax
+							}); // sendCommentclick 이벤트
+
+			$("#commentView").on("click","#editComment",function() {
+								content = $(this).parent().prev().html().trim();
+								commentNo = $(this).parent().next().val();
+								$("#commentresetView").empty();
+								$("#commentresetView").html("<textarea class='form-control'"+"rows='2' id='comment'>"
+								+ content+ "</textarea>"+ "<a id='updateComment' class='btn btn-default btn-xs'>"
+							+ "<i class='fa fa-edit'></i> 수정하기</a>");
+
+							});//editComment (댓글 수정)
+
+			$("#commentView").on("click","#updateComment",function(){
+							if(confirm("댓글을 수정하시겠습니까?")){
+								content = $(this).prev().val();
+								var queryString = {rNo: boardNo, cNo: commentNo, rcontent: content};
+								$.ajax({
+											type : "get",
+											url : "/review/updateReviewCommentAjax",
+											data : queryString,
+											dataType: "json",
+											success : function(data) {
+												var json = "";
+												var j =  JSON.parse(JSON.stringify(data));
+												for (var i in j.list) {
+													json += "<div class='comment'>";
+													json += "<div class='comment__content' id='commentresetView'>";
+													json += "<div class='comment__author_name'>"
+													json += "아이디: "+decodeURIComponent(j.list[i].userId);
+													json += "</div>";
+													json += "시간: "+j.list[i].timePosted;
+													json += "<br> 댓글내용";
+													json += "<p>";
+													json += decodeURIComponent(j.list[i].content);
+													json += "</p>";
+													var id = decodeURIComponent(j.list[i].userId);
+													var nowid="";
+													nowid = "<%=member.getId()%>";
+
+													if (id == nowid) {
+														json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
+														json += " <a  id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
+														json += " <a  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
+														json += "</div>"
+													}
+													json += "<input type='hidden' id='commentNo'  value="
+													json += j.list[i].commentNo
+													json +=">"
+													json += "</div></div>";
+												}
+												$("#commentView").html(json);
+											}
+									}); //ajax
+								 }else{
+									 location.href = "/review/ReviewDetail?no=<%=review.getPosting_no()%>&page=<%=currentPage%>";
+								 }//confirm
+							}); //commentView 수정하기 버튼
+			//삭제하기
+			$("#commentView").on("click","#removeComment",function() {
+								if (confirm("댓글을 삭제하시겠습니까?")) {
+									commentNo = $(this).parent().next().val();
+									var queryString = {rNo: boardNo, cNo: commentNo};
+									$.ajax({
+												type : "get",
+												url : "/review/deleteReviewCommentAjax",
+												data : queryString,
+												dataType: "json",
+												success : function(data) {
+													var json = "";
+													var j =  JSON.parse(JSON.stringify(data));
+													for (var i in j.list) {
+														json += "<div class='comment'>";
+														json += "<div class='comment__content' id='commentresetView'>";
+														json += "<div class='comment__author_name'>"
+														json += "아이디: "+decodeURIComponent(j.list[i].userId);
+														json += "</div>";
+														json += "시간: "+j.list[i].timePosted;
+														json += "<br> 댓글내용";
+														json += "<p>";
+														json += decodeURIComponent(j.list[i].content);
+														json += "</p>";
+														var id = decodeURIComponent(j.list[i].userId);
+														var nowid="";
+														nowid = "<%=member.getId()%>";
+
+														if (id == nowid) {
+															json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
+															json += " <a id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
+															json += " <a  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
+															json += "</div>"
+														}
+														json += "<input type='hidden' id='commentNo'  value="
+														json += j.list[i].commentNo
+														json +=">"
+														json += "</div></div>";
+													}
+													$("#commentView").html(json);
+												}
+											}); //ajax
+								} else {
+									location.href = "/review/ReviewDetail?no=<%=review.getPosting_no()%>&page=<%=currentPage%>";
+								}
+							}); //commentView 삭제하기 버튼
+    		
+    	}); 
+</script>
+	
+	<div class="col-sm-5">
+		<div class="badge">댓글을 입력해주세요</div>
+	</div> 
+			<div class="col-sm-8 col-md-9">
+				<div class="comment comment_new">
+					<div class="comment__author_img"><%=member.getName()%></div>
+					<div class="comment__content">
+						<form>
+							<div class="form-group">
+								<label for="comment-new__textarea" class="sr-only">Enteryour comment</label>
+								<textarea class="form-control" rows="2" id="sendContent" placeholder="Enter your comment"></textarea>
+							</div>
+							<button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
+						</form>
+					</div>
+					<!-- / .comment__content -->
+				</div>
+				<!-- / .comment__new -->
+				
+				<!-- Comments header -->
+				<div class="comment__header">
+					<span>List of Comments</span>
+				</div>
+
+				<!-- All comments -->
+				<div id="commentView">
+					<%for(int i = 0; i<commentList.size(); i++){%>
+						<div class="comment">
+							<div class="comment__content" id="commentresetView">
+								<div class="comment__author_name">
+									아이디: <%=commentList.get(i).getId()%> 
+								</div>
+									시간: <%=commentList.get(i).getCommentDate()%><br>
+									댓글내용
+									<p><%=commentList.get(i).getCommentContent()%></p> 
+								<%if(member.getId().equals(commentList.get(i).getId())){%> 
+									<div class="btn-group pull-right" role="group" aria-label="comment__actions">
+										<a  id="removeComment"class="btn btn-default btn-xs"><i class="fa fa-times"></i>Remove</a> 
+										<a id="editComment"class="btn btn-default btn-xs"><i class="fa fa-edit"></i>Edit</a> 
+									</div>
+									<input type="hidden" id="commentNo" value="<%=commentList.get(i).getCommentNo()%>">
+								<%}%>
+							</div>
+							<!-- / .comment__content -->
+						</div>
+						<!-- / .comment -->
+					<%}%>
+				</div>
+			</div>
 </body>
 </html>

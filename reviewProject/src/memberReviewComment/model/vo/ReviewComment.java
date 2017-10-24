@@ -12,6 +12,17 @@ public class ReviewComment implements java.io.Serializable{
 	public ReviewComment(){
 		
 	}
+	
+	
+
+	public ReviewComment(int postingNo, String id, String commentContent) {
+		super();
+		this.postingNo = postingNo;
+		this.id = id;
+		this.commentContent = commentContent;
+	}
+
+
 
 	public ReviewComment(int commentNo, int postingNo, String id, String commentContent, Date commentDate) {
 		super();

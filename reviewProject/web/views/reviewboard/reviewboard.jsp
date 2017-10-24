@@ -106,45 +106,47 @@
 <div class="container">
 	<!-- Portfolio -->
 	<div class="portfolio__items">
-		<div class="row">
-		  <%for(ReviewBoard r : list){%>
-			<div class="col-xs-12 col-sm-4 filter__item filter_modernism">
+	  	<div class="row">
+	  		<%for(int i = 0; i<list.size(); i++){%> 
+				<div class="col-xs-12 col-sm-4 filter__item filter_modernism">
 					<div class="portfolio__item">
 						<!-- Image -->
 						<div class="portfolio__img">
 							<a href="portfolio-item.html"> 
-							<img src="${pageContext.request.contextPath}/uploadfile/<%=r.getRenameImageName()%>" alt="Portfolio Image">
+							<img src="${pageContext.request.contextPath}/uploadfile/<%=list.get(i).getRenameImageName()%>" alt="Portfolio Image">
 							</a>
 						</div>
 						<!-- Captions -->
 						<div class="portfolio__caption">
 							<h3 class="portfolio__title">
-								<a href="/review/ReviewDetail?no=<%=r.getPosting_no()%>&page=<%=currentPage%>">글제목: <%=r.getTitle()%></a></h3> 
+								<a href="/review/ReviewDetail?no=<%=list.get(i).getPosting_no()%>&page=<%=currentPage%>">글제목: <%=list.get(i).getTitle()%></a></h3> 
 								<div class="portfolio__intro">
-								<%if(r.getEvaluation() == 1){%>
-									평점: <img src="/review/resources/img/one.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 2){%>
-									평점: <img src="/review/resources/img/2점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 3){%>
-									평점: <img src="/review/resources/img/3점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 4){%>
-									평점: <img src="/review/resources/img/4점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 5){%>
-									평점: <img src="/review/resources/img/5점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 6){%>
-									평점: <img src="/review/resources/img/6점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 7){%>
-									평점: <img src="/review/resources/img/7점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 8){%>
-									평점: <img src="/review/resources/img/8점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() == 9){%>
-									평점: <img src="/review/resources/img/9점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
-								<%}else if(r.getEvaluation() ==10){%>
-									평점: <img src="/review/resources/img/10점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
+
+								<%if(list.get(i).getEvaluation() == 1){%>
+									평점: <img src="/review/resources/img/one.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 2){%>
+									평점: <img src="/review/resources/img/2점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 3){%>
+									평점: <img src="/review/resources/img/3점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 4){%>
+									평점: <img src="/review/resources/img/4점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 5){%>
+									평점: <img src="/review/resources/img/5점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 6){%>
+									평점: <img src="/review/resources/img/6점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 7){%>
+									평점: <img src="/review/resources/img/7점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 8){%>
+									평점: <img src="/review/resources/img/8점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
+								<%}else if(list.get(i).getEvaluation() == 9){%>
+									평점: <img src="/review/resources/img/9점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br> 
+								<%}else if(list.get(i).getEvaluation() ==10){%>
+									평점: <img src="/review/resources/img/10점.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
 								<%}%>
-								가게명: <%=r.getStoreName()%><br>
-								지역: <%=r.getLocation()%><br>
-								카테고리: <%=r.getCategory()%>  
+								가게명: <%=list.get(i).getStoreName()%><br>
+								지역: <%=list.get(i).getLocation()%><br>
+								카테고리: <%=list.get(i).getCategory()%> 
+
 								</div>
 						</div>
 					</div>
@@ -154,7 +156,6 @@
 		<!-- / .row -->
 	</div>
 	<!-- / .portfolio__items -->
-</div>
 
 <!-- / .container -->
 
