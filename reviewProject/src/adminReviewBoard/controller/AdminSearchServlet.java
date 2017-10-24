@@ -52,6 +52,8 @@ public class AdminSearchServlet extends HttpServlet {
 			listCount = rservice.getSearchByCategoryCount(searchCategory,storeName);
 			list = rservice.getSearchByCategoryList(currentPage,limit,searchCategory,storeName);
 			
+			
+			
 		}else if(searchCategory.length()==0){ //서울특별시...로 검색한 경우
 			listCount = rservice.getSearchByLocationCount(searchLocation,storeName);
 			list = rservice.getSearchByLocationList(currentPage,limit,searchLocation, storeName);

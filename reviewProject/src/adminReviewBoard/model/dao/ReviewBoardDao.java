@@ -495,14 +495,13 @@ public class ReviewBoardDao {
 		ResultSet rset = null;
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		ReviewBoard review = null;
-		System.out.println("searchCategory : " + searchCategory);
-		System.out.println("searchLocation : " + searchLocation);
-		System.out.println("storeName : " + storeName);
+		
 		
 		String query =  "select * from "
 	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
-	              + "from (select * from review_board order by posting_no desc)) "
-	              + "where rnum>=? and rnum<=? and category=? and location =? and store_name like ?"; 
+	              + "from (select * from review_board)) "
+	              + "where rnum>=? and rnum<=? and category=? and location=? and store_name like ? "
+	              + "order by posting_no desc"; 
 		
 		int startRow = (currentPage -1 )*limit+1;
 		int endRow = startRow + limit -1;
@@ -517,6 +516,8 @@ public class ReviewBoardDao {
 			
 			rset = pstmt.executeQuery();		
 		
+			System.out.println("============" + rset==null);
+			
 			while(rset.next()){
 				System.out.println("와일문 들어옴");
 				review = new ReviewBoard();
