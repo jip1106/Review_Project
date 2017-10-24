@@ -131,7 +131,7 @@ ul.navi li {
 </div>
 			<%if(member.getUserType() == 1){ %> <!-- 회원 -->
 			<ul class="navi" style="align-self: center;">
-				<li><a href="/review/adminReviewList">리뷰게시판</a></li>
+				<li><a href="/review/reviewList">리뷰게시판</a></li>
 	   			<li><a href="/review/slist">정보공유게시판</a></li>
 	  			<li><a href="/review/clist">신고게시판</a></li> 
 	   			<li><a href="/review/views/mypage/member/memberupdateview.jsp">마이페이지</a></li>
