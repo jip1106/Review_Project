@@ -10,7 +10,7 @@
 	int startPage = ((Integer)request.getAttribute("startPage")).intValue();
 	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
 	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
-	System.out.println("currentPage ==========" + currentPage);
+	
 %>
 <!DOCTYPE html>
 <html lang="en"> 
@@ -80,13 +80,13 @@
 </head>
 <body>
 <%@ include file="../../../../header.jsp"%>
-<br><br>
+<br>
 <div align="left" style="margin-left: 10%; margin-right:10%">
 	<div class="row">
 			<div class="col-lg-1" align="center">    
-				<form class="form-inline topbar__search" role="form" action="">
+				<form class="form-inline topbar__search" role="form" action="" name="searchLocation">
 					<select class="selectpicker" id="findLocationType">
-						<option value="">지역별</option>
+						<option value="\">지역별</option>
 						<option value="">서울 특별시</option>
 						<option value="">인천 광역시</option>
 						<option value="">광주 광역시</option>
@@ -100,7 +100,7 @@
 			</div>
 			
 			<div class="col-lg-1" align = "left">    
-				<form class="form-inline topbar__search" role="form" action="">
+				<form class="form-inline topbar__search" role="form" action="" name="searchCategory">
 					<select class="selectpicker" id="findCategoryType">
 						<option value="">카테고리별</option>
 						<option value="">식당</option>
@@ -130,10 +130,11 @@
 	</div>
 </div>
 
-<br>
 <div align="left" style="margin-left: 10%; margin-right:10%">
 	<h2>리뷰 게시판</h2> 
+	<h3>전체 게시글 수 : <%=listCount %></h3>
 </div>
+<hr>
 
 
 

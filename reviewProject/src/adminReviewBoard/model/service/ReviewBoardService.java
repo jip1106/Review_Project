@@ -9,7 +9,8 @@ import adminReviewBoard.model.dao.ReviewBoardDao;
 import memberReviewBoard.model.vo.ReviewBoard;
 import memberReviewBoard.model.vo.ReviewLike;
 public class ReviewBoardService {
-
+	
+	
 	public int getReviewListCount() {
 		// 리뷰 게시판 게시글 갯수 알기 위한 메서드
 		Connection con = getConnection();

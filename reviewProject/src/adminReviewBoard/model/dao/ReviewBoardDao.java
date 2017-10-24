@@ -272,7 +272,7 @@ public class ReviewBoardDao {
 					likeList.add(like);
 				}
 			}			
-			System.out.println("likeList : " + likeList);
+			
 			for(ReviewLike like : likeList){
 				if(like.getId().equals(id) && (like.getReviewNo()==postNo)){
 					result = 1;
@@ -281,7 +281,7 @@ public class ReviewBoardDao {
 					result = 0;
 				}
 			}
-			System.out.println("result : " + result);
+			
 			
 			
 			
@@ -294,5 +294,6 @@ public class ReviewBoardDao {
 		
 		return result;
 	}
+
 
 }
