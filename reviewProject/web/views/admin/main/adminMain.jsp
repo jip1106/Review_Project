@@ -110,11 +110,11 @@
 <div class="container" align="center">
 		<table border="1" class="table table-striped table-bordered">
 			<tr height="50">
-				<th><label style="font-size: 20pt"><a href="#">&nbsp;리뷰게시글관리&nbsp;</a></label></th> <!-- 관리자 리뷰게시판 불러오는 서블릿 a태그로 연결-->
+				<th><label style="font-size: 20pt"><a href="/review/adminReviewList">&nbsp;리뷰게시글관리&nbsp;</a></label></th> <!-- 관리자 리뷰게시판 불러오는 서블릿 a태그로 연결-->
 				<th><label style="font-size: 20pt"><a href="/review/adminsblist">&nbsp;공유게시글관리&nbsp;</a></label></th> <!-- 관리자 정보공유 게시판 불러오는 서블릿 a태그로 연결 -->
 			</tr>
 			<tr height="80">
-				<td><label style="font-size: 50pt">아직 X</label></td> <!-- 관리자 ReviewService, Dao에 글 갯수 가져오는 메서드 -->
+				<td><label style="font-size: 50pt"><%= new ReviewBoardService().getReviewListCount() %>(개)</label></td> <!-- 관리자 ReviewService, Dao에 글 갯수 가져오는 메서드 -->
 				<td><label style="font-size: 50pt"><%= new ShareBoardService().getShareBoardListCount()%>(개)</label></td> <!-- 관리자 SharedService, Dao 에 글 갯 수 가져오는 메서드 -->
 			</tr>
 			<tr align="center" height="50">
