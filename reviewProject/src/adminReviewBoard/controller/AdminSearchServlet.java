@@ -59,8 +59,8 @@ public class AdminSearchServlet extends HttpServlet {
 			
 		}else{ //둘다 선택하고 검색한 경우
 			listCount = rservice.getSearchAllCount(searchCategory,searchLocation,storeName);
-			System.out.println("==========" + listCount);
 			list = rservice.getSearchByAllList(currentPage,limit,searchCategory, searchLocation,storeName);
+			
 			
 		}		
 		int maxPage = (int)((double)listCount/limit + 0.9);

@@ -359,7 +359,7 @@ public class ReviewBoardDao {
 		try{
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, searchCategory);
-			pstmt.setString(2, searchCategory);
+			pstmt.setString(2, searchLocation);
 			pstmt.setString(3, "%"+storeName+"%");
 			
 			rset = pstmt.executeQuery();
@@ -515,9 +515,10 @@ public class ReviewBoardDao {
 			pstmt.setString(4, searchLocation);
 			pstmt.setString(5, "%"+storeName+"%");
 			
-			rset = pstmt.executeQuery();
-			
+			rset = pstmt.executeQuery();		
+		
 			while(rset.next()){
+				System.out.println("와일문 들어옴");
 				review = new ReviewBoard();
 				review.setPosting_no(rset.getInt("posting_no")); 
 				review.setId(rset.getString("id"));
@@ -537,13 +538,14 @@ public class ReviewBoardDao {
 				
 				list.add(review);			
 			}
+			System.out.println("dao 리스트 : " + list);
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			close(rset);
 			close(pstmt);
 		}
-		
+		System.out.println("dao review : " + review);
 		return list;
 	}
 	

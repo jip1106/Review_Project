@@ -95,6 +95,11 @@
  
  <script type="text/javascript">
 	function inputPleaseMessage(){
+		if($("#searchStoreName").val()==""){
+			alert("식당 이름을 입력하세요");
+			
+			return false;
+		}
 		if( $("#findLocationType").val()=="" && $("#findCategoryType").val()==""){
 			alert("검색할 지역이나 카테고리 중 하나를 선택 해 주세요");
 			
@@ -138,7 +143,7 @@
 				<div class="col-lg-16" align ="right"> 			
 					<div align="left" style="margin-left: 20%; margin-right: 0%">
 						<div class="input-group stylish-input-group">
-							<input type="text" class="form-control" placeholder="가게 이름 검색" name="storeName">
+							<input type="text" class="form-control" placeholder="가게 이름 검색" name="storeName" id="searchStoreName">
 							<span class="input-group-addon">
 								<button type="submit">
 									<span class="glyphicon glyphicon-search"></span>
