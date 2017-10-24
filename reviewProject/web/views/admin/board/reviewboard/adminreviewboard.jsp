@@ -11,6 +11,21 @@
 	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
 	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 	
+	String searchLocation = null;
+	String searchCategory = null;
+	String storeName = null;
+	
+	if(request.getParameter("searchLocation")!=null){
+		searchLocation = (String)request.getAttribute("searchLocation");
+	}
+	if(request.getParameter("searchCategory")!=null){
+		searchLocation = (String)request.getAttribute("searchCategory");
+	}
+	if(request.getParameter("storeName")!=null){
+		storeName = (String)request.getAttribute("storeName");
+	}
+	
+	
 %>
 <!DOCTYPE html>
 <html lang="en"> 
@@ -77,62 +92,72 @@
 }
  
  </style>
+ 
+ <script type="text/javascript">
+	function inputPleaseMessage(){
+		if( $("#findLocationType").val()=="" && $("#findCategoryType").val()==""){
+			alert("검색할 지역이나 카테고리 중 하나를 선택 해 주세요");
+			
+			return false;
+		
+		}
+	}
+</script>
+ 
 </head>
 <body>
 <%@ include file="../../../../header.jsp"%>
 <br>
 <div align="left" style="margin-left: 10%; margin-right:10%">
 	<div class="row">
-			<div class="col-lg-1" align="center">    
-				<form class="form-inline topbar__search" role="form" action="">
+			<form class="form-inline topbar__search" role="form" action="/review/adminSearch" onsubmit="return inputPleaseMessage();">
+				<div class="col-lg-1">    
+					<input type = "hidden" name="page" value=<%=currentPage %>>
 					<select class="selectpicker" id="findLocationType" name="searchLocation">
-						<option value="\">지역별</option>
-						<option value="">서울 특별시</option>
-						<option value="">인천 광역시</option>
-						<option value="">광주 광역시</option>
-						<option value="">대전 광역시</option>
-						<option value="">울산 광역시</option>
-						<option value="">경기도</option>
-						<option value="">제주도</option>
-						
+						<option value="">지역별</option>
+						<option value="서울특별시">서울특별시</option>
+						<option value="인천광역시">인천광역시</option>
+						<option value="광주광역시">광주광역시</option>
+						<option value="대전광역시">대전광역시</option>
+						<option value="울산광역시">울산광역시</option>
+						<option value="경기도">경기도</option>
+						<option value="제주도">제주도</option>
 					</select> 
-				</form>
-			</div>
+				</div>
 			
-			<div class="col-lg-1" align = "left">    
-				<form class="form-inline topbar__search" role="form" action="" >
+				<div class="col-lg-1" align = "left">   				
 					<select class="selectpicker" id="findCategoryType" name="searchCategory">
 						<option value="">카테고리별</option>
-						<option value="">식당</option>
-						<option value="">카페</option>
-						<option value="">교통</option>
-						<option value="">숙박</option>
+						<option value="식당">식당</option>
+						<option value="카페">카페</option>
+						<option value="교통">교통</option>
+						<option value="숙박">숙박</option>
 					</select> 
-				</form>
-			</div>
+				</div>
 			
-			<div class="col-lg-8" align ="left">    
-				<form class="form-inline topbar__search" role="form" action="">
-					<div align="left" style="margin-left: 0%; margin-right: 0%">
+				<div class="col-lg-16" align ="right"> 			
+					<div align="left" style="margin-left: 20%; margin-right: 0%">
 						<div class="input-group stylish-input-group">
-							<input type="text" class="form-control" placeholder="가게 이름 검색" name="searchValue">
+							<input type="text" class="form-control" placeholder="가게 이름 검색" name="storeName">
 							<span class="input-group-addon">
-				
 								<button type="submit">
 									<span class="glyphicon glyphicon-search"></span>
 								</button>
 							</span>
-				
 						</div>
 					</div>
-				</form>
-			</div>
+				</div>
+			</form>
 	</div>
 </div>
 
 <div align="left" style="margin-left: 10%; margin-right:10%">
 	<h2>리뷰 게시판</h2> 
-	<h3>전체 게시글 수 : <%=listCount %></h3>
+	<%if(searchLocation ==null && searchCategory ==null && storeName ==null){ %>
+		<h3>전체 게시글 수 : <%=listCount %></h3>
+	<%}else{ %>
+		<h3>검색된 게시글 수 : <%=listCount %> </h3>
+	<%} %>
 </div>
 <hr>
 

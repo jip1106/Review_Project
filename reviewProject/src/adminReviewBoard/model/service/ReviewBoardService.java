@@ -108,4 +108,58 @@ public class ReviewBoardService {
 		return list;
 	}
 
+	public int getSearchByCategoryCount(String searchCategory, String storeName) {
+		// 카테고리 기준 선택
+		int result =0;
+		Connection con = getConnection();
+		result = new ReviewBoardDao().getSearchByCategoryCount(con,searchCategory,storeName);
+		return result;
+	}
+
+	public int getSearchByLocationCount(String searchLocation, String storeName) {
+		// 장소기준 선택
+		int result = 0;
+		Connection con = getConnection();
+		result = new ReviewBoardDao().getSearchByLocationCount(con,searchLocation,storeName);
+		return result;
+	}
+
+	public int getSearchAllCount(String searchCategory, String searchLocation,String storeName) {
+		// 둘다 선택
+		int result =0;
+		Connection con = getConnection();
+		
+		result = new ReviewBoardDao().getSearchAllCount(con,searchCategory,searchLocation,storeName);
+				
+		return result;
+	}
+
+	public ArrayList<ReviewBoard> getSearchByCategoryList(int currentPage, int limit, String searchCategory,
+			String storeName) {
+		// 카테고리로 검색 했을때 리스트
+		Connection con = getConnection();
+		ArrayList<ReviewBoard> list = new ReviewBoardDao().getSearchByCategoryList(con,currentPage,limit,searchCategory,storeName);
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<ReviewBoard> getSearchByLocationList(int currentPage,int limit,String searchLocation, String storeName) {
+		// 장소로 검색 했을 때 리스트
+		Connection con = getConnection();
+		ArrayList<ReviewBoard> list = new ReviewBoardDao().getSearchByLocationList(con,currentPage,limit,searchLocation,storeName);
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<ReviewBoard> getSearchByAllList(int currentPage,int limit,String searchCategory, String searchLocation, String storeName) {
+		// 둘다 검색 했을 때 리시트
+		Connection con = getConnection();
+		ArrayList<ReviewBoard> list = new ReviewBoardDao().getSearchByAllList(con,currentPage,limit,searchCategory,searchLocation,storeName);
+		close(con);
+		
+		return list;
+	}
+
 }

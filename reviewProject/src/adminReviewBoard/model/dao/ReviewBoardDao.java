@@ -254,13 +254,12 @@ public class ReviewBoardDao {
 		String query = "select * from likes";
 		ResultSet rset = null;
 		int result = 0;
-		System.out.println("Id :  " + id);
-		System.out.println("postNo : " + postNo);
+		
 		try{
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(query);
 			
-			likeList = getAllLikesList(con);
+			likeList = getAllLikesList(con); //likes 테이블에 있는애들 전부 가져옴
 			
 			if(rset!=null){
 				while(rset.next()){
@@ -273,7 +272,7 @@ public class ReviewBoardDao {
 				}
 			}			
 			
-			for(ReviewLike like : likeList){
+			for(ReviewLike like : likeList){//테이블에 있으면 좋아요 못누르게
 				if(like.getId().equals(id) && (like.getReviewNo()==postNo)){
 					result = 1;
 					break;
@@ -281,10 +280,7 @@ public class ReviewBoardDao {
 					result = 0;
 				}
 			}
-			
-			
-			
-			
+						
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
@@ -295,5 +291,261 @@ public class ReviewBoardDao {
 		return result;
 	}
 
+	public int getSearchByCategoryCount(Connection con, String searchCategory,String storeName) {
+		// 카테고리 검색 count
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select count(*) from review_board "
+				+ "where category=? and store_name like ?";
+				
+		int result = 0;
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, searchCategory);
+			pstmt.setString(2, "%"+storeName+"%");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				result = rset.getInt(1);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int getSearchByLocationCount(Connection con, String searchLocation,String storeName) {
+		// 장소검색 count
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select count(*) from review_board "
+				+ "where location=? and store_name like ?";
+				
+		int result = 0;
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, searchLocation);
+			pstmt.setString(2, "%"+storeName+"%");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				result = rset.getInt(1);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int getSearchAllCount(Connection con,String searchCategory,String searchLocation, String storeName) {
+		// 둘다 선택 검색 count
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select count(*) from review_board "
+				+ "where category=? and location=? and store_name like ?";
+				
+		int result = 0;
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, searchCategory);
+			pstmt.setString(2, searchCategory);
+			pstmt.setString(3, "%"+storeName+"%");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				result = rset.getInt(1);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<ReviewBoard> getSearchByCategoryList(Connection con, int currentPage, int limit,
+			String searchCategory, String storeName) {
+		// 카테고리 검색
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
+		ReviewBoard review = null;
+		
+		String query =  "select * from "
+	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
+	              + "from (select * from review_board order by posting_no desc)) "
+	              + "where rnum>=? and rnum<=? and category=? and store_name like ?"; 
+		
+		int startRow = (currentPage -1 )*limit+1;
+		int endRow = startRow + limit -1;
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setString(3, searchCategory);
+			pstmt.setString(4, "%"+storeName+"%");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				review = new ReviewBoard();
+				review.setPosting_no(rset.getInt("posting_no")); 
+				review.setId(rset.getString("id"));
+				review.setTitle(rset.getString("title"));
+				review.setContent(rset.getString("content"));
+				review.setHits(rset.getInt("hits"));
+				review.setPostingDate(rset.getDate("posting_date"));
+				review.setDelYN(rset.getInt("del_yn"));
+				review.setLocation(rset.getString("location"));
+				review.setCategory(rset.getString("category"));
+				review.setAddress(rset.getString("address"));
+				review.setStoreName(rset.getString("store_name"));
+				review.setLikes(rset.getInt("likes"));
+				review.setImageName(rset.getString("image_name"));
+				review.setRenameImageName(rset.getString("re_image_name"));
+				review.setEvaluation(rset.getInt("evaluation"));  
+				
+				list.add(review);
+			
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<ReviewBoard> getSearchByLocationList(Connection con, int currentPage, int limit,
+			String searchLocation, String storeName) {
+		// 장소 검색
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
+		ReviewBoard review = null;
+		
+		String query =  "select * from "
+	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
+	              + "from (select * from review_board order by posting_no desc)) "
+	              + "where rnum>=? and rnum<=? and location=? and store_name like ?"; 
+		
+		int startRow = (currentPage -1 )*limit+1;
+		int endRow = startRow + limit -1;
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setString(3, searchLocation);
+			pstmt.setString(4, "%"+storeName+"%");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				review = new ReviewBoard();
+				review.setPosting_no(rset.getInt("posting_no")); 
+				review.setId(rset.getString("id"));
+				review.setTitle(rset.getString("title"));
+				review.setContent(rset.getString("content"));
+				review.setHits(rset.getInt("hits"));
+				review.setPostingDate(rset.getDate("posting_date"));
+				review.setDelYN(rset.getInt("del_yn"));
+				review.setLocation(rset.getString("location"));
+				review.setCategory(rset.getString("category"));
+				review.setAddress(rset.getString("address"));
+				review.setStoreName(rset.getString("store_name"));
+				review.setLikes(rset.getInt("likes"));
+				review.setImageName(rset.getString("image_name"));
+				review.setRenameImageName(rset.getString("re_image_name"));
+				review.setEvaluation(rset.getInt("evaluation"));  
+				
+				list.add(review);
+			
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<ReviewBoard> getSearchByAllList(Connection con, int currentPage, int limit, String searchCategory,
+			String searchLocation, String storeName){
+		// 둘다 검색
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
+		ReviewBoard review = null;
+		System.out.println("searchCategory : " + searchCategory);
+		System.out.println("searchLocation : " + searchLocation);
+		System.out.println("storeName : " + storeName);
+		
+		String query =  "select * from "
+	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
+	              + "from (select * from review_board order by posting_no desc)) "
+	              + "where rnum>=? and rnum<=? and category=? and location =? and store_name like ?"; 
+		
+		int startRow = (currentPage -1 )*limit+1;
+		int endRow = startRow + limit -1;
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setString(3, searchCategory);
+			pstmt.setString(4, searchLocation);
+			pstmt.setString(5, "%"+storeName+"%");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				review = new ReviewBoard();
+				review.setPosting_no(rset.getInt("posting_no")); 
+				review.setId(rset.getString("id"));
+				review.setTitle(rset.getString("title"));
+				review.setContent(rset.getString("content"));
+				review.setHits(rset.getInt("hits"));
+				review.setPostingDate(rset.getDate("posting_date"));
+				review.setDelYN(rset.getInt("del_yn"));
+				review.setLocation(rset.getString("location"));
+				review.setCategory(rset.getString("category"));
+				review.setAddress(rset.getString("address"));
+				review.setStoreName(rset.getString("store_name"));
+				review.setLikes(rset.getInt("likes"));
+				review.setImageName(rset.getString("image_name"));
+				review.setRenameImageName(rset.getString("re_image_name"));
+				review.setEvaluation(rset.getInt("evaluation"));  
+				
+				list.add(review);			
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
 
 }
