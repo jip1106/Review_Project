@@ -272,7 +272,7 @@
     		
     	}); 
 </script>
-	
+
 	<div class="col-sm-5">
 		<div class="badge">댓글을 입력해주세요</div>
 	</div> 

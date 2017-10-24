@@ -13,6 +13,7 @@ import memberReviewBoard.model.dao.ReviewBoardDao;
 import memberReviewBoard.model.vo.ReviewBoard;
 import memberReviewBoard.model.vo.ReviewBoardImage;
 import memberReviewBoard.model.vo.ReviewLike;
+import memberReviewComment.model.vo.ReviewComment;
 
 public class ReviewBoardService {
 
@@ -170,6 +171,13 @@ public class ReviewBoardService {
 			rollback(con);
 		}
 		return result;
+	}
+	
+	public ArrayList<ReviewComment> selectCommentList(int reviewNo) {
+		Connection con = getConnection();
+		ArrayList<ReviewComment> list = new ReviewBoardDao().selectCommentList(con, reviewNo);
+		close(con);
+		return list;
 	}
 
 }
