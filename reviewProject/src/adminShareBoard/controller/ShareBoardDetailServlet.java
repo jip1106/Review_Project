@@ -1,6 +1,7 @@
 package adminShareBoard.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import adminShareBoard.model.service.ShareBoardService;
 import memberSharedBoard.model.vo.SharedBoard;
+import memberSharedComment.model.vo.SharedComment;
 
 /**
  * Servlet implementation class ShareBoardDetailServlet
@@ -57,6 +59,7 @@ public class ShareBoardDetailServlet extends HttpServlet {
 		sbservice.hitsUp(no);
 
 		SharedBoard sb = sbservice.detailSharedBoard(no);
+		ArrayList<SharedComment> list = sb.selectCommentList(no);
 
 		RequestDispatcher view = null;
 		if (sb != null) {
@@ -65,6 +68,7 @@ public class ShareBoardDetailServlet extends HttpServlet {
 			request.setAttribute("currentPage", currentPage);
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("limit", limit);
+			request.setAttribute("commentList", list);
 			view.forward(request, response);
 		} else {
 			view = request.getRequestDispatcher("views/admin/board/shareboard/adminshareDetail.jsp");
