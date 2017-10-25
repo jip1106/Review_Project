@@ -616,7 +616,7 @@ public class ReviewBoardDao {
 			
 			rset= pstmt.executeQuery();
 			
-			if(rset!=null){
+			if(rset.next()){
 				result = rset.getInt(1);
 			}
 		}catch(Exception e){
