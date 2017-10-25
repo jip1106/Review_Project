@@ -76,7 +76,7 @@
 </div>
 
 <div class="item active"> 
-		<h2 style="margin-left: 5%; margin-right: 21%">교통Top3</h2>
+		<h2 style="margin-left: 5%; margin-right: 21%">식당 Top3</h2>
 		<div class="col" style="margin-left: 5%; margin-right: 10%">
 				<div class="col-xs-6 col-sm-6 col-md-3">
 					<div class="portfolio__item">
@@ -140,11 +140,11 @@
 		
 </div>
 <br><br>
-
+<hr>
 
 <!-- 카테고리별  div 생성 -->
 <div class="item active">
-		<h2 style="margin-left: 5%; margin-right: 10%">음식점Top3</h2>
+		<h2 style="margin-left: 5%; margin-right: 10%">카페 Top3</h2>
 		<div class="col" style="margin-left: 5%; margin-right: 10%">
 				<div class="col-xs-6 col-sm-6 col-md-3">
 					<div class="portfolio__item">
@@ -206,5 +206,139 @@
 				</div>
 		</div>
 </div>
+<br><br>
+<hr>
+
+<div class="item active">
+		<h2 style="margin-left: 5%; margin-right: 10%">숙박 Top3</h2>
+		<div class="col" style="margin-left: 5%; margin-right: 10%">
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<div class="portfolio__item">
+						<!-- Image -->
+
+						<div class="portfolio__img">
+							<img
+								src="${pageContext.request.contextPath}/resources/img/product_2.jpg"
+								alt="Portfolio Image">
+						</div>
+						<!-- Captions -->
+						<div class="portfolio__caption">
+							<h3 class="portfolio__title">사진1</h3>
+						</div>
+						<div class="portfolio__intro">
+								평점 
+						</div>
+					</div>
+				</div>
+		</div>
+			<div class="col" style="margin-left: 5%; margin-right: 10%">
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<div class="portfolio__item">
+						<!-- Image -->
+
+						<div class="portfolio__img">
+							<img
+								src="${pageContext.request.contextPath}/resources/img/product_2.jpg"
+								alt="Portfolio Image">
+						</div>
+						<!-- Captions -->
+						<div class="portfolio__caption">
+							<h3 class="portfolio__title">사진1</h3>
+						</div>
+						<div class="portfolio__intro">
+								평점 
+						</div>
+					</div>
+				</div>
+		</div>
+			<div class="row" style="margin-left: 5%; margin-right: 10%">
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<div class="portfolio__item">
+						<!-- Image -->
+
+						<div class="portfolio__img">
+							<img
+								src="${pageContext.request.contextPath}/resources/img/product_2.jpg"
+								alt="Portfolio Image">
+						</div>
+						<!-- Captions -->
+						<div class="portfolio__caption">
+							<h3 class="portfolio__title">사진1</h3>
+						</div>
+						<div class="portfolio__intro">
+								평점 
+						</div>
+					</div>
+				</div>
+		</div>
+</div>
+<br><br>
+<hr>
+
+<div class="item active">
+		<h2 style="margin-left: 5%; margin-right: 10%">교통 Top3</h2>
+		<div class="col" style="margin-left: 5%; margin-right: 10%">
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<div class="portfolio__item">
+						<!-- Image -->
+
+						<div class="portfolio__img">
+							<img
+								src="${pageContext.request.contextPath}/resources/img/product_2.jpg"
+								alt="Portfolio Image">
+						</div>
+						<!-- Captions -->
+						<div class="portfolio__caption">
+							<h3 class="portfolio__title">사진1</h3>
+						</div>
+						<div class="portfolio__intro">
+								평점 
+						</div>
+					</div>
+				</div>
+		</div>
+			<div class="col" style="margin-left: 5%; margin-right: 10%">
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<div class="portfolio__item">
+						<!-- Image -->
+
+						<div class="portfolio__img">
+							<img
+								src="${pageContext.request.contextPath}/resources/img/product_2.jpg"
+								alt="Portfolio Image">
+						</div>
+						<!-- Captions -->
+						<div class="portfolio__caption">
+							<h3 class="portfolio__title">사진1</h3>
+						</div>
+						<div class="portfolio__intro">
+								평점 
+						</div>
+					</div>
+				</div>
+		</div>
+			<div class="row" style="margin-left: 5%; margin-right: 10%">
+				<div class="col-xs-6 col-sm-6 col-md-3">
+					<div class="portfolio__item">
+						<!-- Image -->
+
+						<div class="portfolio__img">
+							<img
+								src="${pageContext.request.contextPath}/resources/img/product_2.jpg"
+								alt="Portfolio Image">
+						</div>
+						<!-- Captions -->
+						<div class="portfolio__caption">
+							<h3 class="portfolio__title">사진1</h3>
+						</div>
+						<div class="portfolio__intro">
+								평점 
+						</div>
+					</div>
+				</div>
+		</div>
+</div>
+<br><br>
+<hr>
 </body>
 </html>
