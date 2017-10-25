@@ -5,6 +5,7 @@ import static common.JDBCTemplate.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import memberReviewBoard.model.vo.ReviewBoard;
@@ -647,6 +648,69 @@ public class ReviewBoardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public ArrayList<ReviewBoard> selectTop3Restaurant(Connection con) {
+		// 식당 top3 뽑아오는 메서드
+		Statement stmt =null;
+		ResultSet rset = null;
+		ArrayList<ReviewBoard> list = null;
+		ReviewBoard review = null;
+		String query = "select * from "
+				+ "(select rownum rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,re_image_name,evaluation from "
+				+ "(select * from review_board where category ='식당' order by likes desc)) "
+				+ "where rnum>=1 and rnum<=3";
+				
+		try{
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<ReviewBoard>();
+			if(rset!=null){
+				while(rset.next()){
+					review = new ReviewBoard();
+					
+					review.setPosting_no(rset.getInt("posting_no")); 
+					review.setId(rset.getString("id"));
+					review.setTitle(rset.getString("title"));
+					review.setContent(rset.getString("content"));
+					review.setHits(rset.getInt("hits"));
+					review.setPostingDate(rset.getDate("posting_date"));
+					review.setDelYN(rset.getInt("del_yn"));
+					review.setLocation(rset.getString("location"));
+					review.setCategory(rset.getString("category"));
+					review.setAddress(rset.getString("address"));
+					review.setStoreName(rset.getString("store_name"));
+					review.setLikes(rset.getInt("likes"));
+					review.setRenameImageName(rset.getString("re_image_name"));
+					review.setEvaluation(rset.getInt("evaluation"));  
+					
+					list.add(review);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<ReviewBoard> selectTop3Cafe(Connection con) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<ReviewBoard> selectTop3Hotel(Connection con) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<ReviewBoard> selectTop3Trans(Connection con) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
