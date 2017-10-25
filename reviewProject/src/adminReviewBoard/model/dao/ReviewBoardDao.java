@@ -550,6 +550,83 @@ public class ReviewBoardDao {
 		
 		return list;
 	}
+
+	public ArrayList<ReviewBoard> viewSearchById(Connection con, String id, int currentPage, int limit) {
+		// id로 검색된 게시물 리턴
+		ArrayList<ReviewBoard> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ReviewBoard review = null;
+		
+		String query = "select * from review_board where id like ?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "%"+id+"%");
+			
+			rset = pstmt.executeQuery();
+			
+			if(pstmt!=null){
+				list = new ArrayList<ReviewBoard>();
+				
+				while(rset.next()){
+					review = new ReviewBoard();
+					
+					review.setPosting_no(rset.getInt("posting_no")); 
+					review.setId(rset.getString("id"));
+					review.setTitle(rset.getString("title"));
+					review.setContent(rset.getString("content"));
+					review.setHits(rset.getInt("hits"));
+					review.setPostingDate(rset.getDate("posting_date"));
+					review.setDelYN(rset.getInt("del_yn"));
+					review.setLocation(rset.getString("location"));
+					review.setCategory(rset.getString("category"));
+					review.setAddress(rset.getString("address"));
+					review.setStoreName(rset.getString("store_name"));
+					review.setLikes(rset.getInt("likes"));
+					review.setImageName(rset.getString("image_name"));
+					review.setRenameImageName(rset.getString("re_image_name"));
+					review.setEvaluation(rset.getInt("evaluation"));  
+										
+					list.add(review);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+
+	public int getSearchIdCount(Connection con, String id) {
+		// id 검색했을때 count
+		int result = 0;
+		
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String query = "select count(*) from review_board where id like ?";
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "%"+id+"%");
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()){
+				result = rset.getInt(1);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+			close(rset);
+		}
+		return result;
+	}
 	
 
 }

@@ -14,54 +14,39 @@ import adminReviewBoard.model.service.ReviewBoardService;
 import memberReviewBoard.model.vo.ReviewBoard;
 
 /**
- * Servlet implementation class AdminSearchServlet
+ * Servlet implementation class AdminReviewIdSearchServlet
  */
-@WebServlet("/adminSearch")
-public class AdminSearchServlet extends HttpServlet {
+@WebServlet("/adminReviewIdSearch")
+public class AdminReviewIdSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminSearchServlet() {
+    public AdminReviewIdSearchServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//검색 서블릿
+		// id로 리뷰게시판 게시글 검색해주는 서블릿
 		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-			
-		String searchLocation = request.getParameter("searchLocation");
-		String searchCategory = request.getParameter("searchCategory");
-		String storeName = request.getParameter("storeName");
+		response.setContentType("type/html; charset=utf-8");
 		
-		int listCount =0;
-		
-		int currentPage =Integer.parseInt(request.getParameter("page"));
-		
+		String id = request.getParameter("id");
+		int currentPage = Integer.parseInt(request.getParameter("page"));
 		int limit = 9;
-						
+	
 		ReviewBoardService rservice = new ReviewBoardService();
-		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		
-		if(searchLocation.length()==0){	//서울특별시... 없고 식당/카페/교통/숙박 으로 검색한 경우
-			listCount = rservice.getSearchByCategoryCount(searchCategory,storeName);
-			list = rservice.getSearchByCategoryList(currentPage,limit,searchCategory,storeName);
-						
-		}else if(searchCategory.length()==0){ //서울특별시...로 검색한 경우
-			listCount = rservice.getSearchByLocationCount(searchLocation,storeName);
-			list = rservice.getSearchByLocationList(currentPage,limit,searchLocation, storeName);
+		ArrayList<ReviewBoard> list = rservice.viewSearchByID(id, currentPage, limit);
 		
-		}else{ //둘다 선택하고 검색한 경우
-			listCount = rservice.getSearchAllCount(searchCategory,searchLocation,storeName);
-			list = rservice.getSearchByAllList(currentPage,limit,searchCategory, searchLocation,storeName);
-			
-		}		
 		
+		int listCount = rservice.getSearchIdCount(id);
+		System.out.println("=============="+listCount);
 		int maxPage = (int)((double)listCount/limit + 0.9);
 		
 		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;
@@ -71,7 +56,7 @@ public class AdminSearchServlet extends HttpServlet {
 		if(maxPage < endPage){
 			endPage = maxPage;
 		}
-			
+		
 		if(list!=null){
 			RequestDispatcher view = request.getRequestDispatcher("views/admin/board/reviewboard/adminreviewboard.jsp");
 			request.setAttribute("list", list);
@@ -80,14 +65,10 @@ public class AdminSearchServlet extends HttpServlet {
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("maxPage", maxPage);
-			
-			request.setAttribute("searchLocation", searchLocation);
-			request.setAttribute("searchCategory", searchCategory);
-			request.setAttribute("storeName", storeName);
+			request.setAttribute("id", id);
 			
 			view.forward(request, response);
 		}
-	
 	}
 
 	/**

@@ -12,10 +12,7 @@
 	ArrayList<ReviewBoard> cafeList = new ReviewBoardService().selectTop3Cafe();
 	ArrayList<ReviewBoard> hotelList = new ReviewBoardService().selectTop3Hotel();
 	ArrayList<ReviewBoard> transList = new ReviewBoardService().selectTop3Trans();
-	
-	System.out.println("호텔리스트:" + hotelList);
-	System.out.println("교통리스트:" + transList);	
-			
+				
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +39,7 @@
 <body>
 <%@ include file="../../header.jsp" %> 
 <br><br>
+<div class="container">
 <div class="item active"><!-- 공지사항 띄워 줄 공간 -->
 		<div align="left" style="margin-left: 12%; margin-right: 21%">
 		<h3>공지사항</h3>
@@ -84,7 +82,8 @@
 		</div>
 	</div>
 </div>
-
+</div>
+<div class="container" align="center">
 <div class="item active"> <!-- 식당 탑3 자리 -->
 	<%if(restaurantList!=null){ %>
 		<h2 style="margin-left: 12%; margin-right: 21%">식당 Top3</h2>
@@ -140,6 +139,10 @@
 								<div class="portfolio__intro">
 										카테고리 : <%=review.getCategory() %>
 								</div>
+								<div>
+									작성자:<%=review.getId() %>
+								</div>
+								
 								
 							</div>
 						</div>
@@ -336,6 +339,6 @@
 		</div>
 </div>
 
-
+</div>
 </body>
 </html>

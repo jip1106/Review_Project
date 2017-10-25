@@ -14,6 +14,7 @@
 	String searchLocation = null;
 	String searchCategory = null;
 	String storeName = null;
+	String id = null;
 	
 	if(request.getParameter("searchLocation")!=null){
 		searchLocation = (String)request.getAttribute("searchLocation");
@@ -23,6 +24,9 @@
 	}
 	if(request.getParameter("storeName")!=null){
 		storeName = (String)request.getAttribute("storeName");
+	}
+	if(request.getParameter("id")!=null){
+		id = (String)request.getAttribute("id");
 	}
 	
 	
@@ -107,6 +111,14 @@
 		
 		}
 	}
+	
+	function idInputCheck(){
+		if($("#searchId").val() == ""){
+			alert("검색할 아이디 중 일부를 입력해 주세요");
+			
+			return false;
+		}
+	}
 </script>
  
 </head>
@@ -153,16 +165,34 @@
 					</div>
 				</div>
 			</form>
+			
+			<form method="post" action="/review/adminReviewIdSearch" onsubmit="return idInputCheck();">
+				<div align = "left" class="col-md-4" style="margin-right:30%"> 			
+						<div align="left">
+							<div class="input-group stylish-input-group">
+								<input type="text" class="form-control" placeholder="회원 id로 검색" name="id" id="searchId">
+								<input type="hidden" name="page" value="<%=currentPage%>">
+								<span class="input-group-addon">
+									<button type="submit">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</span>
+							</div>
+						</div>
+				</div>
+			</form>
 	</div>
 </div>
 
 <div align="left" style="margin-left: 10%; margin-right:10%">
 	<h2>리뷰 게시판</h2> 
-	<%if(searchLocation ==null && searchCategory ==null && storeName ==null){ %>
+	<%if(searchLocation ==null && searchCategory ==null && storeName ==null && id==null){ %>
 		<h3>전체 게시글 수 : <%=listCount %></h3>
 	<%}else{ %>
 		<h3>검색된 게시글 수 : <%=listCount %> </h3>
 	<%} %>
+	
+	
 </div>
 <hr>
 
@@ -215,6 +245,7 @@
 								가게명: <%=r.getStoreName()%> <br>	
 								지역 : <%=r.getLocation() %>	<br>
 								카테고리 : <%=r.getCategory() %> <br>
+								작성자:<%=r.getId() %>
 								</div>
 						</div>
 					</div>
