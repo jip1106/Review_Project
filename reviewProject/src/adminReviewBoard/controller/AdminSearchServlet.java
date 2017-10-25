@@ -61,7 +61,7 @@ public class AdminSearchServlet extends HttpServlet {
 			list = rservice.getSearchByAllList(currentPage,limit,searchCategory, searchLocation,storeName);
 			
 		}		
-		System.out.println("뭐가 다르지?");
+		
 		int maxPage = (int)((double)listCount/limit + 0.9);
 		
 		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;

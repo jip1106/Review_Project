@@ -107,6 +107,14 @@
 		
 		}
 	}
+	
+	function idInputCheck(){
+		if($("#searchId").val() == ""){
+			alert("검색할 아이디 중 일부를 입력해 주세요");
+			
+			return false;
+		}
+	}
 </script>
  
 </head>
@@ -151,6 +159,22 @@
 							</span>
 						</div>
 					</div>
+				</div>
+			</form>
+			
+			<form method="post" action="/review/adminReviewIdSearch" onsubmit="return idInputCheck();">
+				<div align = "left" class="col-md-4" style="margin-right:30%"> 			
+						<div align="left">
+							<div class="input-group stylish-input-group">
+								<input type="text" class="form-control" placeholder="회원 id로 검색" name="id" id="searchId">
+								<input type="hidden" name="page" value="<%=currentPage%>">
+								<span class="input-group-addon">
+									<button type="submit">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</span>
+							</div>
+						</div>
 				</div>
 			</form>
 	</div>

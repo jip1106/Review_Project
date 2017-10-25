@@ -162,4 +162,22 @@ public class ReviewBoardService {
 		return list;
 	}
 
+	public ArrayList<ReviewBoard> viewSearchByID(String id, int currentPage, int limit) {
+		//id로 검색 했을 때 검색된 게시물 리스트 return
+		Connection con = getConnection();
+		ArrayList<ReviewBoard> list = new ReviewBoardDao().viewSearchById(con,id,currentPage,limit);
+		close(con);
+		
+		return list;
+	}
+
+	public int getSearchIdCount(String id) {
+		// id로 검색했을 때 게시물 수 count
+		Connection con = getConnection();
+		int result = new ReviewBoardDao().getSearchIdCount(con,id);
+		close(con);
+		
+		return result;
+	}
+
 }
