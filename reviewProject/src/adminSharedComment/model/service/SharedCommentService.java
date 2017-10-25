@@ -33,4 +33,29 @@ public class SharedCommentService {
 		return list;
 	}
 
+	public int updateSharedComment(int commentNo, int shareNo, String content) {
+		Connection con = getConnection();
+		int result = new SharedCommentDao().updateSharedComment(con,commentNo,shareNo,content);
+		
+		if(result > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+	public int deleteSharedComment(int commentNo, int shareNo) {
+		Connection con = getConnection();
+		int result = new SharedCommentDao().deleteSharedComment(con,commentNo,shareNo);
+		
+		if(result > 0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
 }

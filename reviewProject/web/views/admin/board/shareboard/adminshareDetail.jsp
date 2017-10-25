@@ -137,10 +137,10 @@
 			$("#commentView").on("click","#updateComment",function(){
 							if(confirm("댓글을 수정하시겠습니까?")){
 								content = $(this).prev().val();
-								var queryString = {rNo: boardNo, cNo: commentNo, rcontent: content}; /////////////////////////////
+								var queryString = {shareNo: boardNo, cNo: commentNo, scontent: content}; /////////////////////////////
 								$.ajax({
 											type : "get",
-											url : "/review/updateReviewCommentAjax",
+											url : "/review/adminupdatesc",
 											data : queryString,
 											dataType: "json",
 											success : function(data) {
@@ -183,7 +183,7 @@
 			$("#commentView").on("click","#removeComment",function() {
 								if (confirm("댓글을 삭제하시겠습니까?")) {
 									commentNo = $(this).parent().next().val();
-									var queryString = {rNo: boardNo, cNo: commentNo};
+									var queryString = {shareNo: boardNo, cNo: commentNo};
 									$.ajax({
 												type : "get",
 												url : "/review/admindeletesc",

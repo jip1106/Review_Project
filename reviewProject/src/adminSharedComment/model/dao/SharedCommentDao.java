@@ -58,4 +58,43 @@ public class SharedCommentDao {
 		return list;
 	}
 
+	public int updateSharedComment(Connection con, int commentNo, int shareNo, String content) {
+		java.sql.PreparedStatement pstmt = null;
+		String query = "update share_comment set comment_content = ? where comment_no = ? and posting_no = ?";
+		int result = 0;
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, content);
+			pstmt.setInt(2, commentNo);
+			pstmt.setInt(3, shareNo); 
+			result = pstmt.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteSharedComment(Connection con, int commentNo, int shareNo) {
+		java.sql.PreparedStatement pstmt = null;
+		String query = "delete from share_comment where comment_no = ? and posting_no = ?";
+		int result = 0;
+		
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, commentNo);
+			pstmt.setInt(2, shareNo);
+			
+			result = pstmt.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }
