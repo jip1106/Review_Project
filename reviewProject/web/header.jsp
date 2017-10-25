@@ -42,9 +42,12 @@
 	}
 	
 .header {
+	background-size: 60%;
+	height: 150px;
+	width: 100%;
 	padding-bottom: 60;
 	magin: 0;
-	background-image: url("/review/resources/img/새싹비빔밥.jpg");
+	background-image: url("/review/resources/img/backgroundsomi.jpg");
 }
 
 ul.navi li {
@@ -132,6 +135,7 @@ ul.navi li {
 			<%if(member.getUserType() == 1){ %> <!-- 회원 -->
 			<ul class="navi" style="align-self: center;">
 				<li><a href="/review/reviewList">리뷰게시판</a></li>
+
 	   			<li><a href="/review/slist">정보공유게시판</a></li>
 	  			<li><a href="/review/clist">신고게시판</a></li> 
 	   			<li><a href="/review/views/mypage/member/memberupdateview.jsp">마이페이지</a></li>

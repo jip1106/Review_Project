@@ -1,6 +1,13 @@
 package memberSharedBoard.model.vo;
 
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.getConnection;
+
 import java.sql.Date;
+import java.util.ArrayList;
+
+import adminShareBoard.model.dao.ShareBoardDao;
+import memberSharedComment.model.vo.SharedComment;
 
 public class SharedBoard implements java.io.Serializable{
 	
@@ -95,6 +102,14 @@ public class SharedBoard implements java.io.Serializable{
 	public String toString() {
 		return "SharedBoard [postingNum=" + postingNum + ", id=" + id + ", title=" + title + ", content=" + content
 				+ ", hits=" + hits + ", postingDate=" + postingDate + ", delYN=" + delYN + "]";
+	}
+
+
+	public ArrayList<SharedComment> selectCommentList(int no) {
+		java.sql.Connection con = getConnection();
+		ArrayList<SharedComment> list = new ShareBoardDao().selectCommentList(con,no);
+		close(con);
+		return list;
 	}
 	
 		
