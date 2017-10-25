@@ -2,305 +2,339 @@ package memberComplainBoard.model.dao;
 
 import java.sql.Connection;
 
+
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import static common.JDBCTemplate.*;
 import memberComplainBoard.model.vo.ComplainBoard;
+import memberComplainComment.model.vo.ComplainComment;
+
 
 public class ComplainBoardDao {
-	public ComplainBoardDao() {
-	}
+   public ComplainBoardDao() {
+   }
 
-	public int getListCount(Connection con) {
+   public int getListCount(Connection con) {
 
-		int result = 0;
-		Statement stmt = null;
-		ResultSet rset = null;
+      int result = 0;
+      Statement stmt = null;
+      ResultSet rset = null;
 
-		String query = "select count(*) from complain_board ";
+      String query = "select count(*) from complain_board ";
 
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+      try {
+         stmt = con.createStatement();
+         rset = stmt.executeQuery(query);
 
-			if (rset.next())
-				result = rset.getInt(1);
+         if (rset.next())
+            result = rset.getInt(1);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         close(rset);
+         close(stmt);
+      }
 
-		return result;
+      return result;
 
-	}
+   }
 
-	// 전체게시글 조회 page 처리 해야함
-	public ArrayList<ComplainBoard> selectList(Connection con, int Page, int limit) {
+   // 전체게시글 조회 page 처리 해야함
+   public ArrayList<ComplainBoard> selectList(Connection con, int Page, int limit) {
 
-		ArrayList<ComplainBoard> list = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+      ArrayList<ComplainBoard> list = null;
+      PreparedStatement pstmt = null;
+      ResultSet rset = null;
 
-		String query = "select * from "
-				+ "(select rownum as rnum, posting_no,id,title,content,hits,posting_date,del_yn "
-				+ "from (select * from complain_board order by posting_no desc)) " + "where rnum>=? and rnum<=?";
+      String query = "select * from "
+            + "(select rownum as rnum, posting_no,id,title,content,hits,posting_date,del_yn "
+            + "from (select * from complain_board order by posting_no desc)) " + "where rnum>=? and rnum<=?";
 
-		int startRow = (Page - 1) * limit + 1;
-		int endRow = startRow + limit - 1;
+      int startRow = (Page - 1) * limit + 1;
+      int endRow = startRow + limit - 1;
 
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+      try {
+         pstmt = con.prepareStatement(query);
+         pstmt.setInt(1, startRow);
+         pstmt.setInt(2, endRow);
 
-			rset = pstmt.executeQuery();
+         rset = pstmt.executeQuery();
 
-			if (rset != null) {
-				list = new ArrayList<ComplainBoard>();
+         if (rset != null) {
+            list = new ArrayList<ComplainBoard>();
 
-				while (rset.next()) {
-					ComplainBoard cb = new ComplainBoard();
+            while (rset.next()) {
+               ComplainBoard cb = new ComplainBoard();
 
-					cb.setPostingNo(rset.getInt("posting_no"));
-					cb.setId(rset.getString("id"));
-					cb.setTitle(rset.getString("title"));
-					cb.setContent(rset.getString("content"));
-					cb.setHits(rset.getInt("hits"));
-					cb.setPostingDate(rset.getDate("posting_date"));
-					cb.setDelYN(rset.getInt("del_yn"));
-					list.add(cb);
-				}
+               cb.setPostingNo(rset.getInt("posting_no"));
+               cb.setId(rset.getString("id"));
+               cb.setTitle(rset.getString("title"));
+               cb.setContent(rset.getString("content"));
+               cb.setHits(rset.getInt("hits"));
+               cb.setPostingDate(rset.getDate("posting_date"));
+               cb.setDelYN(rset.getInt("del_yn"));
+               list.add(cb);
+            }
 
-			}
+         }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         close(rset);
+         close(pstmt);
+      }
 
-		return list;
-	}
+      return list;
+   }
 
-	public int addReadCount() {
+   public int addReadCount() {
 
-		return 0;
-	}
+      return 0;
+   }
 
-	public int addReadCount(Connection con, int postingNo) {
-		int result = 0;
-		PreparedStatement pstmt = null;
+   public int addReadCount(Connection con, int postingNo) {
+      int result = 0;
+      PreparedStatement pstmt = null;
 
-		String query = "update complain_board set hits= hits+1 where posting_no = ?";
+      String query = "update complain_board set hits= hits+1 where posting_no = ?";
 
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, postingNo);
-			result = pstmt.executeUpdate();
+      try {
+         pstmt = con.prepareStatement(query);
+         pstmt.setInt(1, postingNo);
+         result = pstmt.executeUpdate();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         close(pstmt);
+      }
 
-		return result;
-	}
+      return result;
+   }
 
-	public ComplainBoard selectBoard(Connection con, int bnum) {
-		ComplainBoard ComplainBoard = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
+   public ComplainBoard selectBoard(Connection con, int bnum) {
+      ComplainBoard ComplainBoard = null;
+      PreparedStatement pstmt = null;
+      ResultSet rset = null;
 
-		String query = "select * from complain_board where posting_no = ?";
+      String query = "select * from complain_board where posting_no = ?";
 
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, bnum);
+      try {
+         pstmt = con.prepareStatement(query);
+         pstmt.setInt(1, bnum);
 
-			rset = pstmt.executeQuery();
+         rset = pstmt.executeQuery();
 
-			if (rset.next()) {
-				ComplainBoard = new ComplainBoard();
+         if (rset.next()) {
+            ComplainBoard = new ComplainBoard();
 
-				ComplainBoard.setPostingNo(rset.getInt("posting_no"));
-				ComplainBoard.setId(rset.getString("id"));
-				ComplainBoard.setTitle(rset.getString("title"));
-				ComplainBoard.setContent(rset.getString("content"));
-				ComplainBoard.setHits(rset.getInt("hits"));
-				ComplainBoard.setPostingDate(rset.getDate("posting_date"));
-				ComplainBoard.setDelYN(rset.getInt("del_yn"));
-			}
+            ComplainBoard.setPostingNo(rset.getInt("posting_no"));
+            ComplainBoard.setId(rset.getString("id"));
+            ComplainBoard.setTitle(rset.getString("title"));
+            ComplainBoard.setContent(rset.getString("content"));
+            ComplainBoard.setHits(rset.getInt("hits"));
+            ComplainBoard.setPostingDate(rset.getDate("posting_date"));
+            ComplainBoard.setDelYN(rset.getInt("del_yn"));
+         }
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         close(rset);
+         close(pstmt);
+      }
 
-		return ComplainBoard;
-	}
+      return ComplainBoard;
+   }
 
-	public int deleteBoard(Connection con, int bnum) {
-		int result = 0;
-		PreparedStatement pstmt = null;
+   public int deleteBoard(Connection con, int bnum) {
+      int result = 0;
+      PreparedStatement pstmt = null;
 
-		String query = "delete from complain_board where posting_no = ?";
+      String query = "delete from complain_board where posting_no = ?";
 
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, bnum);
+      try {
+         pstmt = con.prepareStatement(query);
+         pstmt.setInt(1, bnum);
 
-			result = pstmt.executeUpdate();
+         result = pstmt.executeUpdate();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         close(pstmt);
+      }
 
-		return result;
-	}
+      return result;
+   }
 
-	public int insertBoard(Connection con, ComplainBoard cb) {
-		int result = 0;
-		PreparedStatement pstmt = null;
+   public int insertBoard(Connection con, ComplainBoard cb) {
+      int result = 0;
+      PreparedStatement pstmt = null;
 
-		String query = "insert into complain_board values (complain_seq.nextval,"
-				+ "?, ?, ?, default,default, default)";
+      String query = "insert into complain_board values (complain_seq.nextval,"
+            + "?, ?, ?, default,default, default)";
 
-		try {
-			pstmt = con.prepareStatement(query);
+      try {
+         pstmt = con.prepareStatement(query);
 
-			pstmt.setString(1, cb.getId());
-			pstmt.setString(2, cb.getTitle());
-			pstmt.setString(3, cb.getContent());
+         pstmt.setString(1, cb.getId());
+         pstmt.setString(2, cb.getTitle());
+         pstmt.setString(3, cb.getContent());
 
-			result = pstmt.executeUpdate();
+         result = pstmt.executeUpdate();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         close(pstmt);
+      }
+      return result;
 
-	}
+   }
 
-	public int updateComplainBoard(Connection con, ComplainBoard complainBoard) {
-		int result = 0;
-		PreparedStatement pstmt = null;
+   public int updateComplainBoard(Connection con, ComplainBoard complainBoard) {
+      int result = 0;
+      PreparedStatement pstmt = null;
 
-		String query = "update complain_board set title = ?, " + "content = ? where posting_no = ?";
+      String query = "update complain_board set title = ?, " + "content = ? where posting_no = ?";
 
-		try {
+      try {
 
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, complainBoard.getTitle());
-			pstmt.setString(2, complainBoard.getContent());
-			pstmt.setInt(3, complainBoard.getPostingNo());
-			result = pstmt.executeUpdate();
+         pstmt = con.prepareStatement(query);
+         pstmt.setString(1, complainBoard.getTitle());
+         pstmt.setString(2, complainBoard.getContent());
+         pstmt.setInt(3, complainBoard.getPostingNo());
+         result = pstmt.executeUpdate();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         close(pstmt);
+      }
 
-		return result;
-	}
+      return result;
+   }
 
-	public ArrayList<ComplainBoard> selectSearch(Connection con, int Page, int limit, String searchValue, String searchKeyWord) {
-		
-		ArrayList<ComplainBoard> list = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = null;
-		
-		if(searchValue.equals("findByTitle")){
-		query = "select * from "
-				+ "(select rownum as rnum, posting_no,id,title,content,hits,posting_date,del_yn "
-				+ "from (select * from complain_board where title like ? order by posting_no desc)) " + "where rnum>=? and rnum<=?";
-		}
-		else if(searchValue.equals("findByWriter")){
-			query = "select * from "
-					+ "(select rownum as rnum, posting_no,id,title,content,hits,posting_date,del_yn "
-					+ "from (select * from complain_board where id like ? order by posting_no desc)) " + "where rnum>=? and rnum<=?";
-		}
+   public ArrayList<ComplainBoard> selectSearch(Connection con, int Page, int limit, String searchValue, String searchKeyWord) {
+      
+      ArrayList<ComplainBoard> list = null;
+      PreparedStatement pstmt = null;
+      ResultSet rset = null;
+      String query = null;
+      
+      if(searchValue.equals("findByTitle")){
+      query = "select * from "
+            + "(select rownum as rnum, posting_no,id,title,content,hits,posting_date,del_yn "
+            + "from (select * from complain_board where title like ? order by posting_no desc)) " + "where rnum>=? and rnum<=?";
+      }
+      else if(searchValue.equals("findByWriter")){
+         query = "select * from "
+               + "(select rownum as rnum, posting_no,id,title,content,hits,posting_date,del_yn "
+               + "from (select * from complain_board where id like ? order by posting_no desc)) " + "where rnum>=? and rnum<=?";
+      }
 
-		int startRow = (Page - 1) * limit + 1;
-		int endRow = startRow + limit - 1;
-		try {
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setString(1, "%"+searchKeyWord+"%");
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			rset = pstmt.executeQuery();
+      int startRow = (Page - 1) * limit + 1;
+      int endRow = startRow + limit - 1;
+      try {
+         pstmt = con.prepareStatement(query);
+         
+         pstmt.setString(1, "%"+searchKeyWord+"%");
+         pstmt.setInt(2, startRow);
+         pstmt.setInt(3, endRow);
+         rset = pstmt.executeQuery();
 
-			if (rset != null) {
-				list = new ArrayList<ComplainBoard>();
+         if (rset != null) {
+            list = new ArrayList<ComplainBoard>();
 
-				while (rset.next()) {
-					ComplainBoard cb = new ComplainBoard();
+            while (rset.next()) {
+               ComplainBoard cb = new ComplainBoard();
 
-					cb.setPostingNo(rset.getInt("posting_no"));
-					cb.setId(rset.getString("id"));
-					cb.setTitle(rset.getString("title"));
-					cb.setContent(rset.getString("content"));
-					cb.setHits(rset.getInt("hits"));
-					cb.setPostingDate(rset.getDate("posting_date"));
-					cb.setDelYN(rset.getInt("del_yn"));
-					list.add(cb);
-				}
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
+               cb.setPostingNo(rset.getInt("posting_no"));
+               cb.setId(rset.getString("id"));
+               cb.setTitle(rset.getString("title"));
+               cb.setContent(rset.getString("content"));
+               cb.setHits(rset.getInt("hits"));
+               cb.setPostingDate(rset.getDate("posting_date"));
+               cb.setDelYN(rset.getInt("del_yn"));
+               list.add(cb);
+            }
+         }
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         close(rset);
+         close(pstmt);
+      }
 
-		return list;
-	}
+      return list;
+   }
 
-	public int getSearchCount(Connection con, String searchValue, String searchKeyWord) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String query = null;
-		
-		if(searchValue.equals("findByTitle")){
-		 query = "select count(*) from complain_board where title like ?";
-		}
-		else if(searchValue.equals("findByWriter")){
-			query = "select count(*) from complain_board where id like ?";
-		}
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "%"+searchKeyWord+"%");
-			rset = pstmt.executeQuery();
-			
-			if (rset.next())
-				result = rset.getInt(1);
+   public int getSearchCount(Connection con, String searchValue, String searchKeyWord) {
+      int result = 0;
+      PreparedStatement pstmt = null;
+      ResultSet rset = null;
+      String query = null;
+      
+      if(searchValue.equals("findByTitle")){
+       query = "select count(*) from complain_board where title like ?";
+      }
+      else if(searchValue.equals("findByWriter")){
+         query = "select count(*) from complain_board where id like ?";
+      }
+      try {
+         pstmt = con.prepareStatement(query);
+         pstmt.setString(1, "%"+searchKeyWord+"%");
+         rset = pstmt.executeQuery();
+         
+         if (rset.next())
+            result = rset.getInt(1);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
+      } catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         close(rset);
+         close(pstmt);
+      }
 
-		return result;
-	}
+      return result;
+   }
+
+   public ArrayList<ComplainComment> selectCommentList(Connection con, int bnum) {
+      PreparedStatement pstmt = null;
+      ResultSet rset = null;
+      String query = "select * from complain_comment where posting_no = ? order by comment_no desc";
+      ArrayList<ComplainComment> list = new ArrayList<ComplainComment>();
+      ComplainComment comment = null;
+      try{
+         pstmt = con.prepareStatement(query);
+         pstmt.setInt(1, bnum);
+         
+         rset = pstmt.executeQuery();
+         
+         while(rset.next()){
+            comment = new ComplainComment();
+            comment.setCommentNo(rset.getInt("comment_no"));
+            comment.setPostingNo(rset.getInt("posting_no"));
+            comment.setId(rset.getString("id"));
+            comment.setCommentContent(rset.getString("comment_content"));
+            comment.setCommentDate(rset.getDate("comment_date"));
+            list.add(comment);
+         }
+      }catch(Exception e){
+         e.printStackTrace();
+      }finally{
+         close(rset);
+         close(pstmt);
+      }
+      return list;
+   }
 
 
 }
