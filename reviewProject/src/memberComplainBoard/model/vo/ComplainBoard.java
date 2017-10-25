@@ -16,6 +16,7 @@ public class ComplainBoard implements java.io.Serializable{
 	
 	public ComplainBoard(){}
 	
+
 	public ComplainBoard(String id, String title, String content) {
 		super();
 		this.id = id;

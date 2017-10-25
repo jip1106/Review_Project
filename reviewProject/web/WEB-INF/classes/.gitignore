@@ -4,3 +4,8 @@
 /memberSharedBoard/
 /memberSharedComment/
 /memberReviewComment/
+/adminShareBoard/
+/adminSharedComment/
+/adminReviewComment/
+/adminComplainComment/
+/memberComplainComment/

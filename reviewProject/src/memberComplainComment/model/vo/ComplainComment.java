@@ -8,11 +8,15 @@ public class ComplainComment implements java.io.Serializable{
 	private String id;
 	private String commentContent;
 	private Date commentDate;
+	private String date;
 	
 	public ComplainComment(){
 		
 	}
-
+	
+	public ComplainComment(String date){
+		this.date = date;
+	}
 	public ComplainComment(int commentNo, int postingNo, String id, String commentContent, Date commentDate) {
 		super();
 		this.commentNo = commentNo;
@@ -60,6 +64,15 @@ public class ComplainComment implements java.io.Serializable{
 
 	public void setCommentDate(Date commentDate) {
 		this.commentDate = commentDate;
+	}
+
+	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	@Override
