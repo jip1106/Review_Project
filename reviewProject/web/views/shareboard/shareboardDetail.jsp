@@ -3,7 +3,7 @@
 <%
 	//int pnum = Integer.parseInt(request.getParameter("pnum"));
 	SharedBoard sb = (SharedBoard)request.getAttribute("sharedBoard");
-	int index = (Integer)request.getAttribute("index");
+	int index = (Integer)request.getAttribute("index");	//1 마이페이지   0  정보공유 게시판
 	int location = 0;
 
 	if(index==1){

@@ -179,5 +179,32 @@ public class ReviewBoardService {
 		close(con);
 		return list;
 	}
+	
+	public ArrayList<ReviewBoard> selectTop3Restaurant(){
+		//식당 좋아요 탑3 뽑아오는 메서드
+		Connection con = getConnection();
+		ArrayList<ReviewBoard> list = new ReviewBoardDao().selectTop3Restaurant(con);
+		close(con);
+		return list;
+	}
+	
+	public ArrayList<ReviewBoard> selectTop3Cafe(){
+		Connection con = getConnection();
+		ArrayList<ReviewBoard> list = new ReviewBoardDao().selectTop3Cafe(con);
+		close(con);
+		return list;
+	}
+	public ArrayList<ReviewBoard> selectTop3Hotel(){
+		Connection con = getConnection();
+		ArrayList<ReviewBoard> list = new ReviewBoardDao().selectTop3Hotel(con);
+		close(con);
+		return list;
+	}
+	public ArrayList<ReviewBoard> selectTop3Trans(){
+		Connection con = getConnection();
+		ArrayList<ReviewBoard> list = new ReviewBoardDao().selectTop3Trans(con);
+		close(con);
+		return list;
+	}
 
 }
