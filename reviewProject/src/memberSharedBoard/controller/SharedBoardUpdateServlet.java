@@ -35,13 +35,15 @@ public class SharedBoardUpdateServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		
+		int currentPage = Integer.parseInt(request.getParameter("page"));
 		SharedBoard sb = new SharedBoard();
 		sb.setPostingNum(Integer.parseInt(request.getParameter("no")));
 		sb.setTitle(request.getParameter("title"));
 		sb.setContent(request.getParameter("content"));
 		
 		if(new SharedBoardService().updateSharedBoard(sb)>0){
-			response.sendRedirect("/review/slist");
+			int num = sb.getPostingNum();
+			response.sendRedirect("/review/sdetail?no="+num+"&page="+currentPage);
 		}else{
 			RequestDispatcher view = request.getRequestDispatcher("views/shareboard/shareboardError.jsp");
 			request.setAttribute("errorMessage", "정보공유 게시판 게시물 수정 실패!");
