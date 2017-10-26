@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="memberSharedBoard.model.vo.SharedBoard,java.util.*,memberSharedComment.model.vo.SharedComment,java.sql.Date"%>
 <%
-
 	SharedBoard share = (SharedBoard)request.getAttribute("sharedBoard");
 	ArrayList<SharedComment> commentList = (ArrayList<SharedComment>)request.getAttribute("commentList");
 	int currentPage = (Integer)request.getAttribute("currentPage");
@@ -43,9 +42,9 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8 col-md-9">
-			<a href="#"><span class="badge">No.<%= share.getPostingNum() %></span></a> 
-			<a href="#"><span class="badge">조회수 : <%= share.getHits() %></span></a> 	
-			<a href="#"><span class="badge">날짜 : <%= share.getPostingDate() %></span></a>
+			<span class="badge">No.<%= share.getPostingNum() %></span>
+			<span class="badge">조회수 : <%= share.getHits() %></span>	
+			<span class="badge">날짜 : <%= share.getPostingDate() %></span>
 		</div>
 		<div class="nav nav-pills col-md-8 text-right">
 			<a href="#">작성자 : <%= share.getId() %></a> 
@@ -66,11 +65,11 @@
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 				<% if(member.getId().equals(share.getId())) {%>
-						<a href="/review/supview?no=<%= share.getPostingNum() %>" class="btn btn-default">수정</a>
-						<a href="/review/sdelete?no=<%= share.getPostingNum() %>&location=<%=location %>&index=<%= index %>" class="btn btn-default">삭제</a>
-						<a href="/review/slist" class="btn btn-default">목 록</a>
+						<a href="/review/supview?no=<%= share.getPostingNum() %>&page=<%=currentPage %>" class="btn btn-default">수정</a>
+						<a class="btn btn-default" onclick="board_delete()">삭제</a>
+						<a href="/review/slist?page=<%= currentPage %>" class="btn btn-default">목 록</a>
 				<% }else{ %>
-						<a href="/review/slist" class="btn btn-default">목 록</a>
+						<a href="/review/slist?page=<%= currentPage %>" class="btn btn-default">목 록</a>
 				<%} %>
 					</div>
 				</div>
@@ -79,6 +78,22 @@
 </div>
 </div>
 <br>
+
+<!-- 게시글 삭제여부 재확인 -->
+<script>
+function board_delete(){
+	if(confirm("해당 게시글을 삭제하시겠습니까?")){
+		location.href="/review/sdelete?no=<%= share.getPostingNum() %>&location=<%=location %>&index=<%= index %>&page=<%=currentPage%>";
+	}else{
+		return false;
+	}
+	
+}
+</script>
+
+
+
+
 
 <!-- 댓글공간 -->
 <script type="text/javascript">

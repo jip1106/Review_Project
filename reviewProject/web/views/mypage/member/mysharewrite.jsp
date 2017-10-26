@@ -66,12 +66,12 @@
 				<%for(SharedBoard board : sboardList){ %>
 					<tr>
 						<th class="col-md-2" > <%=board.getPostingNum() %></th>
-						<td class="col-md-2"><a href="/review/sdetail?no=<%=board.getPostingNum()%>&index=1"> <%=board.getTitle()%></a></td> 
+						<td class="col-md-2"><a href="/review/sdetail?no=<%=board.getPostingNum()%>&index=1&page=<%=currentPage%>"> <%=board.getTitle()%></a></td> 
 						<td class="col-md-2"><%=board.getId() %></td> 
 						<td class="col-md-2"><%=board.getPostingDate()%></td>
 						<td class="col-md-2"><%=board.getHits() %></td>
 						<td>
-						<a href="/review/sdelete?no=<%= board.getPostingNum()%>&index=1&location=1">
+						<a href="/review/sdelete?no=<%= board.getPostingNum()%>&index=1&location=1&page=<%=currentPage%>">
 							<button class="btn btn-primary" style="color: white">게시글 삭제</button>
 						</a>
 						<!-- 바뀐부분 -->

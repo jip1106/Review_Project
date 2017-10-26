@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="memberSharedBoard.model.vo.SharedBoard"%>
 <%
 	SharedBoard sb = (SharedBoard)request.getAttribute("sharedBoard");
+	int currentPage = (Integer)request.getAttribute("currentPage");
 %>    
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +33,7 @@
 			<h3 class="header">Shareboard Update</h3>
 			<p class="text-muted">회원들의 정보를 자유롭게 공유해주세요</p>
 			
-			<form role="form" name="" action="/review/supdate" method="post">
+			<form role="form" name="" action="/review/supdate?no=<%=sb.getPostingNum() %>&page=<%=currentPage %>" method="post">
 			<input type="hidden" name="no" value="<%= sb.getPostingNum() %>">
 			
 				<div class="form-group">
