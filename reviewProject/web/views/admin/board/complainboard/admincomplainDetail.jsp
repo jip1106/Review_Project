@@ -127,35 +127,39 @@
 	});
 </script>
 
+<!-- 댓글 쓰는 자리 -->
 <div class="col-sm-5">
 		<div class="badge">댓글을 입력해주세요</div>
 </div> 
-	<div class="col-sm-8 col-md-9">
-		<div class="comment comment_new">
-			<div class="comment__author_img"><%=member.getName()%></div>
-				<div class="comment__content">
-					<form>
-						<div class="form-group">
-							<label for="comment-new__textarea" class="sr-only">Enteryour comment</label>
-								<textarea class="form-control" rows="2" id="comment" placeholder="Enter your comment"></textarea>
-						</div>
-						<button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
-					</form>
-				</div>
-		</div>
 	
-				<!-- / .comment__new -->
+<div class="col-sm-8 col-md-9">
+	<div class="comment comment_new">
+		<div class="comment__author_img">	
+			<%=member.getName()%>[<%=member.getId() %>]
+		</div>
+		<div class="comment__content">
+			<form>
+				<div class="form-group">
+					<label for="comment-new__textarea" class="sr-only">Enteryour comment</label>
+						<textarea class="form-control" rows="2" id="comment" placeholder="Enter your comment"></textarea>
+				</div>
+				<button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
+			</form>
+		</div>
+	</div>
+	
+	<!-- / .comment__new -->
 				
-				<!-- Comments header -->
-				<div class="comment__header">
-					<span>List of Comments</span>
-				</div>
+	<!-- Comments header -->
+	<div class="comment__header">
+		<span>List of Comments</span>
+	</div>
 
-				<!-- 댓글 보여주는 자리-->
-				 <div id="viewComment">
+	<!-- 댓글 보여주는 자리-->
+	<div id="viewComment">
 						
-				</div>
-			</div> 
+	</div>
+</div> 
 			
 </body>
 </html>
