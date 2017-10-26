@@ -85,7 +85,7 @@
 		<% for(SharedBoard sb:list){ %>
 				<tr>
 					<td scope="row"><%= sb.getPostingNum() %></td>
-					<td class="col-md-6"><a href="/review/sdetail?no=<%= sb.getPostingNum()%>">
+					<td class="col-md-6"><a href="/review/sdetail?no=<%= sb.getPostingNum()%>&page=<%=currentPage%>">
 					<%= sb.getTitle() %></a></td> 
 						<!-- 상세정보로 이동하는 링크입니다. -->
 					<td class="col-md-1"><%= sb.getId() %></td> 
