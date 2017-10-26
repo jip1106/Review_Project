@@ -9,6 +9,7 @@ public class SharedComment implements java.io.Serializable{
 	private String id;
 	private String commentContent;
 	private Date commentDate;
+	private String commentStringDate;
 	
 	public SharedComment(){
 		
@@ -21,6 +22,11 @@ public class SharedComment implements java.io.Serializable{
 		this.id = id;
 		this.commentContent = commentContent;
 		this.commentDate = commentDate;
+	}
+	
+	public SharedComment(String commentStringDate) {
+		super();
+		this.commentStringDate = commentStringDate;
 	}
 
 	public int getCommentNo() {
@@ -61,6 +67,14 @@ public class SharedComment implements java.io.Serializable{
 
 	public void setCommentDate(Date commentDate) {
 		this.commentDate = commentDate;
+	}
+	
+	public String getCommentStringDate(){
+		return commentStringDate;
+	}
+	
+	public void setCommentStringDate(){
+		this.commentStringDate = commentStringDate;
 	}
 
 	@Override

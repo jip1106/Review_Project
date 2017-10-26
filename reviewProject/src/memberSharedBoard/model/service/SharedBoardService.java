@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import memberSharedBoard.model.dao.SharedBoardDao;
 import memberSharedBoard.model.vo.SharedBoard;
+import memberSharedComment.model.vo.SharedComment;
 
 public class SharedBoardService {
 
@@ -96,5 +97,12 @@ public class SharedBoardService {
 		return searchCount;
 	}
 
+	public ArrayList<SharedComment> selectCommentList(int no) {
+			Connection con = getConnection();
+			ArrayList<SharedComment> list = new SharedBoardDao().selectCommentList(con,no);
+			close(con);
+			return list;
+		}
+	}
 
-}
+
