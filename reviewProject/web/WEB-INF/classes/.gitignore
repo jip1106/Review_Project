@@ -7,3 +7,8 @@
 /memberSharedBoard/
 /memberComplainBoard/
 /memberReviewComment/
+/adminShareBoard/
+/adminSharedComment/
+/adminReviewComment/
+/adminComplainComment/
+/memberComplainComment/

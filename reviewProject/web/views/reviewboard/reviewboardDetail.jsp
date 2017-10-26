@@ -276,20 +276,20 @@
 	<div class="col-sm-5">
 		<div class="badge">댓글을 입력해주세요</div>
 	</div> 
-			<div class="col-sm-8 col-md-9">
-				<div class="comment comment_new">
-					<div class="comment__author_img"><%=member.getName()%></div>
-					<div class="comment__content">
-						<form>
-							<div class="form-group">
-								<label for="comment-new__textarea" class="sr-only">Enteryour comment</label>
+	<div class="col-sm-8 col-md-9">
+		<div class="comment comment_new">
+			<div class="comment__author_img"><%=member.getName()%></div>
+				<div class="comment__content">
+					<form>
+						<div class="form-group">
+							<label for="comment-new__textarea" class="sr-only">Enteryour comment</label>
 								<textarea class="form-control" rows="2" id="sendContent" placeholder="Enter your comment"></textarea>
-							</div>
-							<button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
-						</form>
-					</div>
-					<!-- / .comment__content -->
+						</div>
+						<button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
+					</form>
 				</div>
+					<!-- / .comment__content -->
+		</div>
 				<!-- / .comment__new -->
 				
 				<!-- Comments header -->

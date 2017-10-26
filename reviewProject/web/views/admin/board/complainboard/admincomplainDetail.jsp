@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="memberComplainBoard.model.vo.ComplainBoard"%>
+    pageEncoding="UTF-8" import="memberComplainBoard.model.vo.ComplainBoard,memberComplainComment.model.vo.ComplainComment"%>
 <%
 	ComplainBoard board = (ComplainBoard)request.getAttribute("board");
 	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
 	int limit = (Integer)request.getAttribute("limit");
 	int endPage = (Integer)request.getAttribute("endPage");
+	
 	
 %>   
 <!DOCTYPE html>
@@ -27,6 +28,8 @@
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
+    
+    <script type="text/javascript" src="/review/js/jquery-3.2.1.min.js"></script> 
 </head>
 <body>
 <%@ include file = "../../../../header.jsp" %>
@@ -67,14 +70,92 @@
 	</div>
 </div>
 
-<!-- 댓글공간 -->
-	<div class="container">
-		댓글 쓰는 공간
+<script type="text/javascript">
+	$(function(){
+		var boardPostNum = "<%=board.getPostingNo() %>";
+		
+		$.ajax({
+			url: "/review/adminComplaincomment.do",
+			data: {postNum:boardPostNum},
+			type: "get",
+			dataType : "json",
+			success: function(data){
+				var jsonStr = JSON.stringify(data);
+				var json = JSON.parse(jsonStr);
+				var memberId = "<%=member.getId()%>";
+							
+				var values="";
+					for(var i in json.list){
+						if(memberId === decodeURIComponent(json.list[i].id)){	
+						values +=
+							"<div class='comment'>"+
+								"<div class='comment__content' id='commentresetView'>"+
+									"<div class='comment__author_name'>"+									
+										"아이디 :"+decodeURIComponent(json.list[i].id)+ 
+									"</div>"+
+										"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
+										"<br>댓글내용" + decodeURIComponent(json.list[i].content) +
+										"<p>"+decodeURIComponent(json.list[i].content)+"</p>" +
+									
+										"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
+											"<a id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i>Remove</a>"+ 
+											"<a id='editComment'class='btn btn-default btn-xs'><i class='fa fa-edit'></i>Edit</a>"+ 
+										"</div>"+									
+								"</div>" +
+							"</div>" + "<hr>";
+						}else{
+														
+							values +=
+								"<div class='comment'>"+
+									"<div class='comment__content' id='commentresetView'>"+
+										"<div class='comment__author_name'>"+									
+											"아이디 : "+decodeURIComponent(json.list[i].id)+ 
+										"</div>"+
+											"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi, " ") +
+											"<br>댓글내용" +
+											"<p>"+decodeURIComponent(json.list[i].content)+"</p>"
+											+"<hr>"
+					
+						}
+					}
+				
+				$('#viewComment').html(values);
+			},error: function(data){
+				alert("에러");
+			}
+		})
+	});
+</script>
+
+<div class="col-sm-5">
+		<div class="badge">댓글을 입력해주세요</div>
+</div> 
+	<div class="col-sm-8 col-md-9">
+		<div class="comment comment_new">
+			<div class="comment__author_img"><%=member.getName()%></div>
+				<div class="comment__content">
+					<form>
+						<div class="form-group">
+							<label for="comment-new__textarea" class="sr-only">Enteryour comment</label>
+								<textarea class="form-control" rows="2" id="comment" placeholder="Enter your comment"></textarea>
+						</div>
+						<button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
+					</form>
+				</div>
+		</div>
 	
-	</div>
-	
-	<div class="container">
-		댓글 보여주는 공간
-	</div>
+				<!-- / .comment__new -->
+				
+				<!-- Comments header -->
+				<div class="comment__header">
+					<span>List of Comments</span>
+				</div>
+
+				<!-- 댓글 보여주는 자리-->
+				 <div id="viewComment">
+						
+				</div>
+			</div> 
+			
 </body>
 </html>
