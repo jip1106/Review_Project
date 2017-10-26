@@ -11,7 +11,7 @@ import memberComplainComment.model.vo.ComplainComment;
 
 public class ComplainCommentService {
 
-	public ArrayList<ComplainComment> viewComplainComment(String postNum) {
+	public ArrayList<ComplainComment> viewComplainComment(int postNum) {
 		// 댓글 불러오는 메서드
 		Connection con = getConnection();
 		ArrayList<ComplainComment> list = new ComplainCommentDao().viewComplainComment(con,postNum);
@@ -20,4 +20,5 @@ public class ComplainCommentService {
 		return list;
 	}
 
+	
 }

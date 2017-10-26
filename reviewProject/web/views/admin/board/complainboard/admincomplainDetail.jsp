@@ -5,7 +5,8 @@
 	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
 	int limit = (Integer)request.getAttribute("limit");
 	int endPage = (Integer)request.getAttribute("endPage");
-	ComplainComment comment = new ComplainComment();
+	
+	
 %>   
 <!DOCTYPE html>
 <html lang="en"> 
@@ -71,29 +72,28 @@
 
 <script type="text/javascript">
 	$(function(){
-		var boardPostNum = <%=board.getPostingNo() %>
+		var boardPostNum = "<%=board.getPostingNo() %>";
+		
 		$.ajax({
 			url: "/review/adminComplaincomment.do",
 			data: {postNum:boardPostNum},
 			type: "get",
 			dataType : "json",
 			success: function(data){
-				var memberId = "<%=member.getId()%>";
-				var writer = "<%=comment.getId()%>";	<!--수정해야됨! -->	
 				var jsonStr = JSON.stringify(data);
 				var json = JSON.parse(jsonStr);
+				var memberId = "<%=member.getId()%>";
+							
 				var values="";
-				
-				if(memberId === writer){
-					alert("같아요");
 					for(var i in json.list){
+						if(memberId === decodeURIComponent(json.list[i].id)){	
 						values +=
 							"<div class='comment'>"+
 								"<div class='comment__content' id='commentresetView'>"+
 									"<div class='comment__author_name'>"+									
 										"아이디 :"+decodeURIComponent(json.list[i].id)+ 
 									"</div>"+
-										"시간: "+ decodeURIComponent(json.list[i].date) +
+										"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
 										"<br>댓글내용" + decodeURIComponent(json.list[i].content) +
 										"<p>"+decodeURIComponent(json.list[i].content)+"</p>" +
 									
@@ -102,24 +102,22 @@
 											"<a id='editComment'class='btn btn-default btn-xs'><i class='fa fa-edit'></i>Edit</a>"+ 
 										"</div>"+									
 								"</div>" +
-							"</div>";
+							"</div>" + "<hr>";
+						}else{
+														
+							values +=
+								"<div class='comment'>"+
+									"<div class='comment__content' id='commentresetView'>"+
+										"<div class='comment__author_name'>"+									
+											"아이디 : "+decodeURIComponent(json.list[i].id)+ 
+										"</div>"+
+											"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi, " ") +
+											"<br>댓글내용" +
+											"<p>"+decodeURIComponent(json.list[i].content)+"</p>"
+											+"<hr>"
+					
+						}
 					}
-				}else{
-					alert("달라요");
-					for(var i in json.list){
-					values +=
-						"<div class='comment'>"+
-							"<div class='comment__content' id='commentresetView'>"+
-								"<div class='comment__author_name'>"+									
-									"아이디 : "+decodeURIComponent(json.list[i].id)+ 
-								"</div>"+
-									"시간: "+ decodeURIComponent(json.list[i].date) +
-									"<br>댓글내용" +
-									"<p>"+decodeURIComponent(json.list[i].content)+"</p>"
-									+"<hr>"
-				
-					}
-				}
 				
 				$('#viewComment').html(values);
 			},error: function(data){

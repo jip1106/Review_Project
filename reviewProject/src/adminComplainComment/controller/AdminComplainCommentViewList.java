@@ -40,11 +40,13 @@ public class AdminComplainCommentViewList extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("aplication/json; charset=utf-8");
 		
-		String postNum = request.getParameter("postNum");
+		int postNum = Integer.parseInt(request.getParameter("postNum"));
+				
+		ComplainCommentService ccommentService = new ComplainCommentService();
 		
-			
-		ArrayList<ComplainComment> list= new ComplainCommentService().viewComplainComment(postNum);
-			
+		ArrayList<ComplainComment> list= ccommentService.viewComplainComment(postNum);
+				
+		
 		JSONObject job = new JSONObject();
 		
 		JSONArray jarr = new JSONArray();
@@ -57,8 +59,10 @@ public class AdminComplainCommentViewList extends HttpServlet {
 			j.put("content", URLEncoder.encode(comment.getCommentContent(),"UTF-8"));
 			j.put("date", URLEncoder.encode(comment.getDate(),"UTF-8"));
 			
+			
 			jarr.add(j);
 		}
+		
 		
 		job.put("list", jarr);
 		
