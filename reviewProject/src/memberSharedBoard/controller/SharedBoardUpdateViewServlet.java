@@ -34,11 +34,13 @@ public class SharedBoardUpdateViewServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		
 		SharedBoard sharedBoard = new SharedBoardService().selectSharedBoard(Integer.parseInt(request.getParameter("no")));
+		int currentPage = Integer.parseInt(request.getParameter("page"));
 		
 		RequestDispatcher view = null;
 		if(sharedBoard != null) {
 			view = request.getRequestDispatcher("views/shareboard/shareboardUpdate.jsp");
 			request.setAttribute("sharedBoard", sharedBoard);
+			request.setAttribute("currentPage", currentPage);
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/shareboard/shareboardError.jsp");

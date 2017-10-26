@@ -31,10 +31,9 @@ public class SharedBoardDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
-		
+	
+		int currentPage = Integer.parseInt(request.getParameter("page"));
 		int location = Integer.parseInt(request.getParameter("location")); // 0 이면 정보공유 게시판에서 삭제하는거
-																			// 1이면 마이페이지 내가 쓴 정보공유 게시글 비고 에서 삭제하는거
-		
 		int index = 0; 
 		
 		if(location==1){
@@ -43,8 +42,9 @@ public class SharedBoardDeleteServlet extends HttpServlet {
 
 		
 		if(new SharedBoardService().deleteSharedBoard(Integer.parseInt(request.getParameter("no")) ) > 0) {
-			if(location==0 && index ==0){		//정보공유 게시판에서 삭제	
-				response.sendRedirect("/review/slist");
+			if(location==0 && index ==0){		//정보공유 게시판에서 삭제		
+				// 1이면 마이페이지 내가 쓴 정보공유 게시글 비고 에서 삭제하는거
+				response.sendRedirect("/review/slist?page="+currentPage);
 			}
 			else if(location==1 && index ==1){	//마이페이지에서 삭제
 				response.sendRedirect("/review/views/mypage/member/mysharewrite.jsp");
