@@ -54,6 +54,8 @@ public class ComplainCommentDao {
             comment.setCommentContent(rset.getString("comment_content"));
             comment.setCommentDate(rset.getDate("comment_date"));
             list.add(comment);
+            
+            
          }
       }catch(Exception e){
          e.printStackTrace();

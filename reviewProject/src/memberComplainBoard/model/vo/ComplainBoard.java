@@ -13,9 +13,15 @@ public class ComplainBoard implements java.io.Serializable{
 	private int hits;
 	private Date postingDate;
 	private int delYN;
+	private String stringDate; 
 	
 	public ComplainBoard(){}
 	
+	public ComplainBoard(String stringDate) {
+		super();
+		this.stringDate = stringDate;
+	}
+
 	public ComplainBoard(String id, String title, String content) {
 		super();
 		this.id = id;
@@ -33,6 +39,14 @@ public class ComplainBoard implements java.io.Serializable{
 		this.hits = hits;
 		this.postingDate = postingDate;
 		this.delYN = delYN;
+	}
+	
+	public String getStringDate() {
+		return stringDate;
+	}
+
+	public void setStringDate(String stringDate) {
+		this.stringDate = stringDate;
 	}
 
 	public int getPostingNo() {

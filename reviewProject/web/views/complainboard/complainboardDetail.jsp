@@ -110,7 +110,7 @@
                                        json += "시간: "+j.list[i].timePosted;
                                        json += "<br> 댓글내용";
                                        json += "<p>";
-                                       json += decodeURIComponent(j.list[i].content.replace('+',' '));
+                                       json += j.list[i].content;
                                        json += "</p>";
                                        var id = decodeURIComponent(j.list[i].userId);
                                        var nowid="";
@@ -166,9 +166,10 @@
                                        json += "시간: "+j.list[i].timePosted;
                                        json += "<br> 댓글내용";
                                        json += "<p>";
-                                       json += decodeURIComponent(j.list[i].content);
+                                       json += j.list[i].content;
                                        json += "</p>";
                                        var id = decodeURIComponent(j.list[i].userId);
+                                       
                                        var nowid="";
                                        nowid = "<%=member.getId()%>";
 
@@ -212,7 +213,7 @@
                                           json += "시간: "+j.list[i].timePosted;
                                           json += "<br> 댓글내용";
                                           json += "<p>";
-                                          json += decodeURIComponent(j.list[i].content);
+                                          json += j.list[i].content;
                                           json += "</p>";
                                           var id = decodeURIComponent(j.list[i].userId);
                                           var nowid="";
@@ -273,11 +274,11 @@
                         <div class="comment__author_name">
                            아이디: <%=commentList.get(i).getId()%> 
                         </div>
-                           시간: <%=commentList.get(i).getCommentDate()%><br>
+                           시간: <%=commentList.get(i).getStringDate()%><br>
                            댓글내용
                            <p><%=commentList.get(i).getCommentContent()%></p> 
                         <%if(member.getId().equals(commentList.get(i).getId())){%> 
-                           <div class="btn-group pull-right" role="group" aria-label="comment__actions">
+                           <div class="btn-group pull-right" role="group" aria-label="comment__actions" onclick="window.scrollTo(10,10);">
                               <a id="removeComment"class="btn btn-default btn-xs"><i class="fa fa-times"></i>Remove</a> 
                               <a id="editComment"class="btn btn-default btn-xs"><i class="fa fa-edit"></i>Edit</a> 
                            </div>

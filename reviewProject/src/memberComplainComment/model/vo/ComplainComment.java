@@ -2,78 +2,91 @@ package memberComplainComment.model.vo;
 
 import java.sql.Date;
 
-public class ComplainComment implements java.io.Serializable{
-   private int commentNo; 
-   private int postingNo;
-   private String id;
-   private String commentContent;
-   private Date commentDate;
-   
-   public ComplainComment(){
-      
-   }
+public class ComplainComment implements java.io.Serializable {
+	private int commentNo;
+	private int postingNo;
+	private String id;
+	private String commentContent;
+	private Date commentDate;
+	private String stringDate;
 
-   public ComplainComment(int commentNo, int postingNo, String id, String commentContent, Date commentDate) {
-      super();
-      this.commentNo = commentNo;
-      this.postingNo = postingNo;
-      this.id = id;
-      this.commentContent = commentContent;
-      this.commentDate = commentDate;
-   }
-   
+	public ComplainComment() {
 
-   public ComplainComment(int postingNo, String id, String commentContent) {
-      super();
-      this.postingNo = postingNo;
-      this.id = id;
-      this.commentContent = commentContent;
-   }
+	}
 
-   public int getCommentNo() {
-      return commentNo;
-   }
+	public ComplainComment(String stringDate) {
+		super();
+		this.stringDate = stringDate;
+	}
 
-   public void setCommentNo(int commentNo) {
-      this.commentNo = commentNo;
-   }
+	public ComplainComment(int commentNo, int postingNo, String id, String commentContent, Date commentDate) {
+		super();
+		this.commentNo = commentNo;
+		this.postingNo = postingNo;
+		this.id = id;
+		this.commentContent = commentContent;
+		this.commentDate = commentDate;
+	}
 
-   public int getPostingNo() {
-      return postingNo;
-   }
+	public ComplainComment(int postingNo, String id, String commentContent) {
+		super();
+		this.postingNo = postingNo;
+		this.id = id;
+		this.commentContent = commentContent;
+	}
 
-   public void setPostingNo(int postingNo) {
-      this.postingNo = postingNo;
-   }
+	public String getStringDate() {
+		return stringDate;
+	}
 
-   public String getId() {
-      return id;
-   }
+	public void setStringDate(String stringDate) {
+		this.stringDate = stringDate;
+	}
 
-   public void setId(String id) {
-      this.id = id;
-   }
+	public int getCommentNo() {
+		return commentNo;
+	}
 
-   public String getCommentContent() {
-      return commentContent;
-   }
+	public void setCommentNo(int commentNo) {
+		this.commentNo = commentNo;
+	}
 
-   public void setCommentContent(String commentContent) {
-      this.commentContent = commentContent;
-   }
+	public int getPostingNo() {
+		return postingNo;
+	}
 
-   public Date getCommentDate() {
-      return commentDate;
-   }
+	public void setPostingNo(int postingNo) {
+		this.postingNo = postingNo;
+	}
 
-   public void setCommentDate(Date commentDate) {
-      this.commentDate = commentDate;
-   }
+	public String getId() {
+		return id;
+	}
 
-   @Override
-   public String toString() {
-      return "SharedComment [commentNo=" + commentNo + ", postingNo=" + postingNo + ", id=" + id + ", commentContent="
-            + commentContent + ", commentDate=" + commentDate + "]";
-   }
-   
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getCommentContent() {
+		return commentContent;
+	}
+
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
+	}
+
+	public Date getCommentDate() {
+		return commentDate;
+	}
+
+	public void setCommentDate(Date commentDate) {
+		this.commentDate = commentDate;
+	}
+
+	@Override
+	public String toString() {
+		return "SharedComment [commentNo=" + commentNo + ", postingNo=" + postingNo + ", id=" + id + ", commentContent="
+				+ commentContent + ", commentDate=" + commentDate + "]";
+	}
+
 }

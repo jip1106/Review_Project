@@ -67,13 +67,13 @@ public class InsertComplainCommentServlet extends HttpServlet {
                j.put("commentNo", comment.getCommentNo());
                j.put("postingNo", comment.getPostingNo()); 
                j.put("userId", URLEncoder.encode(comment.getId(),"UTF-8"));
-               j.put("content",URLEncoder.encode(comment.getCommentContent(),"UTF-8"));
+               j.put("content",(comment.getCommentContent()).replaceAll("\n", "<br>"));
                Date from = new Date(); 
                SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-               String to = transFormat.format(from);
+               String to = transFormat.format(comment.getCommentDate());
                j.put("timePosted", to);
-               
                jarr.add(j);
+
             }
             
             job.put("list",jarr);

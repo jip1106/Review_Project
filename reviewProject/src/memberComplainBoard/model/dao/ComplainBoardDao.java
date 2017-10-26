@@ -43,14 +43,14 @@ public class ComplainBoardDao {
 
    }
 
-   // 전체게시글 조회 page 처리 해야함
+  
    public ArrayList<ComplainBoard> selectList(Connection con, int Page, int limit) {
 
       ArrayList<ComplainBoard> list = null;
       PreparedStatement pstmt = null;
       ResultSet rset = null;
 
-      String query = "select * from "
+      String query = "select posting_no, replace(id,substr(id,3),'**')as id, title, content, hits, posting_date, del_yn from "
             + "(select rownum as rnum, posting_no,id,title,content,hits,posting_date,del_yn "
             + "from (select * from complain_board order by posting_no desc)) " + "where rnum>=? and rnum<=?";
 
@@ -309,7 +309,9 @@ public class ComplainBoardDao {
    public ArrayList<ComplainComment> selectCommentList(Connection con, int bnum) {
       PreparedStatement pstmt = null;
       ResultSet rset = null;
-      String query = "select * from complain_comment where posting_no = ? order by comment_no desc";
+      String query = "select comment_no,posting_no,id,comment_content, "
+      		+ "to_char(comment_date,'yyyy-mm-dd hh24:mi:ss') as comment_date"
+      		+ " from complain_comment where posting_no = ? order by comment_no desc";
       ArrayList<ComplainComment> list = new ArrayList<ComplainComment>();
       ComplainComment comment = null;
       try{
@@ -319,12 +321,11 @@ public class ComplainBoardDao {
          rset = pstmt.executeQuery();
          
          while(rset.next()){
-            comment = new ComplainComment();
+            comment = new ComplainComment(rset.getString("comment_date"));
             comment.setCommentNo(rset.getInt("comment_no"));
             comment.setPostingNo(rset.getInt("posting_no"));
             comment.setId(rset.getString("id"));
             comment.setCommentContent(rset.getString("comment_content"));
-            comment.setCommentDate(rset.getDate("comment_date"));
             list.add(comment);
          }
       }catch(Exception e){
