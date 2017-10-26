@@ -1,7 +1,6 @@
 package adminComplainComment.model.service;
 
-import static common.JDBCTemplate.close;
-import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -18,6 +17,33 @@ public class ComplainCommentService {
 		close(con);
 		
 		return list;
+	}
+
+	public void insertComment(int postNum,String id,String content) {
+		// 댓글 입력
+		Connection con = getConnection();
+		int result = new ComplainCommentDao().insertComment(con, postNum,id,content);
+		
+		if(result >0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+		
+	}
+
+	public void deleteComment(int postNum, int commentNum, String id) {
+		// 댓글 삭제
+		Connection con = getConnection();
+		int result = new ComplainCommentDao().deleteComment(con,postNum,commentNum,id);
+		
+		if(result>0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
 	}
 
 	
