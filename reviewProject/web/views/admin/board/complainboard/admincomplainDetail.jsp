@@ -77,7 +77,7 @@
 	});
 	
 	function selectComment(){
-var boardPostNum = "<%=board.getPostingNo() %>";
+		var boardPostNum = "<%=board.getPostingNo() %>";
 		
 		$.ajax({
 			url: "/review/adminComplaincomment.do",
@@ -90,7 +90,7 @@ var boardPostNum = "<%=board.getPostingNo() %>";
 				var memberId = "<%=member.getId()%>";
 							
 				var values="";
-					for(var i in json.list){
+					for(var i in json.list){   
 						if(memberId === decodeURIComponent(json.list[i].id)){	
 						values +=
 							"<div class='comment'>"+
@@ -99,12 +99,12 @@ var boardPostNum = "<%=board.getPostingNo() %>";
 										"아이디 :"+decodeURIComponent(json.list[i].id)+ 
 									"</div>"+
 										"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
-										"<br>댓글내용" + decodeURIComponent(json.list[i].content) +
-										"<p>"+decodeURIComponent(json.list[i].content)+"</p>" +
+										"<br>댓글내용 :"+
+										"<p><h2>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</h2></p>" +
 									
 										"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
-											"<a id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i>Remove</a>"+ 
-											"<a id='editComment'class='btn btn-default btn-xs'><i class='fa fa-edit'></i>Edit</a>"+ 
+											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
+											"<a id='editComment'class='btn btn-default btn-xs' onclick='return editCommentFun();'><i class='fa fa-edit'></i>Edit</a>"+ 
 										"</div>"+									
 								"</div>" +
 							"</div>" + "<hr>";
@@ -117,8 +117,8 @@ var boardPostNum = "<%=board.getPostingNo() %>";
 											"아이디 : "+decodeURIComponent(json.list[i].id)+ 
 										"</div>"+
 											"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi, " ") +
-											"<br>댓글내용" +
-											"<p>"+decodeURIComponent(json.list[i].content)+"</p>"
+											"<br>댓글내용 :" +
+											"<h2>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</h2>"
 											+"<hr>"
 					
 						}
@@ -129,6 +129,51 @@ var boardPostNum = "<%=board.getPostingNo() %>";
 				alert("에러");
 			}
 		})
+	}
+	
+	
+	function insertComment(){
+		if($("#commentContent").val() ==""){
+			alert("댓글 내용을 입력해주세요!");
+			focus("#commentContent");
+			return false;
+		}else{
+			var postNum = "<%=board.getPostingNo()%>";
+			var id = "<%=member.getId()%>";
+			var content = $("#commentContent").val();
+			$.ajax({	
+				url:"/review/insertComplainComment.do",
+				data:{postNum:postNum, id:id, content:content}, //key,value
+				type:"get",
+				async:false
+			
+			});
+			$("#commentContent").val("");
+			selectComment();
+			return true;
+			
+		}
+	}
+	
+	function removeCommentFun(commentNo){	//댓글 삭제
+		//넘겨야 될 값 : 게시글 번호, 댓글 번호, 아이디
+		if(confirm("정말 댓글을 삭제하시겠습니까?")==false){
+			return false;
+		}else{
+			var postNum = "<%=board.getPostingNo()%>";
+			var id = "<%=member.getId()%>";
+			var commentNum = commentNo+"";
+			$.ajax({
+				url:"/review/deleteComplainComment.do",
+				data:{postNum:postNum, id:id, commentNum:commentNum},
+				type:"get",
+				async:false
+			})
+			
+			selectComment();
+			alert("삭제 되었습니다.");
+			return true;
+		}
 	}
 	
 </script>
@@ -147,9 +192,9 @@ var boardPostNum = "<%=board.getPostingNo() %>";
 			<form>
 				<div class="form-group">
 					<label for="comment-new__textarea" class="sr-only">Enter your comment</label>
-						<textarea class="form-control" rows="2" id="comment" placeholder="Enter your comment"></textarea>
+						<textarea class="form-control" rows="2" id="commentContent" placeholder="Enter your comment"></textarea>
 				</div>
-				<button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
+				<button type="button" id="sendComment" class="btn btn-primary" onclick="return insertComment();" >Send Comment</button> 
 			</form>
 		</div>
 	</div>

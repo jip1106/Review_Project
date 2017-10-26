@@ -80,5 +80,7 @@ public class ComplainComment implements java.io.Serializable{
 		return "SharedComment [commentNo=" + commentNo + ", postingNo=" + postingNo + ", id=" + id + ", commentContent="
 				+ commentContent + ", commentDate=" + commentDate + "]";
 	}
+
+
 	
 }
