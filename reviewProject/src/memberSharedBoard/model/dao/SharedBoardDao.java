@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import memberSharedBoard.model.vo.SharedBoard;
+import memberSharedComment.model.vo.SharedComment;
 
 public class SharedBoardDao {
 
@@ -294,5 +295,38 @@ public class SharedBoardDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public ArrayList<SharedComment> selectCommentList(Connection con, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = "select "
+				+ "comment_no, posting_no, id, comment_content, "
+				+ "to_char(comment_date, 'YYYY-fmMM-fmDD HH24:MI:SS') as comment_date "
+				+ " from share_comment where posting_no = ? order by comment_no desc";
+		ArrayList<SharedComment> list = new ArrayList<SharedComment>();
+		SharedComment comment = null;
+		try{
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				comment = new SharedComment(rset.getString("comment_date"));
+				comment.setCommentNo(rset.getInt("comment_no"));
+				comment.setPostingNo(rset.getInt("posting_no"));
+				comment.setId(rset.getString("id"));
+				comment.setCommentContent(rset.getString("comment_content"));
+				
+				list.add(comment);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 }
