@@ -2,7 +2,7 @@ package memberComplainComment.model.vo;
 
 import java.sql.Date;
 
-public class ComplainComment implements java.io.Serializable{
+public class ComplainComment implements java.io.Serializable {
 	private int commentNo;
 	private int postingNo;
 	private String id;
@@ -10,13 +10,15 @@ public class ComplainComment implements java.io.Serializable{
 	private Date commentDate;
 	private String date;
 	
-	public ComplainComment(){
-		
+
+	public ComplainComment() {
+
 	}
 	
 	public ComplainComment(String date){
 		this.date = date;
 	}
+	
 	public ComplainComment(int commentNo, int postingNo, String id, String commentContent, Date commentDate) {
 		super();
 		this.commentNo = commentNo;
@@ -25,6 +27,14 @@ public class ComplainComment implements java.io.Serializable{
 		this.commentContent = commentContent;
 		this.commentDate = commentDate;
 	}
+
+	public ComplainComment(int postingNo, String id, String commentContent) {
+		super();
+		this.postingNo = postingNo;
+		this.id = id;
+		this.commentContent = commentContent;
+	}
+
 
 	public int getCommentNo() {
 		return commentNo;
@@ -82,5 +92,9 @@ public class ComplainComment implements java.io.Serializable{
 	}
 
 
+
 	
 }
+
+
+

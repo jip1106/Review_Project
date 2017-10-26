@@ -67,7 +67,7 @@
 					<tr>
 						<th class="col-md-2" > <%=board.getPostingNo() %></th>
 						<!-- 바뀐 부분 -->
-						<td class="col-md-2"><a href="/review/cdetail?bnum=<%=board.getPostingNo()%>&index=1"> <%=board.getTitle()%></a></td> 
+						<td class="col-md-2"><a href="/review/cdetail?bnum=<%=board.getPostingNo()%>&index=1&Page=1"> <%=board.getTitle()%></a></td> 
 							<!-- 합치고 연결 해야됨 -->
 						<td class="col-md-2"><%=board.getId() %></td> 
 						<td class="col-md-2"><%=board.getPostingDate()%></td>
