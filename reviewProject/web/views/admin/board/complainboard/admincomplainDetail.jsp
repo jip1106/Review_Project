@@ -174,9 +174,7 @@
 	}
 	
 	function viewEditCommentFun(commentNo){	
-		console.log(commentNo);
-		console.log(previousContent);
-		
+			
 		var commentNum = commentNo+"";		
 		var divId = '#updateWriteForm'+commentNum;
 		var editCommentId = '#editComment'+commentNum;
