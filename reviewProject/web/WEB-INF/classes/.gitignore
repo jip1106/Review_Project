@@ -1,13 +1,2 @@
-/adminReviewBoard/
-/memberComplainBoard/
-/memberReviewBoard/
-/memberSharedBoard/
-/memberSharedComment/
-/memberReviewComment/
-/adminShareBoard/
-/adminSharedComment/
-/adminReviewComment/
-/adminComplainComment/
-/memberComplainComment/
 /member/
-/adminNotice/
+/admin/

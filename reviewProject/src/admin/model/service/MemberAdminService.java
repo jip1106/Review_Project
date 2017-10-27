@@ -76,5 +76,17 @@ public class MemberAdminService {
 		return result;
 	}
 
+	public void insertExileMember(String email) {
+		Connection con = getConnection();
+		int result = new MemberAdminDao().insertExileMember(con, email);
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+	}
+
 	
 }

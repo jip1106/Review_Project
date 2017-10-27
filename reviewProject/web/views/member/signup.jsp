@@ -21,17 +21,49 @@
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
     
-    <script type="text/javascript">
-    	
-    	function checkpw(){
-    		if(document.getElementById('sign-up__password').value != document.getElementById('sign-up__password_repeat').value){
-    			alert("비밀번호를 확인해주세요!");
-    			document.signupForm.repeatPassword.focus();
-    			return false;
-    		}
-    		return true;
-    	}
+    <script type="text/javascript" src="/review/js/jquery-3.2.1.min.js"></script> 
+
     
+    <script type="text/javascript">
+    	$(document).ready(function(){
+    		
+    		$("#signupForm").submit(function(){
+    			var password = $(":input[name=password]").val();
+    			var repeatpassword = $(":input[name=repeatPassword]").val();
+    			
+    			if(password != repeatpassword){
+    				alert("비밀번호를 확인해주세요");
+    				$(":input[name=repeatPassword]").focus();
+    				return false;
+    			}
+    			return true;
+    		});
+    		
+    		
+    		$(":input[name=id]").keyup(function(){
+    			
+    			var userId = $(this).val().trim();
+    			var queryString = {id: userId};
+    			var fail = "fail";
+    			
+    			$.ajax({ 
+    				type: "post",
+    				url: "/review/memberIdCheck",
+    				data: queryString,
+    				success: function(data){
+    					if(data.trim() == fail.trim()){ 
+    						$("#idCheckView").html(" "+userId+"는 사용하실 수 없는 아이디 입니다!").css("color", "red");
+    						
+    					}else{
+    						$("#idCheckView").html(" "+userId+"는 사용할 수 있는 아이디 입니다!").css("color", "green");
+    						
+    					}
+    				}
+    			});
+    		   
+    		});	
+    	
+    	});
     </script>
   </head>
 
@@ -52,10 +84,10 @@
           <div class="body-plain__form">
 
             <!-- Sign Up form  -->
-            <form role="form" action="/review/signup" method="post" name="signupForm" onsubmit="return checkpw()">
+            <form role="form" action="/review/signup" method="post" id="signupForm" name="signupForm" onsubmit="return checkpw()">
   			  <div class="form-group">
                   <label for="sign-up__name" class="sr-only">ID</label>
-              	  <input type="text" class="form-control" id="sign-up__id" name="id" placeholder="아이디" required>
+              	  <input type="text" class="form-control" id="sign-up__id" name="id" placeholder="아이디" style="size: 30" required>
               	  <span id="idCheckView"></span>
               </div>
               <div class="form-group">

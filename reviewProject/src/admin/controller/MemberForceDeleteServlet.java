@@ -37,6 +37,7 @@ public class MemberForceDeleteServlet extends HttpServlet {
 		
 		String id = request.getParameter("id");
 		MemberAdminService maservice = new MemberAdminService();
+		String email = request.getParameter("email");
 		
 		int currentPage = 1;
 		if(request.getParameter("page")!=null){
@@ -54,7 +55,7 @@ public class MemberForceDeleteServlet extends HttpServlet {
 			endPage = maxPage;
 		}		
 		
-		
+		maservice.insertExileMember(email);
 		int result = maservice.deleteMember(id);
 				
 		ArrayList<Member> list = maservice.viewAllMember(currentPage,limit);

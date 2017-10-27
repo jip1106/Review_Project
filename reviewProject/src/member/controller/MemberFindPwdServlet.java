@@ -1,31 +1,30 @@
 package member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import common.CryptTemplate;
 import member.model.service.MemberService;
-import member.model.vo.Member;
 import member.model.vo.PasswordSecurity;
+import member.model.vo.RandomPassword;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class MemberFindPwdServlet
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet implements CryptTemplate{
+@WebServlet("/memberFindPwd")
+public class MemberFindPwdServlet extends HttpServlet implements CryptTemplate{
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public MemberFindPwdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,39 +33,48 @@ public class LoginServlet extends HttpServlet implements CryptTemplate{
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//로그인 서블릿
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
 		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-				
-		MemberService mservice = new MemberService();
-		Member member = mservice.loginCheck(id,password);
+		
+		String name = request.getParameter("name");
+		
+		String email = request.getParameter("email");
 		
 		
+		MemberService service = new MemberService();
+		String pwd = service.memberfindPwd(id,name,email);
+		String value = "";
 		
-		RequestDispatcher view = null;
-		if(member!=null){
+		if(pwd != null){
+			
+			int num = 5;
+			RandomPassword rp = new RandomPassword();
+			pwd = rp.getRandomPassword(num);
+			
+			service.insertChangePassword(id,pwd);
+			String changePwd = service.selectPwd(id);
 			PasswordSecurity ps = new PasswordSecurity(KEY_SIZE, ITERATION_COUNT);
-			String decrypt = ps.decrypt(SALT, IV, PASSPHRASE, member.getPassword());
-			member.setPassword(decrypt.trim());
+			String decrypt = ps.decrypt(SALT, IV, PASSPHRASE, changePwd);
+		
+			value = decrypt;
 			
-			HttpSession session = request.getSession();
-			session.setAttribute("member", member);
-				
-			if(member.getUserType()==0){ //관리자
-				response.sendRedirect("/review/views/admin/main/adminMain.jsp");
-			}else{ //사용자
-				response.sendRedirect("/review/views/main/main.jsp");
-			}
+			PrintWriter pw = response.getWriter();
+			pw.println(value);
+			pw.flush();
+			pw.close();
 		}else{
-			view = request.getRequestDispatcher("views/member/memberError.jsp");
-			request.setAttribute("message", "로그인 실패! 아이디 또는 암호 확인하세요");
-			view.forward(request, response);
+			value = "fail";
+			PrintWriter pw = response.getWriter();
+			pw.println(value);
+			pw.flush();
+			pw.close();
 		}
-			
+		
+		
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

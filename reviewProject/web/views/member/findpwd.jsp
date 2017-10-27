@@ -10,7 +10,7 @@
 <meta name="author" content="">
 <!--<link rel="icon" href="img/favicon.ico">-->
 
-<title>혼자서도 잘해요</title>
+<title>findpwd</title>
 
 <!-- CSS Global -->
 <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
@@ -29,7 +29,37 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-<script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
+   <script type="text/javascript" src="/review/js/jquery-3.2.1.min.js"></script> 
+
+    
+    <script type="text/javascript">
+    	$(document).ready(function(){
+    		
+	    	$("#findPassword").click(function(){
+	    			
+	    			var userId = $("#id").val().trim();
+	    			var userName = $("#name").val().trim();
+	    			var userEmail = $("#email").val().trim();
+	    			var queryString = {id: userId, name: userName, email: userEmail};
+	    			var check = "fail";
+	    			
+	    			$.ajax({ 
+	    				type: "post",
+	    				url: "/review/memberFindPwd",
+	    				data: queryString,
+	    				success: function(data){
+	    					if(data.trim() == check.trim()){
+	    						$("#findPwd").html("입력하신 정보와 일치하는 비밀번호가 없습니다.").css("color", "red");
+	    					}else{
+	    						$("#findPwd").html("임시비밀번호 "+data+" 로 로그인하세요!").css("color", "green");
+	    					}
+	    				}
+	    			});
+	    		   
+	    		});	
+    	
+    	});
+</script>
 
 </head>
 
@@ -56,25 +86,27 @@
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
 				<div class="body-plain__form">
 					<!-- Sign In form -->
-					<form role="form" method="post" action="">
+					<form role="form" method="post">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="text" class="form-control" id="sign-in__id" name="id" placeholder="아이디를 입력하세요">
+							<input type="text" class="form-control" id="id" name="id" placeholder="아이디를 입력하세요">
 						</div>
 						<br>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-							<input type="password" class="form-control" id="sign-in__name" name="name" placeholder="이름을 입력하세요">
+							<input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요">
 						</div>
 						<br>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-							<input type="email" class="form-control" id="sign-in__email" name="email" placeholder="이메일을 입력하세요">
+							<input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요">
 						</div>
 						<br>
-						<button type="submit" class="btn btn-primary btn-block btn-lg">비밀번호 찾기</button>
+						<button type="button" id="findPassword" class="btn btn-primary btn-block btn-lg">비밀번호 찾기</button>
 						<button type="reset" class="btn btn-primary btn-block btn-lg">취소</button>
 					</form>
+					<br>
+					<span id=findPwd></span>
 			<!-- Footer -->
 					<div class="body-plain__footer">
 						Copyright 2016 <a href="http://simpleqode.com/">Simpleqode.com</a>.
