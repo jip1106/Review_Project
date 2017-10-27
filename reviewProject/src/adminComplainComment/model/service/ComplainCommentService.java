@@ -46,5 +46,18 @@ public class ComplainCommentService {
 		close(con);
 	}
 
+	public void updateComment(int postNum, int commentNum, String id,String content) {
+		Connection con = getConnection();
+		int result = new ComplainCommentDao().updateComment(con,postNum,commentNum,id,content);
+		
+		if(result>0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+		
+	}
+
 	
 }

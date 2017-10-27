@@ -45,7 +45,6 @@ public class AdminComplainCommentViewList extends HttpServlet {
 		ComplainCommentService ccommentService = new ComplainCommentService();
 		
 		ArrayList<ComplainComment> list= ccommentService.viewComplainComment(postNum);
-				
 		
 		JSONObject job = new JSONObject();
 		
@@ -58,7 +57,6 @@ public class AdminComplainCommentViewList extends HttpServlet {
 			j.put("id", URLEncoder.encode(comment.getId(),"UTF-8"));
 			j.put("content", URLEncoder.encode(comment.getCommentContent(),"UTF-8"));
 			j.put("date", URLEncoder.encode(comment.getDate(),"UTF-8"));
-			
 			
 			jarr.add(j);
 		}
