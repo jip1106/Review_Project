@@ -117,17 +117,16 @@ public class ComplainBoardDao {
       return result;
    }
 
-   public ComplainBoard selectBoard(Connection con, int bnum) {
+   public ComplainBoard selectBoard(Connection con, int bnum, String id) {
       ComplainBoard ComplainBoard = null;
       PreparedStatement pstmt = null;
       ResultSet rset = null;
 
-      String query = "select * from complain_board where posting_no = ?";
+      String query = "select posting_no, replace(id,substr(id,3),'**')as id, title, content, hits, posting_date, del_yn from complain_board where posting_no = ?";
 
       try {
          pstmt = con.prepareStatement(query);
          pstmt.setInt(1, bnum);
-
          rset = pstmt.executeQuery();
 
          if (rset.next()) {
@@ -229,15 +228,16 @@ public class ComplainBoardDao {
       String query = null;
       
       if(searchValue.equals("findByTitle")){
-      query = "select * from "
+      query = "select posting_no, replace(id,substr(id,3),'**') as id, title, content, hits, posting_date, del_yn from "
             + "(select rownum as rnum, posting_no,id,title,content,hits,posting_date,del_yn "
             + "from (select * from complain_board where title like ? order by posting_no desc)) " + "where rnum>=? and rnum<=?";
+
       }
-      else if(searchValue.equals("findByWriter")){
+      /*else if(searchValue.equals("findByWriter")){
          query = "select * from "
                + "(select rownum as rnum, posting_no,id,title,content,hits,posting_date,del_yn "
                + "from (select * from complain_board where id like ? order by posting_no desc)) " + "where rnum>=? and rnum<=?";
-      }
+      }*/
 
       int startRow = (Page - 1) * limit + 1;
       int endRow = startRow + limit - 1;

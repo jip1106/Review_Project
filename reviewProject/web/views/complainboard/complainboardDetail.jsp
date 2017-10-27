@@ -4,6 +4,13 @@
     <%
       ComplainBoard Complainboard = (ComplainBoard)request.getAttribute("Complainboard"); 
        int currentPage = (Integer)request.getAttribute("Page");       
+       
+       String id = null;    		
+       if(request.getAttribute("id")!=null){
+    	   id = (String)request.getAttribute("id");
+       }
+       
+       System.out.println("jsp id :=================== " + id);
         ArrayList<ComplainComment> commentList = (ArrayList<ComplainComment>)request.getAttribute("commentList");
        //바뀐부분
        int index = (Integer)request.getAttribute("index");
@@ -12,6 +19,8 @@
        if(index==1){
           location =1;
        }
+       //문자열 자르기
+       String str = Complainboard.getId();
     %>
 <!DOCTYPE html>
 <html lang="en"> 
@@ -48,7 +57,8 @@
          <span class="badge">날짜 : <%= Complainboard.getPostingDate() %></span>
       </div>
       <div class="nav nav-pills col-md-8 text-right">
-         <a href="#">작성자 : <%= Complainboard.getId() %></a> 
+     
+         <a href="#">작성자 : <%= str %></a> 
       </div>
    </div>
    <div class="container">

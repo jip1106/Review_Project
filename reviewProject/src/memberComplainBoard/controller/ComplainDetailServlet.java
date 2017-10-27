@@ -42,6 +42,9 @@ public class ComplainDetailServlet extends HttpServlet {
             //바뀐부분
             int index = 0; //신고 게시판에서 글 제목 누른경우
             
+            String id = request.getParameter("id");
+            
+            
             if(request.getParameter("index")!=null){
                index = Integer.parseInt(request.getParameter("index"));//마이 페이지에서 내가쓴 신고글 글 제목 눌렀을 때
             }
@@ -53,12 +56,13 @@ public class ComplainDetailServlet extends HttpServlet {
             
             //조회수 증가 처리
             cbservice.addReadCount(bnum);
-            ComplainBoard Complainboard = cbservice.selectBoard(bnum);
+            
+            ComplainBoard Complainboard = cbservice.selectBoard(bnum,id);
             
             ArrayList<ComplainComment> list = cbservice.selectCommentList(bnum);
             
-            
-            System.out.println("페이지 "+Page);
+           
+            System.out.println(list);
                         
             //바뀐 부분
             if(Complainboard != null){
@@ -68,6 +72,7 @@ public class ComplainDetailServlet extends HttpServlet {
                request.setAttribute("Page", Page);
                request.setAttribute("index", index);
                request.setAttribute("commentList", list);
+               request.setAttribute("id", id);
                view.forward(request, response);
             }
                
