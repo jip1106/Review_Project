@@ -5,8 +5,6 @@
 	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
 	int limit = (Integer)request.getAttribute("limit");
 	int endPage = (Integer)request.getAttribute("endPage");
-	
-	
 %>   
 <!DOCTYPE html>
 <html lang="en"> 
@@ -92,6 +90,7 @@
 				var values="";
 					for(var i in json.list){   
 						if(memberId === decodeURIComponent(json.list[i].id)){	
+						console.log("type : " + typeof decodeURIComponent(json.list[i].content) +"//value : " +decodeURIComponent(json.list[i].content));
 						values +=
 							"<div class='comment'>"+
 								"<div class='comment__content' id='commentresetView'>"+
@@ -100,16 +99,16 @@
 									"</div>"+
 										"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
 										"<br>댓글내용 :"+
-										"<p><h2>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</h2></p>" +
-									
-										"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
+										"<input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
+											
+									"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
 											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
-											"<a id='editComment'class='btn btn-default btn-xs' onclick='return editCommentFun();'><i class='fa fa-edit'></i>Edit</a>"+ 
-										"</div>"+									
+											"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
+									"</div>"+	
 								"</div>" +
-							"</div>" + "<hr>";
-						}else{
-														
+							"<div id='updateWriteForm"+json.list[i].commentNo+"'>" + "</div>" +
+						"</div>" + "<hr>";
+						}else{														
 							values +=
 								"<div class='comment'>"+
 									"<div class='comment__content' id='commentresetView'>"+
@@ -129,9 +128,7 @@
 				alert("에러");
 			}
 		})
-	}
-	
-	
+	}	
 	function insertComment(){
 		if($("#commentContent").val() ==""){
 			alert("댓글 내용을 입력해주세요!");
@@ -176,6 +173,48 @@
 		}
 	}
 	
+	function viewEditCommentFun(commentNo){	
+		console.log(commentNo);
+		console.log(previousContent);
+		
+		var commentNum = commentNo+"";		
+		var divId = '#updateWriteForm'+commentNum;
+		var editCommentId = '#editComment'+commentNum;
+		
+		var previousContent = $(editCommentId).val();
+		
+		var values="<div><textarea class='form-control'"+"rows='2' id='reply'>"
+		+ previousContent+ "</textarea>"+ "<a id='updateComment' class='btn btn-default btn-xs' onclick='return editCommentFun(" +commentNum+ ")'>"
+		+ "<i class='fa fa-edit'></i> 수정하기</a></div>"
+		
+		$(divId).html(values);
+	}
+	
+	function editCommentFun(commentNo){ //댓글 수정
+		var postNum = "<%=board.getPostingNo()%>";
+		var id = "<%=member.getId()%>"
+		var commentNum = commentNo+"";
+		
+		var content = $("#reply").val();
+				
+		if(content===""){
+			alert("댓글 내용을 입력해주세요");
+			return false;
+		}else{
+			$.ajax({
+				url:"/review/updateComplainComment.do",
+				data:{postNum:postNum , commentNum:commentNum , id:id, content:content},
+				type:"get",
+				async:false
+			})
+					
+			selectComment();
+			alert("수정완료");
+			return true;
+		}
+	}
+
+		
 </script>
 
 <!-- 댓글 쓰는 자리 -->
@@ -202,6 +241,13 @@
 	</div>
 	
 	<!-- / .comment__new -->
+	
+<!-- 	<textarea class='form-control'"+"rows='2' id='comment'></textarea>
+		<a id='updateComment' class='btn btn-default btn-xs'>"
+			<i class='fa fa-edit'></i> 
+			수정하기
+		</a>
+		수정 폼 -->
 				
 	<!-- Comments header -->
 	<div class="comment__header">
@@ -210,7 +256,7 @@
 
 	<!-- 댓글 보여주는 자리-->
 	<div id="viewComment">
-						
+				
 	</div>
 </div> 
 			
