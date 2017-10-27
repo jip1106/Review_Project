@@ -71,7 +71,7 @@ public class SharedBoardService {
 	}
 	
 	public ArrayList<SharedBoard> titleSearch(int currentPage, int limit, String searchMenu, String keyword){
-		//제목으로 검색하기
+		//검색하기
 		Connection con = getConnection();
 		ArrayList<SharedBoard> list = new SharedBoardDao().titleSearch(con, currentPage, limit, searchMenu, keyword);
 		close(con);
@@ -98,6 +98,7 @@ public class SharedBoardService {
 	}
 
 	public ArrayList<SharedComment> selectCommentList(int no) {
+		//댓글 목록
 			Connection con = getConnection();
 			ArrayList<SharedComment> list = new SharedBoardDao().selectCommentList(con,no);
 			close(con);
