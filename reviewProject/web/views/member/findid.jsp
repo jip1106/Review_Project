@@ -29,8 +29,37 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-<script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
+   <script type="text/javascript" src="/review/js/jquery-3.2.1.min.js"></script> 
 
+    
+    <script type="text/javascript">
+    	$(document).ready(function(){
+    		
+	    	$("#findId").click(function(){
+	    			
+	    			var userEmail = $("#email").val().trim();
+	    			var queryString = {email: userEmail};
+	    			var userId = "";
+	    			var check = "fail";
+	    			$.ajax({ 
+	    				type: "post",
+	    				url: "/review/memberFindId",
+	    				data: queryString,
+	    				success: function(data){
+	    					userId = data;
+	    					if(data.trim() != check.trim()){
+	    						$("#findEmail").html("회원님의 아이디는 " +userId+" 입니다.").css("color", "green");
+	    						
+	    					}else{
+	    						$("#findEmail").html("입력하신 이메일과 일치하는 아이디가 없습니다.").css("color", "red");
+	    					}
+	    				}
+	    			});
+	    		   
+	    		});	
+    	
+    	});
+</script>
 </head>
 
 <body class="body_plain">
@@ -59,12 +88,14 @@
 					<form role="form" method="post" action="">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-user"></i></span>
-							<input type="email" class="form-control" id="sign-in__email" name="email" placeholder="이메일을 입력하세요">
+							<input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요">
 						</div>
 						<br>
-						<button type="submit" class="btn btn-primary btn-block btn-lg">아이디찾기</button>
+						<button type="button" id="findId" class="btn btn-primary btn-block btn-lg">아이디찾기</button>
 						<button type="reset" class="btn btn-primary btn-block btn-lg">취소</button>
 					</form>
+					<br>
+					<span id ="findEmail"></span>
 				<!-- Footer -->
 					<div class="body-plain__footer">
 						Copyright 2016 <a href="http://simpleqode.com/">Simpleqode.com</a>.

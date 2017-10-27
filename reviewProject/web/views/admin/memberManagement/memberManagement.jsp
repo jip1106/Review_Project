@@ -165,7 +165,7 @@
 							if (m.getWarningCount() >= 3 && m.getUserType() == 1) {
 						%>
 						<!-- 쿼리스트링으로 id 값 서블릿으로 넘김 -->
-						<a href = "/review/forceDelete?id=<%=m.getId()%>&page=<%=currentPage%>"><button class="btn" style="color: white">회원삭제</button></a>	<!-- a태그로 쿼리스트링 m.getUserId() -->
+						<a href = "/review/forceDelete?id=<%=m.getId()%>&page=<%=currentPage%>&email=<%=m.getEmail()%>"><button class="btn" style="color: white">회원삭제</button></a>	<!-- a태그로 쿼리스트링 m.getUserId() -->
 						<%
 							}
 						%>

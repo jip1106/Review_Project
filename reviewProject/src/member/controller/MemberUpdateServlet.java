@@ -10,14 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import common.CryptTemplate;
 import member.model.service.MemberService;
 import member.model.vo.Member;
+import member.model.vo.PasswordSecurity;
+
 
 /**
  * Servlet implementation class MemberUpdateServlet
  */
 @WebServlet("/mupdate")
-public class MemberUpdateServlet extends HttpServlet {
+public class MemberUpdateServlet extends HttpServlet implements CryptTemplate{
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -51,7 +54,11 @@ public class MemberUpdateServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		if(result>0){
 			Member smember = new MemberService().viewMyInformation(id);
-			HttpSession session = request.getSession(false);
+			PasswordSecurity ps = new PasswordSecurity(KEY_SIZE, ITERATION_COUNT);
+			String decrypt = ps.decrypt(SALT, IV, PASSPHRASE, smember.getPassword());
+			smember.setPassword(decrypt.trim());
+			
+			HttpSession session = request.getSession(false); 
 			session.removeAttribute("member");
 			session.setAttribute("member", smember);
 			
