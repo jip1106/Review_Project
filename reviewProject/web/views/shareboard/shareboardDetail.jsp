@@ -88,6 +88,7 @@ function board_delete(){
 	}
 	
 }
+</script>
 
 <!-- 댓글공간 -->
 <script type="text/javascript">

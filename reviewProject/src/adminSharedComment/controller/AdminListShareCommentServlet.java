@@ -3,9 +3,7 @@ package adminSharedComment.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,16 +18,16 @@ import adminSharedComment.model.service.SharedCommentService;
 import memberSharedComment.model.vo.SharedComment;
 
 /**
- * Servlet implementation class AdminUpdateShareCommentServlet
+ * Servlet implementation class AdminListShareCommentServlet
  */
-@WebServlet("/updateSharedComment.do")
-public class AdminUpdateShareCommentServlet extends HttpServlet {
+@WebServlet("/adminSharecomment.do")
+public class AdminListShareCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminUpdateShareCommentServlet() {
+    public AdminListShareCommentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,17 +36,38 @@ public class AdminUpdateShareCommentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 댓글 수정을 위한 서블릿
+		// 정보공유 게시판 댓글 ajax로 보여주기 위한 서블릿
 		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; utf-8");
-				
+		response.setContentType("aplication/json; charset=utf-8");
+		
 		int postNum = Integer.parseInt(request.getParameter("postNum"));
-		int commentNum = Integer.parseInt(request.getParameter("commentNum"));
-		String id = request.getParameter("id");
-		String content = request.getParameter("content");
 		
-		new SharedCommentService().updateComment(postNum,commentNum,id,content);
+		SharedCommentService scommentService = new SharedCommentService();
 		
+		ArrayList<SharedComment> list = scommentService.viewSharedComment(postNum);
+		
+		JSONObject job = new JSONObject();
+		
+		JSONArray jarr = new JSONArray();
+		
+		for(SharedComment comment : list){
+			JSONObject j = new JSONObject();
+			j.put("commentNo", comment.getCommentNo());
+			j.put("postNo", comment.getPostingNo());
+			j.put("id", URLEncoder.encode(comment.getId(),"UTF-8"));
+			j.put("content", URLEncoder.encode(comment.getCommentContent(),"UTF-8"));
+			j.put("date", URLEncoder.encode(comment.getCommentStringDate(),"UTF-8"));
+			
+			jarr.add(j);
+			
+		}
+		
+		job.put("list", jarr);
+		
+		PrintWriter pw = response.getWriter();
+		pw.print(job.toJSONString());
+		pw.flush();
+		pw.close();
 	}
 
 	/**

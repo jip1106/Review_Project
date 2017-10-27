@@ -66,12 +66,50 @@
 			</div>
 		</div>
 	</div>
+	<div class="col-sm-5">
+		<div class="badge">댓글을 입력해주세요</div>
+	</div> 
+	
+	<div class="col-sm-8 col-md-9">
+		<div class="comment comment_new">
+			<div class="comment__author_img">	
+				<%=member.getName()%>[<%=member.getId() %>]
+			</div>
+			<div class="comment__content">
+				<form>
+					<div class="form-group">
+	
+					<label for="comment-new__textarea" class="sr-only">Enter your comment</label>
+						<textarea class="form-control" rows="2" id="commentContent" placeholder="Enter your comment"></textarea>
+					</div>
+					
+						<button type="button" id="sendComment" class="btn btn-primary" onclick="return insertComment();" >Send Comment</button> 
+
+				</form>
+			</div>
+		</div>
+	
+		<!-- Comments header -->
+		<div class="comment__header">
+			<span>List of Comments</span>
+		</div>
+		<!-- 댓글 보여주는 자리-->
+		<div id="viewComment">
+		</div>
+	
 </div>
 
 <script type="text/javascript">
 
 	$(function(){
 		selectComment();
+		
+		$("#commentContent").keydown(function(key){
+			if(key.keyCode==13){
+				insertComment();
+			}
+		})
+	
 	});
 	
 	function selectComment(){
@@ -99,12 +137,12 @@
 									"</div>"+
 										"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
 										"<br>댓글내용 :"+
-										"<input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
-											
-									"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
-											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
-											"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
-									"</div>"+	
+										"<input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' >
+											<p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
+											"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
+												"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
+												"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
+											"</div>"+	
 								"</div>" +
 							"<div id='updateWriteForm"+json.list[i].commentNo+"'>" + "</div>" +
 						"</div>" + "<hr>";
@@ -179,7 +217,8 @@
 		var divId = '#updateWriteForm'+commentNum;
 		var editCommentId = '#editComment'+commentNum;
 		
-		var previousContent = $(editCommentId).val();
+		var previousContent = $(editCommentId).val().replace(/\+/gi, " ");
+		
 		
 		var values="<div><textarea class='form-control'"+"rows='2' id='reply'>"
 		+ previousContent+ "</textarea>"+ "<a id='updateComment' class='btn btn-default btn-xs' onclick='return editCommentFun(" +commentNum+ ")'>"
@@ -193,7 +232,7 @@
 		var id = "<%=member.getId()%>"
 		var commentNum = commentNo+"";
 		
-		var content = $("#reply").val();
+		var content = $("#reply").val().replace(/\+/gi," ");
 				
 		if(content===""){
 			alert("댓글 내용을 입력해주세요");
@@ -216,46 +255,7 @@
 </script>
 
 <!-- 댓글 쓰는 자리 -->
-<div class="col-sm-5">
-		<div class="badge">댓글을 입력해주세요</div>
-</div> 
-	
-<div class="col-sm-8 col-md-9">
-	<div class="comment comment_new">
-		<div class="comment__author_img">	
-			<%=member.getName()%>[<%=member.getId() %>]
-		</div>
-		<div class="comment__content">
-			<form>
-				<div class="form-group">
 
-					<label for="comment-new__textarea" class="sr-only">Enter your comment</label>
-						<textarea class="form-control" rows="2" id="commentContent" placeholder="Enter your comment"></textarea>
-				</div>
-				<button type="button" id="sendComment" class="btn btn-primary" onclick="return insertComment();" >Send Comment</button> 
-
-			</form>
-		</div>
-	</div>
-	
-	<!-- / .comment__new -->
-	
-<!-- 	<textarea class='form-control'"+"rows='2' id='comment'></textarea>
-		<a id='updateComment' class='btn btn-default btn-xs'>"
-			<i class='fa fa-edit'></i> 
-			수정하기
-		</a>
-		수정 폼 -->
-				
-	<!-- Comments header -->
-	<div class="comment__header">
-		<span>List of Comments</span>
-	</div>
-
-	<!-- 댓글 보여주는 자리-->
-	<div id="viewComment">
-				
-	</div>
 </div> 
 			
 </body>

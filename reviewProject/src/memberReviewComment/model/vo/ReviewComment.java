@@ -8,12 +8,14 @@ public class ReviewComment implements java.io.Serializable{
 	private String id;
 	private String commentContent;
 	private Date commentDate;
+	private String date;
 	
 	public ReviewComment(){
 		
 	}
-	
-	
+	public ReviewComment(String date){
+		this.date = date;
+	}	
 
 	public ReviewComment(int postingNo, String id, String commentContent) {
 		super();
@@ -72,7 +74,15 @@ public class ReviewComment implements java.io.Serializable{
 	public void setCommentDate(Date commentDate) {
 		this.commentDate = commentDate;
 	}
-
+	
+	
+	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	@Override
 	public String toString() {
 		return "SharedComment [commentNo=" + commentNo + ", postingNo=" + postingNo + ", id=" + id + ", commentContent="
