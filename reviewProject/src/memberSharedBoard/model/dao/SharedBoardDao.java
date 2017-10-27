@@ -183,17 +183,43 @@ public class SharedBoardDao {
 						+ "where id like ? "
 						+ "order by posting_no desc )) "
 						+ "where rnum >= ? and rnum <= ? ";
+				
+			}else if(searchMenu.equals("findByTitleContent")){
+				query="select * from ("
+						+ "select rownum rnum, posting_no, id, "
+						+ "title, content, hits, posting_date, del_yn "
+						+ "from (select * from share_board "
+						+ "where title like ? or content like ? "
+						+ "order by posting_no desc )) "
+						+ "where rnum >= ? and rnum <= ? ";
+				
+			}else if(searchMenu.equals("findByDate")){
+				query="select * from ("
+						+ "select rownum rnum, posting_no, id, "
+						+ "title, content, hits, posting_date, del_yn "
+						+ "from (select * from share_board "
+						+ "where posting_date like ? "
+						+ "order by posting_no desc )) "
+						+ "where rnum >= ? and rnum <= ? ";
 			}
 			
 		int startRow = (currentPage -1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		
 		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "%" +keyword+ "%");
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-		
+			if(searchMenu.equals("findByTitleContent")){
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, "%" +keyword+ "%");
+				pstmt.setString(2, "%"+keyword+"%");
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+			}else{
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, "%" +keyword+ "%");
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+			}
+			
 			rset = pstmt.executeQuery();
 			
 			if(rset != null) {

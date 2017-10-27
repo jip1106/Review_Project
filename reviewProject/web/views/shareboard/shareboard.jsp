@@ -42,15 +42,26 @@
 
 <div class="row">
 		<div class="col-sm-5">    
-			<form class="form-inline topbar__search" role="form" action="/review/ssearch" method="post">
+			<form class="form-inline topbar__search" role="form" action="/review/ssearch" method="get">
 			
 				<select class="selectpicker" id="findType" name="searchMenu">
-					<option value="findByTitle">제목</option>
-					<option value="findByWriter">작성자</option>
+				<%if(searchMenu!=null){ %>
+					<option value="findByTitle" <%= searchMenu.equals("findByTitle")?"selected":"" %>>제목</option>
+					<option value="findByWriter" <%= searchMenu.equals("findByWriter")?"selected":"" %>>작성자</option>
+					<option value="findByTitleContent" <%= searchMenu.equals("findByTitleContent")?"selected":"" %>>제목+내용</option>
+					<option value="findByDate" <%= searchMenu.equals("findByDate")?"selected":"" %>>작성일</option>
+				<%}else {%>
+					<option value="findByTitle" >제목</option>
+					<option value="findByWriter" >작성자</option>
+					<option value="findByTitleContent" >제목+내용</option>
+					<option value="findByDate">작성일</option>
+				<%} %>
 				</select> 
 				
 				<label class="sr-only" for="nav-search">Search</label> 
-				<input type="text" class="form-control" id="searchKeyWord" name="keyword">
+
+				<input type="text" class="form-control" id="searchKeyWord" name="keyword" placeholder="작성일 검색 예:'17/10/27' ">
+
 				<button type="submit" id="searchSubmit">
 					<i class="fa fa-search"></i>
 				</button>
