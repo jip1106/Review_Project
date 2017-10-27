@@ -21,11 +21,6 @@
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5a5f74b55c137eef83dc34e43b7a72b7&libraries=services"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
 
-<script type="text/javascript">
-	$('#like').onclick(function(){
-		
-	});
-</script>
 
 <title>reviewboardDetail</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -99,34 +94,34 @@
 						
 				<br><br><br>
 				<!-- 지도 api-->	
-				<script>
-					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-					mapOption = {
-						center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-						level : 3
-					// 지도의 확대 레벨
-					};
-			
-					var map = new daum.maps.Map(mapContainer, mapOption);
-					var geocoder = new daum.maps.services.Geocoder();
-					var fullAddr = <%=review.getAddress()%>; //이곳에 장소 넣어줌 
-					// 주소로 좌표를 검색합니다
-					geocoder.addr2coord(fullAddr, function(status, result) {
-			
-						// 정상적으로 검색이 완료됐으면 
-						if (status === daum.maps.services.Status.OK) {
-							var coords = new daum.maps.LatLng(result.addr[0].lat,
-									result.addr[0].lng);
-							// 결과값으로 받은 위치를 마커로 표시합니다
-							var marker = new daum.maps.Marker({
-								map : map,
-								position : coords
-							});
-							// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-							map.setCenter(coords);
-						}
-					});
-				</script>
+					<script>
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+			center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			level : 3
+		// 지도의 확대 레벨
+		};
+
+		var map = new daum.maps.Map(mapContainer, mapOption);
+		var geocoder = new daum.maps.services.Geocoder();
+		var fullAddr = '<%=review.getAddress()%>'; //이곳에 장소 넣어줌
+		// 주소로 좌표를 검색합니다
+		geocoder.addr2coord(fullAddr, function(status, result) {
+
+			// 정상적으로 검색이 완료됐으면 
+			if (status === daum.maps.services.Status.OK) {
+				var coords = new daum.maps.LatLng(result.addr[0].lat,
+						result.addr[0].lng);
+				// 결과값으로 받은 위치를 마커로 표시합니다
+				var marker = new daum.maps.Marker({
+					map : map,
+					position : coords
+				});
+				// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+				map.setCenter(coords);
+			}
+		});
+	</script>
 				</div>
 				
 					
