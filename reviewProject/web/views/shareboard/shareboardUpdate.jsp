@@ -61,9 +61,8 @@
 				
 				-->
 					<button type="submit" class="btn btn-primary">수정하기</button>
-					<button type="reset" class="btn btn-primary" onclick="reviewWriteCancel()">작성 취소</button>
-					<button  class="btn btn-primary" onclick="javascript:history.go(-2); return false">목 록</button> 
-				
+					<button type="reset" class="btn btn-primary" onclick=" return reviewWriteCancel()">작성 취소</button>
+					<button class="btn btn-primary" onclick="javascript:history.go(-2); return false">목 록</button> 
 			</form>
 		</div>
 		</div>

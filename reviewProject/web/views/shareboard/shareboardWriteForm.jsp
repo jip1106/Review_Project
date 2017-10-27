@@ -37,14 +37,14 @@
 			<input type="hidden" name="id" value="<%= member.getId() %>">
 				<div class="form-group">
 					<label for="title">Title</label> 
-					<input type="text" name="title" class="form-control" id="title" placeholder="title"> 
+					<input type="text" name="title" class="form-control" id="title" placeholder="title" required> 
 					<span class="help-block"></span>
 				</div>
 				
 				<div class="form-group">
 					<label for="content">Content</label>
 					<textarea cols="20" rows="20" name="content" class="form-control" 
-						 id="content" placeholder="content"></textarea>
+						 id="content" placeholder="content" required></textarea>
 					 <span class="help-block"></span>  
 				</div>
 				
@@ -56,7 +56,7 @@
 				</div>
 				 -->
 					<button type="submit" class="btn btn-primary">글작성</button>
-					<button type="reset" class="btn btn-primary" onclick="reviewWriteCancel()">작성 취소</button>
+					<button type="reset" class="btn btn-primary">작성 취소</button>
 					<button  class="btn btn-primary" onclick="javascript:history.go(-1); return false">목 록</button> 
 			</form>
 

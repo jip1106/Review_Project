@@ -47,10 +47,10 @@ public class SharedCommentInsertServlet extends HttpServlet {
 		int no = Integer.parseInt(request.getParameter("no"));
 		String content = request.getParameter("content");
 		String id = request.getParameter("id");
-				
+		int result = 0;
 		SharedCommentService service = new SharedCommentService();
 		
-		int result = service.sharedCommentInsert(no, id, content);
+		 result = service.sharedCommentInsert(no, id, content);
 		
 		ArrayList<SharedComment> list = null;
 		
@@ -67,7 +67,6 @@ public class SharedCommentInsertServlet extends HttpServlet {
 		j.put("postingNo", c.getPostingNo());
 		j.put("userId", URLEncoder.encode(c.getId(),"UTF-8"));
 		j.put("content",(c.getCommentContent().replaceAll("\n", "<br>")));
-		//j.put("commentDate", c.getCommentStringDate());
 		
 		//Date from = new Date(); 
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -75,9 +74,7 @@ public class SharedCommentInsertServlet extends HttpServlet {
 		j.put("timePosted", to);
 		
 		jarr.add(j);
-
 		}
-		
 		job.put("list", jarr);
 		PrintWriter pw = response.getWriter();
 		pw.print(job.toJSONString());

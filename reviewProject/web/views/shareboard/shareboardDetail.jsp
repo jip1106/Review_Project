@@ -5,7 +5,7 @@
 	ArrayList<SharedComment> commentList = (ArrayList<SharedComment>)request.getAttribute("commentList");
 	int currentPage = (Integer)request.getAttribute("currentPage");
 	int index = (Integer)request.getAttribute("index");
-	
+
 	int location = 0;
 
 	if(index==1){
@@ -34,7 +34,6 @@
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
 
-
 </head>
 <body>
 <%@include file="../../header.jsp" %>
@@ -47,7 +46,7 @@
 			<span class="badge">날짜 : <%= share.getPostingDate() %></span>
 		</div>
 		<div class="nav nav-pills col-md-8 text-right">
-			<a href="#">작성자 : <%= share.getId() %></a> 
+			<a href="/review/ssearch?searchMenu=findByWriter&keyword=<%=share.getId()%>&page=1">작성자 : <%= share.getId() %></a> 
 		</div>
 	</div>
 	<div class="container">
@@ -89,11 +88,6 @@ function board_delete(){
 	}
 	
 }
-</script>
-
-
-
-
 
 <!-- 댓글공간 -->
 <script type="text/javascript">
@@ -107,7 +101,7 @@ $(document).ready(function(){
 	$("#sendComment").click(function() {
 		var comment = $("#sendContent").val(); 
 		var queryString = {no:boardNo, id:userId, content:comment};
-		
+		if(comment!=""){
 		$.ajax({
 			type : "get",
 			url : "/review/sminsert.do",
@@ -151,6 +145,9 @@ $(document).ready(function(){
 					$("#deleteArea").html(deleteArea);  
 			}
 			}); 
+		}else{
+			alert("댓글을 입력해주세요");
+		}
 		}); 
 	}); 
 	
@@ -168,6 +165,7 @@ $(document).on("click","#removeComment",function() {
 									success : function(data) {
 										var json = "";
 										var j =  JSON.parse(JSON.stringify(data));
+										
 										for (var i in j.list) {
 											json += "<div class='comment'>";
 											json += "<div class='comment__content' id='commentresetView'>";
@@ -177,7 +175,7 @@ $(document).on("click","#removeComment",function() {
 											json += "시간: "+j.list[i].timePosted;
 											json += "<br> 댓글내용";
 											json += "<p>";
-											json += decodeURIComponent(j.list[i].content);
+											json += j.list[i].content;
 											json += "</p>";
 											var id = decodeURIComponent(j.list[i].userId);
 											var nowid="";
@@ -260,6 +258,7 @@ $(document).on("click","#updateComment",function(){
 						 location.href = "/review/shareboardDetail?no=<%=share.getPostingNum() %>&page=<%=currentPage%>";
 					 }//confirm
 				}); //commentView 수정하기 버튼
+		
 </script>
 
 	<div class="col-sm-5">
@@ -273,9 +272,9 @@ $(document).on("click","#updateComment",function(){
 							<div class="form-group">
 								<label for="comment-new__textarea" class="sr-only">Enteryour comment</label>
 								<div id="deleteArea">
-								<textarea class="form-control" rows="2" id="sendContent" placeholder="Enter your comment"></textarea>
+								<textarea class="form-control" rows="2" id="sendContent" placeholder="Enter your comment" required></textarea>
 							</div>
-							<button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
+							<button type="button" id="sendComment" class="btn btn-primary">Send Comment</button> 
 						</form>
 					</div>
 					<!-- / .comment__content -->
@@ -289,7 +288,6 @@ $(document).on("click","#updateComment",function(){
 				
 <!-- All comments -->
 				<div id="commentView">
-					
 					<%for(int i = 0; i<commentList.size(); i++){%>
 						<div class="comment">
 							<div class="comment__content" id="commentresetView">
@@ -311,6 +309,7 @@ $(document).on("click","#updateComment",function(){
 							<!-- / .comment__content -->
 						</div>
 						<!-- / .comment -->
+						<hr>
 					<%}%>
 				</div>
 			</div>
