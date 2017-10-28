@@ -61,7 +61,7 @@ public class ComplainCommentDao {
 		PreparedStatement pstmt = null;
 		int result =0;
 		//postNum, memberId,content
-		String query = "insert into complain_comment values (complain_seq.nextval,?,?,?,default)";
+		String query = "insert into complain_comment values (complain_comment_seq.nextval,?,?,?,default)";
 		try{
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, postNum);
@@ -76,7 +76,7 @@ public class ComplainCommentDao {
 		}finally{
 			close(pstmt);
 		}
-		System.out.println("Dao에서 result: " + result);
+	
 		return result;
 	}
 

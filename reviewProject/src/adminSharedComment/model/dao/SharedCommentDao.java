@@ -60,7 +60,7 @@ public class SharedCommentDao {
 		PreparedStatement pstmt = null;
 		int result =0;
 		//postNum, memberId,content
-		String query = "insert into share_comment values (complain_seq.nextval,?,?,?,default)";
+		String query = "insert into share_comment values (share_comment_seq.nextval,?,?,?,default)";
 		
 		try{
 			pstmt = con.prepareStatement(query);

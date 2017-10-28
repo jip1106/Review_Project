@@ -97,7 +97,7 @@
 		<div id="viewComment">
 		</div>
 	
-</div>
+	</div>
 
 <script type="text/javascript">
 
@@ -127,25 +127,23 @@
 							
 				var values="";
 					for(var i in json.list){   
-						if(memberId === decodeURIComponent(json.list[i].id)){	
-						console.log("type : " + typeof decodeURIComponent(json.list[i].content) +"//value : " +decodeURIComponent(json.list[i].content));
-						values +=
-							"<div class='comment'>"+
-								"<div class='comment__content' id='commentresetView'>"+
-									"<div class='comment__author_name'>"+									
-										"아이디 :"+decodeURIComponent(json.list[i].id)+ 
-									"</div>"+
-										"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
-										"<br>댓글내용 :"+
-										"<input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' >
-											<p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
-											"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
-												"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
-												"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
-											"</div>"+	
-								"</div>" +
-							"<div id='updateWriteForm"+json.list[i].commentNo+"'>" + "</div>" +
-						"</div>" + "<hr>";
+						if(memberId === decodeURIComponent(json.list[i].id)){
+    						values +=
+    							"<div class='comment'>"+
+    								"<div class='comment__content' id='commentresetView'>"+
+    									"<div class='comment__author_name'>"+									
+    										"아이디 :"+decodeURIComponent(json.list[i].id)+ 
+    									"</div>"+
+    									"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
+    									"<br>댓글내용 :"+
+    									"<input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
+    										"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
+    											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
+    											"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
+    										"</div>"+	
+    								"</div>" +
+    								"<div id='updateWriteForm"+json.list[i].commentNo+"'>" + "</div>" +
+    							"</div>" + "<hr>";
 						}else{														
 							values +=
 								"<div class='comment'>"+
@@ -155,7 +153,7 @@
 										"</div>"+
 											"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi, " ") +
 											"<br>댓글내용 :" +
-											"<h2>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</h2>"
+											decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")
 											+"<hr>"
 					
 						}
@@ -254,7 +252,6 @@
 		
 </script>
 
-<!-- 댓글 쓰는 자리 -->
 
 </div> 
 			
