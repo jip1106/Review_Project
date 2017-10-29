@@ -28,25 +28,54 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
     
     <script type="text/javascript" src="/review/js/jquery-3.2.1.min.js"></script> 
+    
+    
+    <style type="text/css">
+.btn {
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
+	-webkit-border-radius: 4;
+	-moz-border-radius: 4;
+	border-radius: 4px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
+	text-decoration: none;
+}
+
+
+</style>
+    
 </head>
 <body>
 <%@ include file = "../../../../header.jsp" %>
-
-<div class="container">
-	<div class="row">
-		<div class="col-sm-8 col-md-9">
+<br>
+<div align="left" style="margin-left: 10%; margin-right: 10%">
+		<div align="left">
 		<!-- <session> -->
 			<span class="badge"><%= board.getPostingNo() %>번 글 상세보기</span>
 			<span class="badge">조회수 : <%= board.getHits() %></span>
 			<span class="badge">날짜 : <%= board.getPostingDate() %></span>
 		</div>
-		<div class="nav nav-pills col-md-8 text-right">
-			<a href="#">작성자 : <%= board.getId() %></a> 
+		<div class="nav nav-pills text-right">
+			<a href="#"><font color="red">작성자 : </font><font color="black"><%= board.getId() %></font></a> 
 		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8 col-md-9">
+	
 				<div class="well well"><%= board.getTitle() %></div>
 				<div class="panel-body">
 					<table>
@@ -58,47 +87,39 @@
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<!-- 게시판 제목 눌러서 상세보기 했을 때 관리자가 삭제할 수 있게 해주는 서블릿 cbdfDelete -->
-						<a href="cbdfDelete?postno=<%= board.getPostingNo()%>&currentPage=<%=currentPage%>&limit=<%=limit%>&endPage=<%=endPage%>" class="btn btn-default">삭제 하기</a> <!-- 상세보기에서 삭제하는 서블릿 연결 -->
-						
-						<a href="cblist?page=1" class="btn btn-default">목 록 보기</a>	<!-- 목록 돌아가는거 연결 -->
+						<a href="cbdfDelete?postno=<%= board.getPostingNo()%>&currentPage=<%=currentPage%>&limit=<%=limit%>&endPage=<%=endPage%>" class="btn" style="color: white; width: 48%">삭제 하기</a> <!-- 상세보기에서 삭제하는 서블릿 연결 -->
+						<div style="float: left; width: 4%"></div>
+						<a href="cblist?page=1" class="btn" style="color:white; width: 48%">목 록 보 기</a>	<!-- 목록 돌아가는거 연결 -->
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-	<div class="col-sm-5">
+	<br>
 		<div class="badge">댓글을 입력해주세요</div>
-	</div> 
-	
-	<div class="col-sm-8 col-md-9">
-		<div class="comment comment_new">
+	<br><br>
 			<div class="comment__author_img">	
-				<%=member.getName()%>[<%=member.getId() %>]
+				<%=member.getName()%><font color="#4D81B0">[<%=member.getId() %>]</font>
 			</div>
 			<div class="comment__content">
 				<form>
-					<div class="form-group">
+					<div class="form-group" style="float: left; width: 80%">
 	
 					<label for="comment-new__textarea" class="sr-only">Enter your comment</label>
-						<textarea class="form-control" rows="2" id="commentContent" placeholder="Enter your comment"></textarea>
+						<textarea class="form-control" rows="1" id="commentContent" placeholder="Enter your comment" style="width: 98%"></textarea>
 					</div>
-					
-						<button type="button" id="sendComment" class="btn btn-primary" onclick="return insertComment();" >Send Comment</button> 
-
+					<div style="float: left; width: 20%">
+						<button type="button" id="sendComment" class="btn" onclick="return insertComment();" style="color: white;">Send Comment</button> 
+					</div>
 				</form>
 			</div>
-		</div>
-	
+		
+	<br>
 		<!-- Comments header -->
 		<div class="comment__header">
-			<span>List of Comments</span>
+			<span><font color="red">List of Comments</font></span>
 		</div>
 		<!-- 댓글 보여주는 자리-->
 		<div id="viewComment">
 		</div>
-	
 	</div>
-
 <script type="text/javascript">
 
 	$(function(){
@@ -132,12 +153,12 @@
     							"<div class='comment'>"+
     								"<div class='comment__content' id='commentresetView'>"+
     									"<div class='comment__author_name'>"+									
-    										"아이디 :"+decodeURIComponent(json.list[i].id)+ 
+    										"<font color='#4D81B0'>아이디 : </font>"+decodeURIComponent(json.list[i].id)+ 
     									"</div>"+
-    									"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
-    									"<br>댓글내용 :"+
-    									"<input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
-    										"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
+    									"<font color='#4D81B0'>시간: </font>"+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
+    									"<br><div style='float:left; width:'80%'><font color='#4D81B0'>댓글내용 : &nbsp;</font></div>"+
+    									"<div style='float:left; width:'20%'><input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
+    										"</div><div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
     											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
     											"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
     										"</div>"+	
@@ -251,9 +272,7 @@
 
 		
 </script>
+<%@ include file = "../../../../footer.jsp" %>
 
-
-</div> 
-			
 </body>
 </html>
