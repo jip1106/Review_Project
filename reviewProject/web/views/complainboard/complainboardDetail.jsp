@@ -12,6 +12,8 @@
        if(index==1){
           location =1;
        }
+       
+    
     %>
 <!DOCTYPE html>
 <html lang="en"> 

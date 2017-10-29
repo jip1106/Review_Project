@@ -17,7 +17,6 @@
 	if((String)request.getAttribute("searchValue")!=null){
 		searchValue=(String)request.getAttribute("searchValue");
 	}
-	
 
 	
 %>

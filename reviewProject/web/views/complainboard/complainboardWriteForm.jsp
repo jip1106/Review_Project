@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="memberComplainBoard.model.vo.ComplainBoard"%>
-    <%
-    	ComplainBoard Complainboard = (ComplainBoard)request.getAttribute("ComplainBoard");
-    	
-    %>
+<%
+    ComplainBoard Complainboard = (ComplainBoard)request.getAttribute("ComplainBoard");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +26,20 @@
 </head>
 <body>
 <%@ include file = "../../header.jsp" %>
+<script type="text/javascript">	
+	<%-- function pleaseInputMessage(){
+		var reviewNum = $("#reviewNum").val();
+		var reviewTitle = $("#reviewTitle").val();
+	
+		if(reviewNum=="" || reviewTitle==""){
+			alert("신고할 게시글의 글 번호와 글 제목을 입력해 주세요");
+			return false;
+		}else{	//리뷰게시판에서 신고 버튼 누른 경우 전달받은 신고게시물을 처리
+			location.href = "/review/adminReceiveReviewinfo?reviewNo=<%=reviewNo%>&reviewTitle=<%=reviewTitle%>";
+			return true;
+		}
+	} --%>
+</script>
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8">
@@ -39,6 +52,33 @@
 					<input type="text" name="title" class="form-control" id="title" placeholder="title"> 
 					<span class="help-block"></span>
 				</div>
+				<!-- 수정한 부분 -->
+				<%-- <%if(reviewNo==0){ %>
+					<div class="form-group">
+						<label for="reviewNum">신고 게시물 글 번호</label> 
+						<input type="text" name="reviewNum" class="form-control" id="reviewNum" placeholder="신고할  게시물 번호" style="width:50%"> 
+						<span class="help-block"></span>
+					</div>
+					<div class="form-group">
+						<label for="reviewNum">신고 게시물 글 제목</label> 
+						<input type="text" name="reviewTitle" class="form-control" id="reviewTitle" placeholder="신고할  게시물 제목" style="width:50%"> 
+						<span class="help-block"></span>
+					</div>
+				<%}else{ %>
+					<div class="form-group">
+						<label for="reviewNum">신고 게시물 글 번호</label> 
+						<input type="text" name="reviewNum" class="form-control" id="reviewNum" placeholder="신고할  게시물 번호" style="width:50%" value=<%=reviewNo %> readonly> 
+						<span class="help-block"></span>
+					</div>
+					<div class="form-group">
+						<label for="reviewNum">신고 게시물 글 제목</label> 
+						<input type="text" name="reviewTitle" class="form-control" id="reviewTitle" placeholder="신고할  게시물 제목" style="width:50%" value=<%=reviewTitle %> readonly> 
+						<span class="help-block"></span>
+					</div>
+				<%} %> --%>
+				<!-- 수정 부분 끝 -->
+				
+				
 				<div class="form-group">
 					<label for="content">Content</label>
 					<textarea cols="20" rows="20" name="content" class="form-control"  id="content" placeholder="content"></textarea>
@@ -49,7 +89,10 @@
 						class="form-control" id="image" placeholder="picture"> <span
 						class="help-block"></span>
 				</div> -->
-					<button type="submit" class="btn btn-primary">글작성</button>
+				<!-- 바꾼부분 -->
+					<button type="submit" class="btn btn-primary" onclick="return pleaseInputMessage();">글작성</button>
+				
+				<!-- 바꾼부분 -->
 					<button type="reset" class="btn btn-primary" onclick="reviewWriteCancel()">작성 취소</button>
 					<button type="submit" class="btn btn-primary" onclick="/review/clist">돌아가기</button>
 			</form>

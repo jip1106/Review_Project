@@ -2,3 +2,10 @@
 /admin/
 /memberSharedBoard/
 /memberSharedComment/
+/adminComplainComment/
+/adminReviewComment/
+/adminShareBoard/
+/adminSharedComment/
+/memberReviewBoard/
+/memberReviewComment/
+/adminComplainBoard/

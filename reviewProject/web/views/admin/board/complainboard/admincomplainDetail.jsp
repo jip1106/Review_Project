@@ -5,6 +5,8 @@
 	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
 	int limit = (Integer)request.getAttribute("limit");
 	int endPage = (Integer)request.getAttribute("endPage");
+
+
 %>   
 <!DOCTYPE html>
 <html lang="en"> 
