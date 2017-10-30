@@ -34,9 +34,10 @@ public class ComplainBoard implements java.io.Serializable{
 		this.hits = hits;
 		this.postingDate = postingDate;
 		this.delYN = delYN;
+		
 	}
 	
-	
+
 	public int getPostingNo() {
 		return postingNo;
 	}

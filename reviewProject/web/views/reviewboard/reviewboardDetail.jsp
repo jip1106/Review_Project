@@ -39,13 +39,13 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8 col-md-9">
-			<a href="#"><span class="badge">No. <%=review.getPosting_no()%></span></a>
-			<a href="#"><span class="badge">조회수 : <%=review.getHits()%></span></a>
-			<a href="#"><span class="badge">날짜 : <%=review.getPostingDate()%></span></a>
+			<span class="badge">No. <%=review.getPosting_no()%></span>
+			<span class="badge">조회수 : <%=review.getHits()%></span>
+			<span class="badge">날짜 : <%=review.getPostingDate()%></span>
 		</div>
 		<div class="nav nav-pills col-md-8 text-right">
-			<a href="#">작성자 : <%=review.getId()%></a> &nbsp;
-			<a href="#">좋아요 : <%=review.getLikes()%></a> &nbsp;
+			작성자 : <%=review.getId()%> &nbsp;
+			좋아요 : <%=review.getLikes()%> &nbsp;
 		</div>
 	</div>
 	<div class="container">
@@ -86,9 +86,11 @@
 						<%if(member.getId().equals(review.getId())){%>
 						<a href="/review/ReviewUpdateView?no=<%=review.getPosting_no()%>&page=<%=currentPage%>" class="btn btn-default">수정</a>
 						<a href="/review/reviewDelete?no=<%=review.getPosting_no()%>" class="btn btn-default">삭제</a>
-						<%}%>
-						<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-default">신고</a>
 						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-default">좋아요</a>
+						<%}else{%>
+						<a href="/review/passNoTitle?reviewNo=<%=review.getPosting_no()%>&reviewTitle=<%=review.getTitle() %>" class="btn btn-default">신고</a>
+						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-default">좋아요</a>
+						<%} %>
 					</div>
 				</div>
 			</div>

@@ -104,6 +104,8 @@
 						<br>
 						<button type="button" id="findPassword" class="btn btn-primary btn-block btn-lg">비밀번호 찾기</button>
 						<button type="reset" class="btn btn-primary btn-block btn-lg">취소</button>
+						<br>
+						 <p align="center"><a href="login.jsp">로그인 하러가기</a></p>
 					</form>
 					<br>
 					<span id=findPwd></span>

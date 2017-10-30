@@ -36,8 +36,8 @@ public class ComplainUpdate extends HttpServlet {
 		// 공지글 수정 처리용 컨트롤러
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-
-
+		
+		int currentPage = Integer.parseInt(request.getParameter("Page"));
 		ComplainBoard ComplainBoard = new ComplainBoard();
 		
 		ComplainBoard.setPostingNo(Integer.parseInt(request.getParameter("postno")));
@@ -48,7 +48,8 @@ public class ComplainUpdate extends HttpServlet {
 		System.out.println(ComplainBoard);
 		// 처리결과에 따라 뷰 지정함
 		if(new ComplainBoardService().ComplainBoardUpdate(ComplainBoard) > 0) {
-			response.sendRedirect("/review/clist?page=1");
+			int bnum = ComplainBoard.getPostingNo();
+			response.sendRedirect("/review/cdetail?Page="+currentPage+"&bnum="+bnum);
 		}else
 			System.out.println("헤헤.. 내가 나와버림");
 	}

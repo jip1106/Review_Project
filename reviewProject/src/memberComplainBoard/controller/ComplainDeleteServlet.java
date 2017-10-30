@@ -33,20 +33,20 @@ public class ComplainDeleteServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		//바뀐부분
 		int location=Integer.parseInt(request.getParameter("location")); //0일때는 신고게시판 삭제, 1일때는 마이페이지에서 삭제
+		int currentPage = Integer.parseInt(request.getParameter("Page"));
+		System.out.println("dfdfdfd" + currentPage);
 		
 		int index= 0;	
-		
 		if(location==1){
 			index = Integer.parseInt(request.getParameter("index"));
 		}
-		
 		int bnum = Integer.parseInt(request.getParameter("bnum"));
-
+		
 		
 		//바뀐부분
 		if (new ComplainBoardService().deleteBoard(bnum) > 0) {
 			if(location ==0 && index==0){ //신고게시판에서 삭제
-				response.sendRedirect("/review/clist?page=1");
+				response.sendRedirect("/review/clist?Page="+currentPage);
 			}else if(location==1 && index==1){//마이페이지에서 삭제
 				response.sendRedirect("/review/views/mypage/member/mycomplainwrite.jsp");
 			}

@@ -138,8 +138,7 @@ ul.navi li {
 	background-size: 50%;
 	height: 200px;
 	width: 100%;
-	padding-bottom: 60;
-	magin: 0;
+	padding-top: 0%; 
 	background-image: url("/review/resources/img/backgroundsomi.jpg");
 }
 
@@ -205,7 +204,7 @@ ul.navi li {
 	<div class="header">
 		<h1 align="center">
 			<a href=/review/views/member/login.jsp style="text-decoration: none; color: white">Review</a>
-		</h1> 	<!-- 회원 -->
+		</h1> 
   		<div>
 
 			<div class="container">

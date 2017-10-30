@@ -74,8 +74,7 @@ public class ComplainBoardSearchServlet extends HttpServlet {
 			searchList = cbservice.viewSearchByTitle(searchValue,currentPage,limit);
 		}
 		
-		System.out.println("서블릿 서치리스트"+searchList);
-		
+				
 		if(searchList!=null){			
 			view = request.getRequestDispatcher("views/admin/board/complainboard/admincomplainboard.jsp");
 			request.setAttribute("list", searchList);

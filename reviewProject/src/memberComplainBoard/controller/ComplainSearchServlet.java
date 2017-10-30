@@ -41,13 +41,12 @@ public class ComplainSearchServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		
 		int Page = 1;
-		int limit = 5;
+		int limit = 10;
 		ArrayList<ComplainBoard> list = null;
 		ComplainBoardService Complainbordservice = new ComplainBoardService();
 		
 		if(request.getParameter("Page")!=null){
 			Page=Integer.parseInt(request.getParameter("Page"));
-			System.out.println(Page+"페이지 처리");
 		}
 		
 		String searchValue = request.getParameter("searchValue");
@@ -59,8 +58,7 @@ public class ComplainSearchServlet extends HttpServlet {
 		
 		if( request.getParameter("searchKeyWord") !=null){
 			list = Complainbordservice.searchList(Page, limit,searchValue,searchKeyWord);
-			
-			System.out.println("sv"+searchValue);
+			System.out.println("sv : "+searchValue);
 			
 		}else{
 			list = Complainbordservice.selectList(Page, limit);
@@ -79,7 +77,7 @@ public class ComplainSearchServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		System.out.println("list="+list);
 		if(list != null){
-			System.out.println("들어옴?");
+			
 			view = request.getRequestDispatcher("views/complainboard/complainboard.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("Page", Page);
