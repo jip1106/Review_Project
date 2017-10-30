@@ -309,7 +309,7 @@ public class SharedBoardDao {
 			query = "select count(*) from share_board where title like ? or content like ? ";
 			
 		}else if(searchMenu.equals("findByDate")) {
-			query = "select count(*) from share_board where posting_date like ?";
+			query = "select count(*) from share_board where posting_date like ? ";
 		}
 	
 		try {
