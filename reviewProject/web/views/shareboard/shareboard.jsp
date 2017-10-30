@@ -73,9 +73,9 @@
 <body>
 <%@ include file="../../header.jsp" %>
 
-<br><br>
+<br>
 
-<div class="row" align="left" style="margin-left: 10%; margin-right: 10%">
+<div align="left" style="margin-left: 10%; margin-right: 10%">
 		<div align="left">    
 			<form class="form-group" role="form" action="/review/ssearch" method="get">
 				<select id="findType" name="searchMenu" class="btn" style="height: 30px; color: #ffffff;">
@@ -92,10 +92,7 @@
 					<option value="findByDate">작성일</option>
 				<%} %>
 				</select> 
-				
-				<label class="sr-only" for="nav-search">Search</label> 
-
-				<input type="text" id="searchKeyWord" name="keyword" 
+				<input style="height: 25px; width: 200px;" type="text" id="searchKeyWord" name="keyword" 
 				placeholder="작성일 검색 예:'17/10/27' " class="btn2">
 
 				<button type="submit" id="searchSubmit" class="btn" style="color: #ffffff;">검색</button>
@@ -105,19 +102,16 @@
 </div>
 
 <div align="left" style="margin-left: 10%; margin-right: 10%">  
-	<h2 class="header">정보공유 게시판</h2>
-	<div class="table-responsive">
-			<table class="table table-striped table-bordered">
-			<caption>자유로운 정보공유 부탁드립니다</caption>
-			
+	<h2>정보공유 게시판</h2>
 			<!-- 검색 유무에 따라 게시글 수 조회 -->
 			<%if(keyword==null || keyword.equals("")) {%>
-				<h3>전체게시글 수 : <%= listCount %></h3>
+				<h3>전체 게시글 수 : <%= listCount %></h3>
 			<%}else if(list != null) {%>
 				<h3>검색된 게시글 수: <%= request.getAttribute("searchCount") %></h3>
 			<%}%>
-			
-				<caption>불건전한 게시글 신고해주세요</caption>
+			<div class="table-responsive">
+			<table class="table table-striped table-bordered">
+			<caption>자유로운 정보공유 부탁드립니다</caption>
 					<tr>
 						<th style="background-color: #4D81B0; text-align: center; color: white;">글번호</th>
 						<th style="background-color: #4D81B0; text-align: center; color: white;">제목</th>
@@ -125,8 +119,6 @@
 						<th style="background-color: #4D81B0; text-align: center; color: white;">작성일</th>
 						<th style="background-color: #4D81B0; text-align: center; color: white;">조회수</th>	
 					</tr>
-				<tbody>
-				
 		<% for(SharedBoard sb:list){ %>
 				<tr>
 					<td style="text-align: center;"><%= sb.getPostingNum() %></td>
@@ -138,7 +130,6 @@
 					<td style="text-align: center;"><%= sb.getHits() %></td>
 				</tr>
 		<%} %>
-			</tbody> 
 		</table>
 		
 	</div>

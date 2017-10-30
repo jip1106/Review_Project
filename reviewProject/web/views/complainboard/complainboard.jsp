@@ -70,32 +70,30 @@
 <body>
 <%@ include file="../../header.jsp" %>
 
-<br><br>
-<div class="row"  style="margin-left: 10%; margin-right: 10%">
-		<div class="col-sm-5">    
-			<form class="form-inline topbar__search" role="form" action="/review/csearch" method="get" >
-				<select class="btn" name="searchValue" id="findType">
+<br>
+<div align="left"  style="margin-left: 10%; margin-right: 10%">
+			<div align="left">
+			<form class="form-group" role="form" action="/review/csearch" method="get" >
+				<select class="btn" name="searchValue" id="findType" style="height: 30px; color: #ffffff;">
 					<option value="findByTitle">제목</option>
 					<option value="findByWriter">작성자</option>
 				</select> 
-				<label class="sr-only" for="nav-search">Search</label> 
 				<input style="height: 25px; width: 200px;" name ="searchValue" type="search"
 					id="searchKeyWord" placeholder="제목 혹은 작성자로 검색 " class="btn2">
 				<button type="submit" id="searchSubmit" value="검색" class="btn" style="background-color:#4D81B0; color: #ffffff">검색</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;	
 			</form>
-		</div>
 </div>
-
+</div>
 <div align="left" style="margin-left: 10%; margin-right: 10%">
 	<h2>신고게시판</h2>
-	<div class="table-responsive">
-		<table class="table table-striped table-bordered">
 		<%if(searchKeyWord == null){ %>
-		<h3 align="left">총 게시글 갯수 : <%= listCount %></h3>
+		<h3>전체 게시글 수 : <%= listCount %></h3>
 		<%}else{ %>
-		<h3 align="left"> 검색된 게시글 수 : <%= request.getAttribute("SearchCount") %></h3>
+		<h3> 검색된 게시글 수 : <%= request.getAttribute("SearchCount") %></h3>
 		<%} %>
+		<div class="table-responsive">
+		<table class="table table-striped table-bordered">
 			<caption>불건전한 게시글 신고해주세요</caption>
 			
 				<tr>
@@ -104,31 +102,29 @@
 						<th style="background-color: #4D81B0; text-align: center; color: white;">작성자</th>
 						<th style="background-color: #4D81B0; text-align: center; color: white;">작성일</th>
 						<th style="background-color: #4D81B0; text-align: center; color: white;">조회수</th>
-						<th style="background-color: #4D81B0; text-align: center; color: white;">비고</th>
 				</tr>
 		
-			<tbody>
 			<%
 			for(ComplainBoard cb : list){
 				%>
 			<tr>
-					<td class="col-md-1"><%= cb.getPostingNo() %></td>
-					<td class="col-md-6"><a style="color:red" href="/review/cdetail?bnum=<%= cb.getPostingNo() %>&Page=<%= currentPage %>"><%= cb.getTitle() %></a></td> 
-					<td class="col-md-1"><%= cb.getId() %></td>
-					<td class="col-md-1"><%= cb.getPostingDate() %></td>
-					<td class="col-md-1"><%= cb.getHits() %></td>
+					<td style="text-align: center;"><%= cb.getPostingNo() %></td>
+					<td style="text-align: center;"><a style="color:red" href="/review/cdetail?bnum=<%= cb.getPostingNo() %>&Page=<%= currentPage %>"><%= cb.getTitle() %></a></td> 
+					<td style="text-align: center;"><%= cb.getId() %></td>
+					<td style="text-align: center;"><%= cb.getPostingDate() %></td>
+					<td style="text-align: center;"><%= cb.getHits() %></td>
 				</tr>
 				<% } %>
-			</tbody> 
 		</table>
+		<!-- 글작성버튼 -->
+	<div class="ui__section" id="ui_buttons" align="right" >
+		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-sm btn-primary" style="background:red">글작성</a>
+	</div>
 	</div>
 	
 	<!-- / .table-responsive -->
 	
-	<!-- 글작성버튼 -->
-	<div class="ui__section" id="ui_buttons" align="right" >
-		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-sm btn-primary" style="background:red">글작성</a>
-	</div>
+	
 	
 	<!-- paging -->
 	<div class="ui__section" id="ui_pagination" align="center">
