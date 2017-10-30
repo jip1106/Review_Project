@@ -107,7 +107,7 @@
                      
                   <% }else{ %>
                    <%-- <a href="/review/clist?Page=<%= currentPage %>" class="btn btn-default">목 록</a>--%> 
-                  <a href="/review/clist" class="btn btn-default">목 록</a>
+                    <a href="/review/clist" class="btn" style="color: white; width: 30%">목 록</a>
                   <% } %>
                </div>
             </div>
@@ -135,7 +135,7 @@
                                     var json = "";
                                     var j = JSON.parse(JSON.stringify(data));
                                     
-                                    for (var i in j.list) {
+                                    for (var i in j) {
                                        json += "<div class='comment'>";
                                        json += "<div class='comment__content' id='commentresetView'>";
                                        json += "<div class='comment__author_name'>"
@@ -302,7 +302,7 @@
             
             <!-- Comments header -->
             <div class="comment__header">
-               <span>List of Comments</span>
+               <font color='black'> <span>List of Comments</span>
             </div>
 
             <!-- All comments -->

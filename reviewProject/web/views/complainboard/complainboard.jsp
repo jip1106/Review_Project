@@ -117,8 +117,9 @@
 				<% } %>
 		</table>
 		<!-- 글작성버튼 -->
-	<div class="ui__section" id="ui_buttons" align="right" >
-		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-sm btn-primary" style="background:red">글작성</a>
+	<br>
+	<div  id="ui_buttons" align="right" >
+		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn" style="background:red">글작성</a>
 	</div>
 	</div>
 	
@@ -127,7 +128,8 @@
 	
 	
 	<!-- paging -->
-	<div class="ui__section" id="ui_pagination" align="center">
+	<br>
+	<div id="ui_pagination" align="center">
 		<nav>
 			<ul class="pagination">
 			<% if(searchKeyWord == null || searchKeyWord.equals("")) {%>
