@@ -46,13 +46,15 @@
 			<span class="badge">날짜 : <%= share.getPostingDate() %></span>
 		</div>
 		<div class="nav nav-pills col-md-8 text-right">
-			<a href="/review/ssearch?searchMenu=findByWriter&keyword=<%=share.getId()%>&page=1">작성자 : <%= share.getId() %></a> 
+		<label style="color:red;">작성자 : </label>
+			<a href="/review/ssearch?searchMenu=findByWriter&keyword=<%=share.getId()%>&page=1"
+			style="color:black;"><%= share.getId() %></a> 
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-8 col-md-9">
-				<div class="well well">글제목 : <%= share.getTitle() %></div>
+				<div class="well well"><%= share.getTitle() %></div>
 				<div class="panel-body">
 					<table>
 						<tr>
@@ -275,7 +277,7 @@ $(document).on("click","#updateComment",function(){
 								<div id="deleteArea">
 								<textarea class="form-control" rows="2" id="sendContent" placeholder="Enter your comment" required></textarea>
 							</div>
-							<button type="button" id="sendComment" class="btn btn-primary">Send Comment</button> 
+							<button type="button" id="sendComment" class="btn btn-primary" style="background: red;">Send Comment</button> 
 						</form>
 					</div>
 					<!-- / .comment__content -->

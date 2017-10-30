@@ -94,7 +94,8 @@
 			<form class="form-group" role="form" method="post"
 				action="/review/adminsbsearch">
 				<select class="btn" id="selectSearch" name="selectSearch"
-					style="height: 30px; color: #ffffff;">
+								style="height: 30px; color: #ffffff;">
+					
 					<option value="searchtitle">제목</option>
 					<option value="searchid">작성자</option>
 				</select> <input style="height: 25px; width: 200px;" type="search"
