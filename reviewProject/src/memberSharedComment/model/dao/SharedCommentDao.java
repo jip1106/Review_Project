@@ -14,6 +14,7 @@ import memberSharedComment.model.vo.SharedComment;
 
 public class SharedCommentDao{
 	public ArrayList<SharedComment> commentListView(Connection con, int postNum) {
+		
 	PreparedStatement pstmt = null;
 	ResultSet rset = null;
 	ArrayList<SharedComment> list = new ArrayList<SharedComment>();
@@ -23,8 +24,8 @@ public class SharedCommentDao{
 			+ "from share_comment sc "
 			+ "join share_board sb "
 			+ "on (sc.posting_no = sb.posting_no) "
-			+ "where sc.posting_no=?"
-			+ "order by comment_date desc";
+			+ "where sc.posting_no=? "
+			+ "order by comment_date desc ";
 	
 	try{
 		pstmt = con.prepareStatement(query);
@@ -80,7 +81,7 @@ public class SharedCommentDao{
 		// 댓글 삭제
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "delete from share_comment where posting_no=? and comment_no=? and id=?";
+		String query = "delete from share_comment where posting_no=? and comment_no= ? and id= ? ";
 				
 		try{
 			pstmt = con.prepareStatement(query);
@@ -103,7 +104,7 @@ public class SharedCommentDao{
 		// 댓글 수정
 				PreparedStatement pstmt = null;
 				int result = 0;
-				String query = "update share_comment set comment_content =? where posting_no = ? and comment_no =? and id =?";
+				String query = "update share_comment set comment_content =? where posting_no = ? and comment_no = ? and id = ? ";
 				
 				try{
 				

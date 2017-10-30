@@ -45,7 +45,7 @@ public class SharedCommentListViewServlet extends HttpServlet {
 				
 		SharedCommentService scComment = new SharedCommentService();
 		
-		ArrayList<SharedComment> list= scComment.commentListView(postNum);
+		ArrayList<SharedComment> list = scComment.commentListView(postNum);
 		
 		JSONObject job = new JSONObject();
 		

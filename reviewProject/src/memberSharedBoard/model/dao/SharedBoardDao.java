@@ -302,13 +302,13 @@ public class SharedBoardDao {
 		if(searchMenu.equals("findByTitle")){
 			query = "select count(*) from share_board where title like ? ";
 			
-		}else if(searchMenu.equals("findByWriter")){
+		}if(searchMenu.equals("findByWriter")){
 			query = "select count(*) from share_board where id like ?";
 			
-		}else if(searchMenu.equals("findByTitleContent")) {
+		}if(searchMenu.equals("findByTitleContent")) {
 			query = "select count(*) from share_board where title like ? or content like ? ";
 			
-		}else if(searchMenu.equals("findByDate")) {
+		}if(searchMenu.equals("findByDate")) {
 			query = "select count(*) from share_board where posting_date like ? ";
 		}
 	
