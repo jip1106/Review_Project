@@ -2,10 +2,8 @@
     pageEncoding="UTF-8"%>
  <%@ page import="memberComplainBoard.model.vo.ComplainBoard,memberComplainComment.model.vo.ComplainComment,java.util.ArrayList,java.sql.Date"%>
     <%
-      ComplainBoard Complainboard = (ComplainBoard)request.getAttribute("Complainboard");
-    
+      ComplainBoard Complainboard = (ComplainBoard)request.getAttribute("Complainboard"); 
        int currentPage = (Integer)request.getAttribute("Page");       
- 
         ArrayList<ComplainComment> commentList = (ArrayList<ComplainComment>)request.getAttribute("commentList");
        //바뀐부분
        int index = (Integer)request.getAttribute("index");
@@ -15,6 +13,7 @@
           location =1;
        }
        
+
         String fakeId = Complainboard.getId().substring(0,2).concat("**");
      
        
@@ -84,6 +83,7 @@
          <span class="badge">날짜 : <%= Complainboard.getPostingDate() %></span>
       </div>
       <div class="nav nav-pills col-md-8 text-right">
+
          <font color="red">작성자 :  </font><font color="black"><%=fakeId%></font>
       </div>
    </div>
@@ -101,15 +101,13 @@
             <div class="panel-footer">
                <div class="btn-group btn-group-justified">
                   <% if(member.getId().equals(Complainboard.getId())){ %>
-                  
-                  <a href="/review/cupdate?bnum=<%= Complainboard.getPostingNo() %>&Page=<%=currentPage%>" class="btn" style="color: white; width: 30%">수정</a>
-                  <%-- <a href="/review/cdelete?bnum=<%= Complainboard.getPostingNo() %>&Page=<%=currentPage%>&location=<%=location%>&index=<%=index%>" class="btn btn-default">삭제</a> --%>
-                  <a class="btn btn-default" onclick="board_delete()">삭제</a>
-                   	<a href="/review/clist?Page=<%=currentPage %>" class="btn btn-default">목 록</a>
+	                 <a href="/review/cupdate?bnum=<%= Complainboard.getPostingNo() %>&Page=<%=currentPage%>" class="btn" style="color: white; width: 10%">수정</a>
+                     <a class="btn" style="color: white; width:10%" onclick="return board_delete()">삭제</a>
+                   	 <a href="/review/clist?Page=<%=currentPage %>" class="btn" style="color: white; width: 10%">목 록</a>
                      
                   <% }else{ %>
                   	<a href="/review/clist?Page=<%=currentPage %>" class="btn btn-default">목 록</a>
-                  <% } %>
+	              <% } %>
                </div>
             </div>
          </div>
@@ -117,13 +115,12 @@
    </div>
 </div>
 
-
-<br>
 <!-- 삭제 확인 -->
 <script>
 function board_delete(){
 	if(confirm("해당 게시글을 삭제하시겠습니까?")){
 		location.href="/review/cdelete?bnum=<%= Complainboard.getPostingNo() %>&location=<%=location %>&index=<%= index %>&Page=<%=currentPage%>";
+		return true;
 	}else{
 		return false;
 	}

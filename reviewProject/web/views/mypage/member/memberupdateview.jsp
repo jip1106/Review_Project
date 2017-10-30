@@ -24,6 +24,15 @@
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
     
+    <style type="text/css">
+		@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.woff')}
+		@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.otf.eot')}
+	
+		body, table, div, p, a, h1, h2, h3, button, .header, li a.navbar-brand, .btn {
+			font-family:'CoreGTM5';
+		}
+	</style>
+	
      <script type="text/javascript">
     	
     	function checkpw(){
@@ -48,12 +57,12 @@
 <div class="container">
 	<div class="row">
 
-		<div class="col-sm-8 col-md-9 col-lg-10">
+		<div style="margin-left: 10%; margin-right: 10%;" >
 			<form action="/review/mupdate" method="post" id="memberUpdateForm" name="updateForm" onsubmit = "return checkpw();">	<!-- 수정 -->
 				<!-- Tab content -->
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="personal-info">
-						<h3 class="header header_plain">회원 정보</h3>
+						<h3 style="color: black;"><b>회원 정보</b></h3>
 						<div class="table-responsive">
 							<table class="table">
 								<tbody>
@@ -99,9 +108,9 @@
 					</div>
 					<br><br>
 					<div align="center"> 
-						<input type="submit" class="btn btn-primary" value="수정하기" style="width: 150px;"> &nbsp;&nbsp;
-						<input type="reset" class="btn btn-primary" value="취소하기" style="width: 150px;"> &nbsp;&nbsp;
-						<button class="btn btn-primary" style="width: 150px;" onclick = "return goMain()">메인 화면으로</button>
+						<input type="submit" class="btn btn-primary" value="수정하기" style="width: 150px; background: red;"> &nbsp;&nbsp;
+						<input type="reset" class="btn btn-primary" value="취소하기" style="width: 150px;  background: red;"> &nbsp;&nbsp;
+						<button class="btn btn-primary" style="width: 150px;  background: red;" onclick = "return goMain()">메인 화면으로</button>
 				
 					</div> 
 				

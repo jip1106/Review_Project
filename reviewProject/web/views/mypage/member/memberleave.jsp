@@ -45,12 +45,12 @@
 <div class="container">
 	<div class="row">
 
-		<div class="col-sm-8 col-md-9 col-lg-10">
+		<div style="margin-left: 10%; margin-right: 10%;">
 			<form action="/review/mdelete" method="post" id="memberDeleteForm" onsubmit="return memberDel()">
 				<!-- Tab content -->
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="personal-info">
-						<h3 class="header header_plain">회원 탈퇴</h3>
+						<h3 style="color: black;"><b>회원 탈퇴</b></h3>
 						<div class="table-responsive">
 							<table class="table">
 								<tbody>
@@ -69,8 +69,8 @@
 					</div>
 					<br><br>
 					<div align="center"> 
-						<input type="submit" class="btn btn-primary" value="탈퇴하기" style="width: 150px;"> &nbsp;
-						<input type="reset" class="btn btn-primary" value="취소하기" style="width: 150px;"> 
+						<input type="submit" class="btn btn-primary" value="탈퇴하기" style="width: 150px; background: red;"> &nbsp;
+						<input type="reset" class="btn btn-primary" value="취소하기" style="width: 150px; background: red;"> 
 					</div>
 				
 				</div>

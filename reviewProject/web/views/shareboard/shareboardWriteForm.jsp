@@ -30,7 +30,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8">
-			<h3 class="header">Shareboard Write</h3>
+			<h3 style="color: black;"><b>Shareboard Write</b></h3>
 			<p class="text-muted">회원들의 정보를 자유롭게 공유해주세요</p>
 		
 			<form role="form" action="/review/sinsert" method="post">
@@ -55,9 +55,9 @@
 						class="help-block"></span>
 				</div>
 				 -->
-					<button type="submit" class="btn btn-primary">글작성</button>
-					<button type="reset" class="btn btn-primary">작성 취소</button>
-					<button  class="btn btn-primary" onclick="javascript:history.go(-1); return false">목 록</button> 
+					<button type="submit" class="btn btn-primary" style="background: red;">글작성</button>
+					<button type="reset" class="btn btn-primary" style="background: red;">작성 취소</button>
+					<button  class="btn btn-primary" onclick="javascript:history.go(-1); return false" style="background: red;">목 록</button> 
 			</form>
 
 		</div>

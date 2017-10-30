@@ -22,19 +22,29 @@
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
+    
+    <style type="text/css">
+@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.woff')}
+@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.otf.eot')}
+	
+	body, table, div, p, a, h1, h2, h3, button, .header, li a.navbar-brand, .btn{
+	font-family:'CoreGTM5';
+	}
+	</style>
+	
 </head>
 <body>
 <div class="col-sm-4 col-md-3 col-lg-2">
 	<ul class="list-unstyled profile-social center-block">
 		<br><br>
-		<li><a href="memberupdateview.jsp" class="btn btn-primary" style="width: 160px;">회원정보 </a></li> 
-		<li><a href="memberleave.jsp" class="btn btn-primary" style="width: 160px;">회원탈퇴</a></li>
+		<li><a href="memberupdateview.jsp" class="btn btn-primary" style="width: 160px; background: red;">회원정보 </a></li> 
+		<li><a href="memberleave.jsp" class="btn btn-primary" style="width: 160px; background: red;">회원탈퇴</a></li>
 		
 		<!-- 내가 작성한 공유글 -->
-		<li><a href="mysharewrite.jsp" class="btn btn-primary" style="width: 160px;">내가 작성한 공유글</a></li>
+		<li><a href="mysharewrite.jsp" class="btn btn-primary" style="width: 160px; background: red;">내가 작성한 공유글</a></li>
 		
 		<!-- 내가 작성한 신고글-->
-		<li><a href="mycomplainwrite.jsp" class="btn btn-primary" style="width: 160px;">내가 작성한 신고글</a>
+		<li><a href="mycomplainwrite.jsp" class="btn btn-primary" style="width: 160px; background: red;">내가 작성한 신고글</a>
 		
 		<%-- <li><a href="/review/mycomplainList?id=<%=member.getId() %>" class="btn btn-primary" style="width: 160px;">내가 작성한 신고글</a></li> --%>
 		

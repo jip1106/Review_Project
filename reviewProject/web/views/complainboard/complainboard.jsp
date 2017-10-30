@@ -11,7 +11,6 @@
 	
 	String searchValue = (String)request.getAttribute("searchValue");
 	String searchKeyWord = (String)request.getAttribute("searchKeyWord");
-	
     %>
 
 <!DOCTYPE html>
@@ -125,12 +124,17 @@
 	
 	<!-- / .table-responsive -->
 	
+<!-- <<<<<<< HEAD
 
-	<!-- 글작성버튼 -->
-<!-- 	<div class="ui__section" id="ui_buttons" align="right">
+	글작성버튼
+	<div class="ui__section" id="ui_buttons" align="right">
 		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-sm btn-primary">글작성</a> 
-	</div> -->
+	</div>
 
+=======
+	
+	
+>>>>>>> somi -->
 	<!-- paging -->
 	<br>
 	<div id="ui_pagination" align="center">

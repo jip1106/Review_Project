@@ -39,49 +39,12 @@ public class DeleteReviewCommentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		int postNum = Integer.parseInt(request.getParameter("postNum"));
+		int commentNum = Integer.parseInt(request.getParameter("commentNum"));
+		String id = request.getParameter("id");
 		
-		int commentNo = Integer.parseInt(request.getParameter("cNo"));
-		System.out.println(commentNo);
-		int reviewNo = Integer.parseInt(request.getParameter("rNo"));
-		System.out.println(reviewNo);
-		ReviewCommentService service = new ReviewCommentService();
-		
-		int result = service.deleteReviewComment(commentNo,reviewNo);  
-		
-		ArrayList<ReviewComment> list = null;
-		
-		if(result > 0){
-			list = service.selectReviewComment(reviewNo);
-		}
-		
-		//json 객체 하나만 내보낼 수 있음
-		//json 배열을 json 객체에 저장함
-		//내보낼 json 객체 선언
-		JSONObject job = new JSONObject();
-		//list 옮겨담을 json 배열 선언
-		JSONArray jarr = new JSONArray(); 
-		
-		for(ReviewComment comment : list){ 
-			//user 객체 한 개를 저장할 json 객체 선언
-			JSONObject j = new JSONObject(); 
-			j.put("commentNo", comment.getCommentNo());
-			j.put("postingNo", comment.getPostingNo()); 
-			j.put("userId", URLEncoder.encode(comment.getId(),"UTF-8"));
-			j.put("content",comment.getCommentContent());
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");   
-			String to = transFormat.format(comment.getCommentDate());
-			j.put("timePosted", to);
-			
-			jarr.add(j);
-		}
-		
-		job.put("list",jarr);
-		System.out.println("job : " +job.toJSONString()); 
-		PrintWriter pw = response.getWriter();
-		pw.print(job.toJSONString());
-		pw.flush();
-		pw.close(); 
+		new ReviewCommentService().deleteComment(postNum,commentNum,id);
 	}
 
 	/**
