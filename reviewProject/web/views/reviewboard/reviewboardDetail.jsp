@@ -86,9 +86,11 @@
 						<%if(member.getId().equals(review.getId())){%>
 						<a href="/review/ReviewUpdateView?no=<%=review.getPosting_no()%>&page=<%=currentPage%>" class="btn btn-default">수정</a>
 						<a href="/review/reviewDelete?no=<%=review.getPosting_no()%>" class="btn btn-default">삭제</a>
-						<%}%>
+						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-default">좋아요</a>
+						<%}else{%>
 						<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-default">신고</a>
 						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-default">좋아요</a>
+						<%} %>
 					</div>
 				</div>
 			</div>
