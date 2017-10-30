@@ -6,8 +6,6 @@
 	int limit = (Integer)request.getAttribute("limit");
 	int endPage = (Integer)request.getAttribute("endPage");
 	
-	int reviewNo = (Integer)request.getAttribute("reviewNo");
-	String reviewTitle = (String)request.getAttribute("reviewTitle");
 	
 %>   
 <!DOCTYPE html>
@@ -81,8 +79,6 @@
 		</div>
 	
 				<div class="well well"><%= board.getTitle() %></div>
-				<div class="well well">신고 들어온 글 번호 : <%=reviewNo %> 신고 들어온 글 제목 : <%=reviewTitle %></div>
-				
 				<div class="panel-body">
 					<table>
 						<tr>
