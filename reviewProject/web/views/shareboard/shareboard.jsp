@@ -85,6 +85,7 @@
 					<option value="findByWriter" <%= searchMenu.equals("findByWriter")?"selected":"" %>>작성자</option>
 					<option value="findByTitleContent" <%= searchMenu.equals("findByTitleContent")?"selected":"" %>>제목+내용</option>
 					<option value="findByDate" <%= searchMenu.equals("findByDate")?"selected":"" %>>작성일</option>
+	
 				<%}else {%>
 					<option value="findByTitle" >제목</option>
 					<option value="findByWriter" >작성자</option>
@@ -106,7 +107,7 @@
 			<!-- 검색 유무에 따라 게시글 수 조회 -->
 			<%if(keyword==null || keyword.equals("")) {%>
 				<h3>전체 게시글 수 : <%= listCount %></h3>
-			<%}else if(list != null) {%>
+			<%}else if(list != null){%>
 				<h3>검색된 게시글 수: <%= request.getAttribute("searchCount") %></h3>
 			<%}%>
 			<div class="table-responsive">

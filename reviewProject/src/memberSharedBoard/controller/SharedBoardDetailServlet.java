@@ -43,7 +43,6 @@ public class SharedBoardDetailServlet extends HttpServlet {
 
 		SharedBoardService sbService = new SharedBoardService();
 		
-
 		int index = 0;	//정보 공유 게시판에서 글 제목 눌렀을 때
 		if(request.getParameter("index")!=null){
 			index = Integer.parseInt(request.getParameter("index"));
@@ -51,7 +50,6 @@ public class SharedBoardDetailServlet extends HttpServlet {
 	
 		sbService.addReadCount(no);
 		SharedBoard sharedBoard = sbService.selectSharedBoard(no);
-		ArrayList<SharedComment> list = sbService.selectCommentList(no);
 		
 		RequestDispatcher view = null;
 		
@@ -60,7 +58,6 @@ public class SharedBoardDetailServlet extends HttpServlet {
 			request.setAttribute("sharedBoard", sharedBoard);
 			request.setAttribute("index", index);
 			request.setAttribute("currentPage", currentPage);
-			request.setAttribute("commentList", list);
 			view.forward(request, response);
 			
 		}else{
