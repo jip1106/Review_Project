@@ -2,8 +2,10 @@
     pageEncoding="UTF-8"%>
  <%@ page import="memberComplainBoard.model.vo.ComplainBoard,memberComplainComment.model.vo.ComplainComment,java.util.ArrayList,java.sql.Date"%>
     <%
-      ComplainBoard Complainboard = (ComplainBoard)request.getAttribute("Complainboard"); 
+      ComplainBoard Complainboard = (ComplainBoard)request.getAttribute("Complainboard");
+    
        int currentPage = (Integer)request.getAttribute("Page");       
+ 
         ArrayList<ComplainComment> commentList = (ArrayList<ComplainComment>)request.getAttribute("commentList");
        //바뀐부분
        int index = (Integer)request.getAttribute("index");
@@ -13,7 +15,11 @@
           location =1;
        }
        
-    
+        String fakeId = Complainboard.getId().substring(0,2).concat("**");
+        System.out.println("currentPage : " + currentPage);
+        System.out.println("index : " + index);
+        System.out.println("location : " + location);
+       
     %>
 <!DOCTYPE html>
 <html lang="en"> 
@@ -50,7 +56,8 @@
          <span class="badge">날짜 : <%= Complainboard.getPostingDate() %></span>
       </div>
       <div class="nav nav-pills col-md-8 text-right">
-         <a href="#">작성자 : <%= Complainboard.getId() %></a> 
+     
+         <a href="#">작성자: <%=fakeId%></a> 
       </div>
    </div>
    <div class="container">
@@ -67,15 +74,16 @@
             <div class="panel-footer">
                <div class="btn-group btn-group-justified">
                   <% if(member.getId().equals(Complainboard.getId())){ %>
-                  <a href="/review/cupdate?bnum=<%= Complainboard.getPostingNo() %>" class="btn btn-default">수정</a>
-                  <a href="/review/cdelete?bnum=<%= Complainboard.getPostingNo() %>&location=<%=location %>&index=<%=index %>" class="btn btn-default">삭제</a>
                   
+                  <a href="/review/cupdate?bnum=<%= Complainboard.getPostingNo() %>&Page=<%=currentPage%>" class="btn btn-default">수정</a>
+                  <%-- <a href="/review/cdelete?bnum=<%= Complainboard.getPostingNo() %>&Page=<%=currentPage%>&location=<%=location%>&index=<%=index%>" class="btn btn-default">삭제</a> --%>
+                  <a class="btn btn-default" onclick="board_delete()">삭제</a>
                   <!--  <a href="/review/clist?Page=<%= currentPage %>" class="btn btn-default">목 록</a> -->
-                  <a href="/review/clist" class="btn btn-default">목 록</a>
+                  <a href="/review/clist?Page=<%=currentPage %>" class="btn btn-default">목 록</a>
                      
                   <% }else{ %>
                    <%-- <a href="/review/clist?Page=<%= currentPage %>" class="btn btn-default">목 록</a>--%> 
-                  <a href="/review/clist" class="btn btn-default">목 록</a>
+                  <a href="/review/clist?Page=<%=currentPage %>" class="btn btn-default">목 록</a>
                   <% } %>
                </div>
             </div>
@@ -83,6 +91,20 @@
       </div>
    </div>
 </div>
+
+
+<br>
+<!-- 삭제 확인 -->
+<script>
+function board_delete(){
+	if(confirm("해당 게시글을 삭제하시겠습니까?")){
+		location.href="/review/cdelete?bnum=<%= Complainboard.getPostingNo() %>&location=<%=location %>&index=<%= index %>&Page=<%=currentPage%>";
+	}else{
+		return false;
+	}
+	
+}
+</script>
 
 <!-- 댓글공간 -->
 <script type="text/javascript">

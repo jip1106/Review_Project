@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="memberComplainBoard.model.vo.ComplainBoard"%>
     <%
     	ComplainBoard Complainboard = (ComplainBoard)request.getAttribute("Complainboard");
+    	int currentPage = (Integer)request.getAttribute("Page");
     
     %>
 <!DOCTYPE html>
@@ -32,7 +33,7 @@
 		<div class="col-sm-8">
 			<h3 class="header">Complainboard Write</h3>
 			<p class="text-muted">불 건전한 게시글을 신고해 주세요</p>
-			<form role="form" action="/review/cup" method="post">
+			<form role="form" action="/review/cup?bnum=<%=Complainboard.getPostingNo() %>&Page=<%=currentPage %>" method="post">
 			<input type="hidden" name="postno" value="<%= Complainboard.getPostingNo() %>">
 				<div class="form-group">
 					<label for="title">Title</label> 

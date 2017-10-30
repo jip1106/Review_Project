@@ -36,13 +36,12 @@ public class ComplainListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8"); 
 		int Page = 1;
-		int limit = 5;
+		int limit = 10;
 		
 		
 		if(request.getParameter("Page")!=null){
 			Page=Integer.parseInt(request.getParameter("Page"));
 		}
-		System.out.println("안녕하세요");
 		ComplainBoardService Complainbordservice = new ComplainBoardService();
 		
 		int listCount = Complainbordservice.getListCount();

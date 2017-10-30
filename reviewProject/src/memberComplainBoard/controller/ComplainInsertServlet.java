@@ -46,6 +46,8 @@ public class ComplainInsertServlet extends HttpServlet {
 		ComplainBoard.setTitle(title);
 		ComplainBoard.setContent(content);
 		
+		
+		
 
 		// 처리결과에 따라 뷰 지정함
 		if(new ComplainBoardService().insertBoard(ComplainBoard) > 0) {
