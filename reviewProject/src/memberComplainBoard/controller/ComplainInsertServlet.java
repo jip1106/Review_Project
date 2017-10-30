@@ -40,16 +40,15 @@ public class ComplainInsertServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-
+		
+		
 		ComplainBoard ComplainBoard = new ComplainBoard();
 		ComplainBoard.setId(id);
 		ComplainBoard.setTitle(title);
 		ComplainBoard.setContent(content);
 		
 		
-		
-
-		// 처리결과에 따라 뷰 지정함
+				// 처리결과에 따라 뷰 지정함
 		if(new ComplainBoardService().insertBoard(ComplainBoard) > 0) {
 			response.sendRedirect("/review/clist?page=1");
 		}

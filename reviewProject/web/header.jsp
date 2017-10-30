@@ -42,7 +42,7 @@
 	}
 	
 .header {
-	background-size: 60%;
+	background-size: 50%;
 	height: 200px;
 	width: 100%;
 	padding-bottom: 60;

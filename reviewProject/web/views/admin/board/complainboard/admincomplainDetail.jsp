@@ -5,8 +5,10 @@
 	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
 	int limit = (Integer)request.getAttribute("limit");
 	int endPage = (Integer)request.getAttribute("endPage");
-
-
+	
+	int reviewNo = (Integer)request.getAttribute("reviewNo");
+	String reviewTitle = (String)request.getAttribute("reviewTitle");
+	
 %>   
 <!DOCTYPE html>
 <html lang="en"> 
@@ -79,6 +81,8 @@
 		</div>
 	
 				<div class="well well"><%= board.getTitle() %></div>
+				<div class="well well">신고 들어온 글 번호 : <%=reviewNo %> 신고 들어온 글 제목 : <%=reviewTitle %></div>
+				
 				<div class="panel-body">
 					<table>
 						<tr>
@@ -91,7 +95,7 @@
 						<!-- 게시판 제목 눌러서 상세보기 했을 때 관리자가 삭제할 수 있게 해주는 서블릿 cbdfDelete -->
 						<a href="cbdfDelete?postno=<%= board.getPostingNo()%>&currentPage=<%=currentPage%>&limit=<%=limit%>&endPage=<%=endPage%>" class="btn" style="color: white; width: 48%">삭제 하기</a> <!-- 상세보기에서 삭제하는 서블릿 연결 -->
 						<div style="float: left; width: 4%"></div>
-						<a href="cblist?page=1" class="btn" style="color:white; width: 48%">목 록 보 기</a>	<!-- 목록 돌아가는거 연결 -->
+						<a href="cblist?page=<%=currentPage %>" class="btn" style="color:white; width: 48%">목 록 보 기</a>	<!-- 목록 돌아가는거 연결 -->
 					</div>
 				</div>
 	<br>

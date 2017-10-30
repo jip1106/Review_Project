@@ -29,6 +29,25 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
+ <style type="text/css">
+@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.woff')}
+@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.otf.eot')}
+	
+	body, table, div, p, a, h1, h2, h3, button, .header, li a.navbar-brand, .btn{
+	font-family:'CoreGTM5';
+	}
+	
+	.btn:hover{
+		background: #C2D6E9;
+	}
+	
+	.btn{
+		background: #4D81B0;
+	}
+	
+
+</style>
+    
 <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
 
@@ -79,21 +98,23 @@
 					<!-- 	<div id="idpwdCheck" style="color: red;"></div> -->
 						<br>
 					
-						<button type="submit" class="btn btn-primary btn-block btn-lg" onclick="return checkInput();">Login</button>
+						<button type="submit" class="btn btn-primary btn-lg btn-block" 
+									onclick="return checkInput();">Login</button>
 						<!-- <button type="submit" class="btn btn-primary btn-block btn-lg">Login</button> -->
-						<button type="reset" class="btn btn-primary btn-block btn-lg" id="cancel">취소</button>
+						<button type="reset" class="btn btn-primary btn-lg btn-block" 
+									id="cancel" >취소</button>
 				</form> 
 
 				
 					<!-- Sign Up link -->
 					<hr />
 					<p align="center">
-						<a href="findid.jsp">아이디찾기</a> &nbsp;&nbsp;
-						<a href="findpwd.jsp">비밀번호찾기</a>
+						<a href="findid.jsp" style="color: red;">아이디찾기</a> &nbsp;&nbsp;
+						<a href="findpwd.jsp" style="color: red;">비밀번호찾기</a>
 					</p>
 
 					<br>
-					 <p align="center">회원이 아니면 <a href="signup.jsp">회원 가입 하러가기</a></p>
+					 <p align="center">회원이 아니면 <a href="signup.jsp" style="color: red;">회원 가입 하러가기</a></p>
 					<!--
 					<div class="body-plain__footer">
 						Copyright 2017 <a href="http://simpleqode.com/">Simpleqode.com</a>.
@@ -106,7 +127,7 @@
 		<!-- / .container -->
 		<!-- Footer -->
 		<div class="body-plain__footer">
-			Copyright 2017 <a href="http://simpleqode.com/">Simpleqode.com</a>.
+			Copyright 2017 <a href="/review/index.jsp" style="color: red;">Review</a>.
 			All Rights Reserved.
 		</div>
 	</div>

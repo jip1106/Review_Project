@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	int reviewNo = ((Integer)request.getAttribute("reviewNo")).intValue();
-    String reviewTitle= (String)request.getAttribute("reviewTitle");
-    
-%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,8 +27,6 @@
 			if($("#title").val()=="" || $("#content").val()==""){
 				alert("글 제목과 내용을 입력해 주세요!");
 				return false;
-			}else{
-				return true;
 			}
 		}
 	</script>
@@ -46,33 +40,24 @@
 			<p class="text-muted">리뷰게시판 에서 부적절한 게시물을 신고해 주세요!</p>
 			<form role="form" action="/review/cinsert" method="post">
 			<input type="hidden" name="id" value="<%= member.getId() %>">
+				
 				<div class="form-group">
 					<label for="title">글제목</label> 
 					<input type="text" name="title" class="form-control" id="title" placeholder="title"> 
 					<span class="help-block"></span>
 				</div>
-					<!-- 바꾼부분 -->
-					
-				<div class="form-group">
-					<label for="title">신고할 게시글 번호</label> 
-					<input type="text" name="reviewNo" class="form-control" id="reviewNo" style="width:50%" readonly value=<%=reviewNo %>> 
-					<span class="help-block"></span>
-				</div>
-				<div class="form-group">
-					<label for="title">신고할 게시글 제목</label> 
-					<input type="text" name="reviewTitle" class="form-control" id="reviewTitle"  style="width:50%" readonly value=<%=reviewTitle%>> 
-					<span class="help-block"></span>
-				</div>
-					<!-- 바꾼부분 -->
+						
 					
 				<div class="form-group">
 					<label for="content">신고 사유</label>
 					<textarea cols="20" rows="20" name="content" class="form-control"  id="content" placeholder="content"></textarea>
 					 <span class="help-block"></span>  
 				</div>
+				
 					<button type="submit" class="btn btn-primary" onclick = "return pleaseInputMessage()">글작성</button>
-					<button type="reset" class="btn btn-primary" onclick="reviewWriteCancel()">작성 취소</button>
+					<button type="reset" class="btn btn-primary">작성 취소</button>
 					<button type="submit" class="btn btn-primary" onclick="/review/clist">돌아가기</button>
+			
 			</form>
 
 		</div>

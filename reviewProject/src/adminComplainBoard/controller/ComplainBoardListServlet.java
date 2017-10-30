@@ -38,11 +38,8 @@ public class ComplainBoardListServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		String searchValue = request.getParameter("searchValue");
 		String searchMenu = request.getParameter("searchMenu");
-		
-	
+			
 		int currentPage = 1;
-		
-		//한 페이지에 출력할 목록 갯수
 		int limit =5;
 		
 		//페이지 숫자가 전송이 왔을 경우
@@ -76,10 +73,7 @@ public class ComplainBoardListServlet extends HttpServlet {
 				list = cbservice.viewSearchByTitle(searchValue,currentPage,limit);
 			}
 			
-		}
-		
-		
-		
+		}				
 		int maxPage = (int)((double)(listCount)/limit+0.9); //총 페이지 수
 		
 		int startPage = ((int)((double)currentPage/limit + 0.9)-1)*limit +1 ;

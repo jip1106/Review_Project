@@ -88,7 +88,7 @@
 						<a href="/review/reviewDelete?no=<%=review.getPosting_no()%>" class="btn btn-default">삭제</a>
 						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-default">좋아요</a>
 						<%}else{%>
-						<a href="/review/passNoTitle?reviewNo=<%=review.getPosting_no()%>&reviewTitle=<%=review.getTitle() %>" class="btn btn-default">신고</a>
+						<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-default">신고</a>
 						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-default">좋아요</a>
 						<%} %>
 					</div>

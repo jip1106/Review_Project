@@ -16,9 +16,7 @@
        }
        
         String fakeId = Complainboard.getId().substring(0,2).concat("**");
-        System.out.println("currentPage : " + currentPage);
-        System.out.println("index : " + index);
-        System.out.println("location : " + location);
+     
        
     %>
 <!DOCTYPE html>
@@ -42,7 +40,37 @@
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
-    
+
+   <style type="text/css">
+.btn {
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
+	-webkit-border-radius: 4;
+	-moz-border-radius: 4;
+	border-radius: 4px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
+	text-decoration: none;
+}
+
+
+</style>   
       
 </head>
 <body>
@@ -56,8 +84,7 @@
          <span class="badge">날짜 : <%= Complainboard.getPostingDate() %></span>
       </div>
       <div class="nav nav-pills col-md-8 text-right">
-     
-         <a href="#">작성자: <%=fakeId%></a> 
+         <font color="red">작성자 :  </font><font color="black"><%=fakeId%></font>
       </div>
    </div>
    <div class="container">
@@ -75,15 +102,13 @@
                <div class="btn-group btn-group-justified">
                   <% if(member.getId().equals(Complainboard.getId())){ %>
                   
-                  <a href="/review/cupdate?bnum=<%= Complainboard.getPostingNo() %>&Page=<%=currentPage%>" class="btn btn-default">수정</a>
+                  <a href="/review/cupdate?bnum=<%= Complainboard.getPostingNo() %>&Page=<%=currentPage%>" class="btn" style="color: white; width: 30%">수정</a>
                   <%-- <a href="/review/cdelete?bnum=<%= Complainboard.getPostingNo() %>&Page=<%=currentPage%>&location=<%=location%>&index=<%=index%>" class="btn btn-default">삭제</a> --%>
                   <a class="btn btn-default" onclick="board_delete()">삭제</a>
-                  <!--  <a href="/review/clist?Page=<%= currentPage %>" class="btn btn-default">목 록</a> -->
-                  <a href="/review/clist?Page=<%=currentPage %>" class="btn btn-default">목 록</a>
+                   	<a href="/review/clist?Page=<%=currentPage %>" class="btn btn-default">목 록</a>
                      
                   <% }else{ %>
-                   <%-- <a href="/review/clist?Page=<%= currentPage %>" class="btn btn-default">목 록</a>--%> 
-                  <a href="/review/clist?Page=<%=currentPage %>" class="btn btn-default">목 록</a>
+                  	<a href="/review/clist?Page=<%=currentPage %>" class="btn btn-default">목 록</a>
                   <% } %>
                </div>
             </div>
@@ -125,7 +150,7 @@ function board_delete(){
                                     var json = "";
                                     var j = JSON.parse(JSON.stringify(data));
                                     
-                                    for (var i in j.list) {
+                                    for (var i in j) {
                                        json += "<div class='comment'>";
                                        json += "<div class='comment__content' id='commentresetView'>";
                                        json += "<div class='comment__author_name'>"
@@ -264,30 +289,35 @@ function board_delete(){
           
        }); 
 </script>
-   
-   <div class="col-sm-5">
+ <br><br>
+   <div class="col-sm-5" style="padding-left:10%">
       <div class="badge">댓글을 입력해주세요</div>
    </div> 
-         <div class="col-sm-8 col-md-9">
+   
+         <div class="col-sm-8 col-md-9" style="padding-left:10%">
             <div class="comment comment_new">
-               <div class="comment__author_img"><%=member.getName()%></div>
+               <div class="comment__author_img">
+               	<%=member.getName()%><font color="#4D81B0">[<%=member.getId() %>]</font>
+               </div>
                <div class="comment__content">
                   <form>
-                     <div class="form-group">
+                     <div class="form-group" style="float: left; width: 80%">
                         <label for="comment-new__textarea" class="sr-only">Enteryour comment</label>
-                        <div id="deletehagoship">
-                        <textarea class="form-control" rows="2" id="sendContent" placeholder="Enter your comment"></textarea></div>
+                           <textarea class="form-control" rows="1" id="sendContent" placeholder="Enter your comment" style="width: 98%"></textarea>
                      </div>
-                     <button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
+                    <div style="float: left; width: 20%">
+                     <button type="button" id="sendComment" class="btn" style="background:red" >Send Comment</button> 
+                  	</div>
                   </form>
                </div>
+               
                <!-- / .comment__content -->
             </div>
             <!-- / .comment__new -->
             
             <!-- Comments header -->
             <div class="comment__header">
-               <span>List of Comments</span>
+               <font color='black'> <span>List of Comments</span>
             </div>
 
             <!-- All comments -->
@@ -296,11 +326,11 @@ function board_delete(){
                   <div class="comment">
                      <div class="comment__content" id="commentresetView">
                         <div class="comment__author_name">
-                           아이디: <%=commentList.get(i).getId()%> 
+                           <font color='#4D81B0'>아이디:   <font color='black'><%=commentList.get(i).getId()%> 
                         </div>
                            시간: <%=commentList.get(i).getDate()%><br>
-                           댓글내용
-                           <p><%=commentList.get(i).getCommentContent()%></p> 
+                             <font color='#4D81B0'>댓글내용:
+                           <font color='black'><%=commentList.get(i).getCommentContent()%> 
                         <%if(member.getId().equals(commentList.get(i).getId())){%> 
                            <div class="btn-group pull-right" role="group" aria-label="comment__actions" onclick="window.scrollTo(10,10);">
                               <a id="removeComment"class="btn btn-default btn-xs"><i class="fa fa-times"></i>Remove</a> 
