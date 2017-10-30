@@ -70,12 +70,12 @@
 }
 
 .btn {
-	background: #ff6347;
-	background-image: -webkit-linear-gradient(top, #ff6347, #ff6347);
-	background-image: -moz-linear-gradient(top, #ff6347, #ff6347);
-	background-image: -ms-linear-gradient(top, #ff6347, #ff6347);
-	background-image: -o-linear-gradient(top, #ff6347, #ff6347);
-	background-image: linear-gradient(to bottom, #ff6347, #ff6347);
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
 	-webkit-border-radius: 4;
 	-moz-border-radius: 4;
 	border-radius: 4px;
@@ -87,20 +87,18 @@
 }
 
 .btn:hover {
-	background: #f75234;
-	background-image: -webkit-linear-gradient(top, #f75234, #f75234);
-	background-image: -moz-linear-gradient(top, #f75234, #f75234);
-	background-image: -ms-linear-gradient(top, #f75234, #f75234);
-	background-image: -o-linear-gradient(top, #f75234, #f75234);
-	background-image: linear-gradient(to bottom, #f75234, #f75234);
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
 	text-decoration: none;
 }
 </style>
 </head>
 <body>
 	<%@ include file="../../../header.jsp"%>
-	<br>
-	<br>
 	<br>
 
 <form action = "/review/midSearch" method="post"> <!-- 서블릿으로 input 안에 있는 값 -->
@@ -129,28 +127,26 @@
 				<%}else{ %>
 					<h2>검색된 회원 수: <%=listCount %></h2> 
 				<%}%>	
-					<h2><%=member.getName()%>
-					관리자님 경고횟수가 3 이상이면 삭제하세요</h2>
+					<h2><font color="black"><%=member.getName()%></font>
+					관리자님 경고횟수가 <font color="red" style="font-weight: bold;">3 이상</font>이면 삭제하세요</h2>
 				</caption>
 				
-				<thead>
 					<tr>
-						<th>회원ID</th>
-						<th>이름</th>
-						<th>이메일</th>
-						<th>경고주기</th>
-						<th>경고횟수</th>
-						<th>비고</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">회원ID</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">이름</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">이메일</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">경고주기</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">경고횟수</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">비고</th>
 					</tr>
-				</thead>
 				<%
 					for (Member m : list) {
 				%>
 				<tr>
-					<td class="col-md-1"><%=m.getId()%></td>
-					<td class="col-md-1"><%=m.getName()%></td>
-					<td class="col-md-1"><%=m.getEmail()%></td>
-					<td class="col-md-1">
+					<td class="col-md-1" style="text-align: center;"><%=m.getId()%></td>
+					<td class="col-md-1" style="text-align: center;"><%=m.getName()%></td>
+					<td class="col-md-1" style="text-align: center;"><%=m.getEmail()%></td>
+					<td class="col-md-1" style="text-align: center;">
 						<%if (m.getUserType() == 1) {%>
 						 <a href="/review/warningup?id=<%=m.getId()%>&page=<%=currentPage%>">
 						 	<button class="btn" style="color: white" >경고주기</button>
@@ -159,8 +155,8 @@
 							}
 						%>
 					</td>
-					<td class="col-md-1" id="warningcount"><%=m.getWarningCount() %></td>
-					<td class="col-md-1">
+					<td class="col-md-1" id="warningcount" style="text-align: center;"><%=m.getWarningCount() %></td>
+					<td class="col-md-1" style="text-align: center;">
 						<%
 							if (m.getWarningCount() >= 3 && m.getUserType() == 1) {
 						%>
@@ -247,5 +243,6 @@
 			</nav>
 		</div>		
 <%} %>
+<%@ include file = "../../../../footer.jsp" %>
 </body>
 </html>

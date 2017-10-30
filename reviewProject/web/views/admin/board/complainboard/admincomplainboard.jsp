@@ -51,12 +51,12 @@
 
 <style type="text/css">
 .btn {
-	background: #ff6347;
-	background-image: -webkit-linear-gradient(top, #ff6347, #ff6347);
-	background-image: -moz-linear-gradient(top, #ff6347, #ff6347);
-	background-image: -ms-linear-gradient(top, #ff6347, #ff6347);
-	background-image: -o-linear-gradient(top, #ff6347, #ff6347);
-	background-image: linear-gradient(to bottom, #ff6347, #ff6347);
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
 	-webkit-border-radius: 4;
 	-moz-border-radius: 4;
 	border-radius: 4px;
@@ -68,12 +68,12 @@
 }
 
 .btn:hover {
-	background: #f75234;
-	background-image: -webkit-linear-gradient(top, #f75234, #f75234);
-	background-image: -moz-linear-gradient(top, #f75234, #f75234);
-	background-image: -ms-linear-gradient(top, #f75234, #f75234);
-	background-image: -o-linear-gradient(top, #f75234, #f75234);
-	background-image: linear-gradient(to bottom, #f75234, #f75234);
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
 	text-decoration: none;
 }
 
@@ -87,8 +87,6 @@
 	<%@ include file="../../../../header.jsp"%>
 
 
-	<br>
-	<br>
 	<br>
 	<div align="left" style="margin-left: 10%; margin-right: 10%">
 		<div align="left">
@@ -120,32 +118,30 @@
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered">
 				<caption>신고게시판에 올라온 게시글 입니다.</caption>
-				<thead>
 					<tr>
-						<th style="background-color: tomato">글번호</th>
-						<th style="background-color: tomato">제목</th>
-						<th style="background-color: tomato">작성자</th>
-						<th style="background-color: tomato">작성일</th>
-						<th style="background-color: tomato">조회수</th>
-						<th style="background-color: tomato">비고</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">글번호</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">제목</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">작성자</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">작성일</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">조회수</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">비고</th>
 					</tr>
-				</thead>
 				<%
 					for (ComplainBoard cboard: list) {
 				%>
 				<tr>
-					<td><%=cboard.getPostingNo()%></td>
-					<td><!-- 게시판 상세보기 해주는 cbdetail -->
+					<td style="text-align: center;"><%=cboard.getPostingNo()%></td>
+					<td style="text-align: center;"><!-- 게시판 상세보기 해주는 cbdetail -->
 						<a href="/review/cbdetail?postno=<%= cboard.getPostingNo() %>&currentPage=<%= currentPage%>&limit=<%=limit%>&endPage=<%=endPage%>">
-							<%= cboard.getTitle() %>
+							<font color="red"><%= cboard.getTitle() %></font>
 						</a>
 					</td>
-					<td><%=cboard.getId()%></td>
-					<td><%=cboard.getPostingDate()%></td>
-					<td><%=cboard.getHits()%></td>
-					<td><!-- 신고게시판 메인에서 관리자가 삭제할 수 있게 해주는 서블릿 cbfdelete-->
+					<td style="text-align: center;"><%=cboard.getId()%></td>
+					<td style="text-align: center;"><%=cboard.getPostingDate()%></td>
+					<td style="text-align: center;"><%=cboard.getHits()%></td>
+					<td style="text-align: center;"><!-- 신고게시판 메인에서 관리자가 삭제할 수 있게 해주는 서블릿 cbfdelete-->
 						<a href="cbfdelete?postno=<%= cboard.getPostingNo()%>&currentPage=<%= currentPage%>&limit=<%=limit%>&endPage=<%=endPage%>">
-							<button class="btn" style="color: white">게시글 삭제</button>
+							<button class="btn" style="background-color: #C2D6E9; color: white; text-align: center;">게시글 삭제</button>
 						</a>
 					</td>
 				</tr>
@@ -224,5 +220,6 @@
 		<%} %>
 		<!-- / .ui__section -->
 	</div>
+	<%@ include file = "../../../../footer.jsp" %>
 </body>
 </html>

@@ -110,7 +110,10 @@ ul.navi li {
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("a[target!='_blank']").click(function(){
-	        alert("로그인을 해주세요!");
+	       if(confirm("로그인을 해주세요!")==false){
+	    	   return false;
+	       }
+	        
 	    });
 	});
 	

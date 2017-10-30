@@ -50,9 +50,9 @@ public class ReviewListViewServlet extends HttpServlet {
 		int listCount = rservice.getReviewListCount();
 		
 		String location = request.getParameter("findLocationType");
-		System.out.println(location);
 		String category = request.getParameter("findCategoryType");
-		System.out.println(category);
+		
+
 		String searchKeyWord = request.getParameter("searchKeyWord");
 		System.out.println(searchKeyWord);
 		

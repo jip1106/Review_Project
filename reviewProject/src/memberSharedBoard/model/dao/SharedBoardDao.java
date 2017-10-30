@@ -122,8 +122,7 @@ public class SharedBoardDao {
 		PreparedStatement pstmt = null;
 		
 		String query ="insert into share_board values "
-				+ "((select max(posting_no) + 1 from share_board), "
-				+ "?, ?, ?, default, sysdate, default)";
+				+ "(share_seq.nextval,?, ?, ?, default, sysdate, default)";
 
 		try {
 			pstmt = con.prepareStatement(query);

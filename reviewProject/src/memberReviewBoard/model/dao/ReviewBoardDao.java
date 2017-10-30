@@ -284,14 +284,17 @@ public class ReviewBoardDao {
 	}
 
 	public ArrayList<ReviewBoard> reviewLocationSearchList(Connection con, int currentPage, int limit,String location,String searchKeyWord) {
+
+		PreparedStatement pstmt = null; 
+
 		System.out.println("지역검색");
-		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query =  
 					"select * from "
 	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
 	              + "from (select * from review_board order by posting_no desc)) "
-	              + "where rnum>=? and rnum<=? and location = ? and store_name like ?";  
+	              + "where rnum>=? and rnum<=? and location = ? and store_name like ?"; 
+
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		ReviewBoard review = null;
 		int startRow = (currentPage -1) * limit + 1;
@@ -335,7 +338,6 @@ public class ReviewBoardDao {
 	}
 
 	public ArrayList<ReviewBoard> reviewCategorySearchList(Connection con,int currentPage, int limit,String category,String searchKeyWord) {
-		System.out.println("카테고리검색");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query =  
@@ -568,15 +570,15 @@ public class ReviewBoardDao {
 
 	public ArrayList<ReviewBoard> reviewAllSearchList(Connection con, int currentPage, int limit, String location,
 			String category, String searchKeyWord) {
-		
-		System.out.println("전체검색");
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query =  
 					"select * from "
 	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
 	              + "from (select * from review_board order by posting_no desc)) "
-	              + "where rnum>=? and rnum<=? and location = ? and category = ? and store_name like ?"; 
+	              + "where rnum>=? and rnum<=? and location = ? and category = ? and store_name like ?";  
+
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		ReviewBoard review = null;
 		int startRow = (currentPage -1) * limit + 1;
@@ -588,8 +590,8 @@ public class ReviewBoardDao {
 			pstmt.setInt(2, endRow);
 			pstmt.setString(3, location);
 			pstmt.setString(4, category);
-			pstmt.setString(5, "%"+searchKeyWord+"%");
-			
+			pstmt.setString(5, "%"+searchKeyWord+"%"); 
+		
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()){
@@ -620,6 +622,7 @@ public class ReviewBoardDao {
 		return list;
 	}
 
+
 	public ArrayList<ReviewComment> selectCommentList(Connection con, int reviewNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -649,6 +652,7 @@ public class ReviewBoardDao {
 		}
 		return list;
 	}
+
 
 	public ArrayList<ReviewBoard> selectTop3Restaurant(Connection con) {
 		// 식당 top3 뽑아오는 메서드
@@ -841,5 +845,6 @@ public class ReviewBoardDao {
 		
 		return list;
 	}
+
 
 }

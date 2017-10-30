@@ -85,7 +85,7 @@
 				</select>
 				&nbsp;&nbsp;&nbsp;
 				<label class="sr-only" for="nav-search">Search</label>
-				<input type="text" class="form-control" name="searchKeyWord">
+				<input type="text" class="form-control" name="searchKeyWord" placeholder="가게명">
 				<button type="submit" id="searchSubmit">
 					<i class="fa fa-search"></i>
 				</button> 
@@ -121,6 +121,7 @@
 							<h3 class="portfolio__title">
 								<a href="/review/ReviewDetail?no=<%=list.get(i).getPosting_no()%>&page=<%=currentPage%>">글제목: <%=list.get(i).getTitle()%></a></h3> 
 								<div class="portfolio__intro">
+
 								<%if(list.get(i).getEvaluation() == 1){%>
 									평점: <img src="/review/resources/img/one.PNG" width="100px" height="25px"> <%=list.get(i).getEvaluation()%>점<br>
 								<%}else if(list.get(i).getEvaluation() == 2){%>
@@ -145,16 +146,16 @@
 								가게명: <%=list.get(i).getStoreName()%><br>
 								지역: <%=list.get(i).getLocation()%><br>
 								카테고리: <%=list.get(i).getCategory()%> 
+
 								</div>
 						</div>
 					</div>
 				</div>
-			  <%}%> 
-		    </div>
-			<!-- / .row -->
-		</div>
-	 <!-- / .portfolio__items -->
-</div>
+			  <%}%>
+			</div>
+		<!-- / .row -->
+	</div>
+	<!-- / .portfolio__items -->
 
 <!-- / .container -->
 

@@ -37,11 +37,13 @@ public class SharedBoardDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		
+
 		int no = Integer.parseInt(request.getParameter("no"));
 		int currentPage = Integer.parseInt(request.getParameter("page"));
 
 		SharedBoardService sbService = new SharedBoardService();
 		
+
 		int index = 0;	//정보 공유 게시판에서 글 제목 눌렀을 때
 		if(request.getParameter("index")!=null){
 			index = Integer.parseInt(request.getParameter("index"));

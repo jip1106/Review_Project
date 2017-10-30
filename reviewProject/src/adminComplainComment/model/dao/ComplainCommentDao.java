@@ -61,7 +61,7 @@ public class ComplainCommentDao {
 		PreparedStatement pstmt = null;
 		int result =0;
 		//postNum, memberId,content
-		String query = "insert into complain_comment values (complain_seq.nextval,?,?,?,default)";
+		String query = "insert into complain_comment values (complain_comment_seq.nextval,?,?,?,default)";
 		try{
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, postNum);
@@ -76,7 +76,7 @@ public class ComplainCommentDao {
 		}finally{
 			close(pstmt);
 		}
-		System.out.println("Dao에서 result: " + result);
+	
 		return result;
 	}
 
@@ -110,7 +110,7 @@ public class ComplainCommentDao {
 		String query = "update complain_comment set comment_content =? where posting_no = ? and comment_no =? and id =?";
 		
 		try{
-			System.out.println("try문 들어옴");
+		
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, content);
 			pstmt.setInt(2, postNum);
@@ -118,13 +118,13 @@ public class ComplainCommentDao {
 			pstmt.setString(4, id);
 			
 			result = pstmt.executeUpdate();
-			System.out.println("try문 끝");
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally{
 			close(pstmt);
 		}
-		System.out.println("Dao result 값 : " + result);
+		
 		return result;
 	}
 
