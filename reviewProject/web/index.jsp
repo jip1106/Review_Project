@@ -28,7 +28,7 @@
 .header {
 	padding-bottom: 60;
 	magin: 0;
-	background-image: url("/review/resources/img/새싹비빔밥.jpg");
+	background-image: url("/review/resources/img/backgroundsomi.jpg");
 }
 
 ul.navi li {
@@ -125,17 +125,93 @@ ul.navi li {
 	}
 	
 </script>
+
+<style type="text/css">
+@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.woff')}
+@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.otf.eot')}
+	
+	body, table, div, p, a, h1, h2, h3, button, .header, li a.navbar-brand, .btn{
+	font-family:'CoreGTM5';
+	}
+	
+.header {
+	background-size: 60%;
+	height: 200px;
+	width: 100%;
+	padding-bottom: 60;
+	magin: 0;
+	background-image: url("/review/resources/img/backgroundsomi.jpg");
+}
+
+ul.navi li {
+	margin-top: 1%;
+	margin-right: 1%;
+	list-style-type: none;
+	display: block;
+	width: 20em;
+	height: 3em;
+	float: left;
+	text-align: center;
+	font-family: "Lucida Grande", sans-serif;
+	border-right: 1px #C2D6E9 solid;
+	-webkit-box-shadow: 1px 1px 1px #C2D6E9;
+	-moz-box-shadow: 1px 1px 1px #C2D6E9;
+	box-shadow: 1px 1px 1px #C2D6E9;
+	/* background-color: #c9c9c9; */
+	background: -webkit-gradient(linear, left top, left bottom, from(white),
+		to(white));
+	/* background: -moz-linear-gradient(top, white, #a1a1a1, #848484); */
+}
+
+ul.navi li a {
+	display: block;
+	padding: .8em .5em .5em .5em;
+	text-decoration: none;
+	color: #497FAE;
+	/* text-shadow: 1px 1px 0px white; */
+}
+
+ul.navi li:hover {
+	background-color: #4D81B0;
+	background: -webkit-gradient(linear, left top, left bottom, from(#C2D6E9),
+		to(#C2D6E9) /* , color-stop(0.6, #474747) */);
+	/* background: -moz-linear-gradient(top, #333333, #474747, #4c4c4c); */
+}
+
+ul.navi li:hover>a {
+	color: white; /* 글자색*/
+	/* text-shadow: 0px 1px 0px #fff */; /* 텍스트그림자*/
+}
+
+/* 첫번째항목의스타일*/
+ul.navi li {
+	-webkit-border-top-left-radius: .5em; /* 왼쪽상단코너를부드럽게*/
+	-moz-border-radius-topleft: .5em;
+	border-top-left-radius: .5em;
+	-webkit-border-bottom-left-radius: .5em; /* 왼쪽하단코너를부드럽게*/
+	-moz-border-radius-bottomleft: .5em;
+	border-bottom-left-radius: .5em;
+	-webkit-border-top-right-radius: .5em; /*오른쪽상단코너를부드럽게*/
+	-moz-border-radius-topright: .5em;
+	border-top-right-radius: .5em;
+	-webkit-border-bottom-right-radius: .5em; /* 오른쪽하단코너를부드럽게*/
+	-moz-border-radius-bottomright: .5em;
+	border-bottom-right-radius: .5em;
+}
+
+
+</style>
 <body>
 	<div class="header">
 		<h1 align="center">
-			<a href=/review/views/member/login.jsp style="text-decoration: none">Review</a>
+			<a href=/review/views/member/login.jsp style="text-decoration: none; color: white">Review</a>
 		</h1> 	<!-- 회원 -->
   		<div>
 
 			<div class="container">
 				<ul class="topbar-nav topbar-nav_right">
-					<li><a class="navbar-brand" style="color: black;" target="_blank" href="javascript:void(0);" onclick="goLogin(); return false;">Login</a></li> 
-					<li><a class="navbar-brand" style="color: black;" target="_blank" href="javascript:void(0);" onclick="goSignUp(); return false;">SignUp</a></li>
+					<li><a class="navbar-brand" style="color: red;" target="_blank" href="javascript:void(0);" onclick="goLogin(); return false;">Login</a></li> 
+					<li><a class="navbar-brand" style="color: red;" target="_blank" href="javascript:void(0);" onclick="goSignUp(); return false;">SignUp</a></li>
 				</ul>
 			</div>
 		
@@ -152,36 +228,33 @@ ul.navi li {
 	<br><br>
 
 	<div class="item active" id="noticeId"><!-- 공지사항 띄워 줄 공간 -->
-		<div align="left" style="margin-left: 12%; margin-right: 21%">
-		<h3>공지사항</h3>
+		<div align="left" style="margin-left: 10%; margin-right: 10%">
+		<h2>공지사항</h2>
 		
-		<div class="table-responsive">
 		<!-- <form role="form" action="/review/nlist" method="post"> -->
 			<table class="table table-striped table-bordered">
-				<thead>
 					<tr>
-						<th style="background-color: tomato">번호</th>
-						<th style="background-color: tomato">제목</th>
-						<th style="background-color: tomato">작성자</th>
-						<th style="background-color: tomato">작성일</th>
-						<th style="background-color: tomato">조회수</th>
+						<th style="background-color: #4D81B0; color: white; text-align: center">번호</th>
+						<th style="background-color: #4D81B0; color: white; text-align: center">제목</th>
+						<th style="background-color: #4D81B0; color: white; text-align: center">작성자</th>
+						<th style="background-color: #4D81B0; color: white; text-align: center">작성일</th>
+						<th style="background-color: #4D81B0; color: white; text-align: center">조회수</th>
 						
 					</tr>
-				</thead>
 				<%
 				if(noticeList !=null){
 					for(Notice notice: noticeList) {
 				%>
 				<tr>
-					<td><%=notice.getPostingNo()%></td>
-					<td>
-						<a href="/review/views/member/login.jsp">
+					<td style=" text-align: center"><%=notice.getPostingNo()%></td>
+					<td style=" text-align: center">
+						<a style="color: red" href="/review/views/member/login.jsp">
 							<%= notice.getTitle() %>
 						</a>
 					</td>
-					<td><%=notice.getId()%></td>
-					<td><%=notice.getPostingDate()%></td>
-					<td><%=notice.getHits()%></td>
+					<td style=" text-align: center"><%=notice.getId()%></td>
+					<td style=" text-align: center"><%=notice.getPostingDate()%></td>
+					<td style=" text-align: center"><%=notice.getHits()%></td>
 				
 				</tr>
 				<%
@@ -192,8 +265,7 @@ ul.navi li {
 			<!-- </form> -->
 			</div>
 		</div>
-	</div>
-	
+	<br><br>
 <div class="container">	
 	<div class="item active"> <!-- 식당 탑3 자리 -->
 	<%if(restaurantList!=null){ %>
@@ -209,12 +281,13 @@ ul.navi li {
 									<img
 										src="${pageContext.request.contextPath}/uploadfile/<%=review.getRenameImageName() %>"
 										alt="Portfolio Image">
+										
 								</div>
 								<!-- Captions -->
 								<div class="portfolio__caption">
 									<h3 class="portfolio__title">
-										<a href="views/member/login.jsp">글제목 : <%=review.getTitle()%> </a>
-										[좋아요] : <%=review.getLikes() %>	
+										<a href="views/member/login.jsp"><font color="red"><%=review.getTitle()%></font> </a>
+										
 									</h3>
 									
 								</div>
@@ -249,7 +322,11 @@ ul.navi li {
 								</div>
 								<div class="portfolio__intro">
 										카테고리 : <%=review.getCategory() %>
-								</div>
+							<div align="right">
+								&nbsp;&nbsp;<img src="resources/img/good.png">&nbsp;<font
+									size="2pt" color="#4D81B0"><%=review.getLikes() %></font>
+							</div>
+						</div>
 								
 							</div>
 						</div>
@@ -277,8 +354,7 @@ ul.navi li {
 								<!-- Captions -->
 								<div class="portfolio__caption">
 									<h3 class="portfolio__title">
-										<a href="views/member/login.jsp">글제목 : <%=review.getTitle()%> </a>
-										[좋아요] : <%=review.getLikes() %>	
+										<a href="views/member/login.jsp"><font color="red"><%=review.getTitle()%></font> </a>
 									</h3>
 									
 								</div>
@@ -313,6 +389,10 @@ ul.navi li {
 								</div>
 								<div class="portfolio__intro">
 										카테고리 : <%=review.getCategory() %>
+										<div align="right">
+								&nbsp;&nbsp;<img src="resources/img/good.png">&nbsp;<font
+									size="2pt" color="#4D81B0"><%=review.getLikes() %></font>
+							</div>
 								</div>
 								
 							</div>
@@ -339,8 +419,7 @@ ul.navi li {
 								<!-- Captions -->
 								<div class="portfolio__caption">
 									<h3 class="portfolio__title">
-										<a href="views/member/login.jsp">글제목 : <%=review.getTitle()%> </a>
-										[좋아요] : <%=review.getLikes() %>	
+										<a href="views/member/login.jsp"><font color="red"><%=review.getTitle()%></font> </a>
 									</h3>
 									
 								</div>
@@ -375,6 +454,10 @@ ul.navi li {
 								</div>
 								<div class="portfolio__intro">
 										카테고리 : <%=review.getCategory() %>
+										<div align="right">
+								&nbsp;&nbsp;<img src="resources/img/good.png">&nbsp;<font
+									size="2pt" color="#4D81B0"><%=review.getLikes() %></font>
+							</div>
 								</div>
 								
 							</div>
@@ -401,8 +484,7 @@ ul.navi li {
 								<!-- Captions -->
 								<div class="portfolio__caption">
 									<h3 class="portfolio__title">
-										<a href="views/member/login.jsp">글제목 : <%=review.getTitle()%> </a>
-										[좋아요] : <%=review.getLikes() %>	
+										<a href="views/member/login.jsp"><font color="red"><%=review.getTitle()%></font></a>
 									</h3>
 									
 								</div>
@@ -437,6 +519,10 @@ ul.navi li {
 								</div>
 								<div class="portfolio__intro">
 										카테고리 : <%=review.getCategory() %>
+										<div align="right">
+								&nbsp;&nbsp;<img src="resources/img/good.png">&nbsp;<font
+									size="2pt" color="#4D81B0"><%=review.getLikes() %></font>
+							</div>
 								</div>
 								
 							</div>
@@ -446,7 +532,7 @@ ul.navi li {
 		</div>
 	</div>
 </div>
-	
 
+<%@ include file = "../../../footer.jsp" %>
 </body>
 </html>
