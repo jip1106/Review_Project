@@ -33,6 +33,41 @@
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
+
+<style type="text/css">
+.col-sm-8 {
+	left: 50px;
+}
+
+.btn {
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
+	-webkit-border-radius: 4;
+	-moz-border-radius: 4;
+	border-radius: 4px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
+	text-decoration: none;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -40,11 +75,11 @@
 
 <br><br>
 
-<div class="row">
-		<div class="col-sm-5">    
-			<form class="form-inline topbar__search" role="form" action="/review/ssearch" method="get">
-			
-				<select class="selectpicker" id="findType" name="searchMenu">
+<div class="row" align="left" style="margin-left: 10%; margin-right: 10%">
+		<div align="left">    
+			<form class="form-group" role="form" action="/review/ssearch" method="get">
+				<select id="findType" name="searchMenu" class="btn" style="height: 30px; color: #ffffff;">
+				
 				<%if(searchMenu!=null){ %>
 					<option value="findByTitle" <%= searchMenu.equals("findByTitle")?"selected":"" %>>제목</option>
 					<option value="findByWriter" <%= searchMenu.equals("findByWriter")?"selected":"" %>>작성자</option>
@@ -60,48 +95,47 @@
 				
 				<label class="sr-only" for="nav-search">Search</label> 
 
-				<input type="text" class="form-control" id="searchKeyWord" name="keyword" placeholder="작성일 검색 예:'17/10/27' ">
+				<input type="text" id="searchKeyWord" name="keyword" 
+				placeholder="작성일 검색 예:'17/10/27' " class="btn2">
 
-				<button type="submit" id="searchSubmit">
-					<i class="fa fa-search"></i>
-				</button>
+				<button type="submit" id="searchSubmit" class="btn" style="color: #ffffff;">검색</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;
 			</form>
-		
 		</div>
 </div>
 
-<div class="ui__section" id="ui_tables">  
+<div align="left" style="margin-left: 10%; margin-right: 10%">  
 	<h2 class="header">정보공유 게시판</h2>
 	<div class="table-responsive">
-		<table class="table table-striped table-bordered">
+			<table class="table table-striped table-bordered">
 			<caption>자유로운 정보공유 부탁드립니다</caption>
 			
 			<!-- 검색 유무에 따라 게시글 수 조회 -->
 			<%if(keyword==null || keyword.equals("")) {%>
 				<h3>전체게시글 수 : <%= listCount %></h3>
-			<%} else {%>
+			<%}else if(list != null) {%>
 				<h3>검색된 게시글 수: <%= request.getAttribute("searchCount") %></h3>
 			<%}%>
 			
-			<thead>
-				<tr>
-					<th>글번호</th>
-					<th class="col-md-6">제목</th>
-					<th class="col-md-1">작성자</th>
-					<th class="col-md-1">작성일</th>
-					<th class="col-md-1">조회수</th>
-				</tr>
-			</thead>
-			<tbody>
+				<caption>불건전한 게시글 신고해주세요</caption>
+					<tr>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">글번호</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">제목</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">작성자</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">작성일</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">조회수</th>	
+					</tr>
+				<tbody>
+				
 		<% for(SharedBoard sb:list){ %>
 				<tr>
-					<td scope="row"><%= sb.getPostingNum() %></td>
-					<td class="col-md-6"><a href="/review/sdetail?no=<%= sb.getPostingNum()%>&page=<%=currentPage%>">
-					<%= sb.getTitle() %></a></td> 
+					<td style="text-align: center;"><%= sb.getPostingNum() %></td>
+					<td style="text-align: center;"><a href="/review/sdetail?no=<%= sb.getPostingNum()%>&page=<%=currentPage%>">
+					<font color="red"><%= sb.getTitle() %></font></a></td> 
 						<!-- 상세정보로 이동하는 링크입니다. -->
-					<td class="col-md-1"><%= sb.getId() %></td> 
-					<td class="col-md-1"><%= sb.getPostingDate() %></td>
-					<td class="col-md-1"><%= sb.getHits() %></td>
+					<td style="text-align: center;"><%= sb.getId() %></td> 
+					<td style="text-align: center;"><%= sb.getPostingDate() %></td>
+					<td style="text-align: center;"><%= sb.getHits() %></td>
 				</tr>
 		<%} %>
 			</tbody> 
@@ -109,13 +143,13 @@
 		
 	</div>
 	<!-- / .table-responsive -->
-	<div class="ui__section" id="ui_buttons" align="right">
-		<a href="views/shareboard/shareboardWriteForm.jsp" class="btn btn-sm btn-primary">글작성</a>
+	<div id="ui_buttons" align="right">
+		<a href="views/shareboard/shareboardWriteForm.jsp" class="btn btn-sm btn-primary" style="background: red;">글작성</a>
 	</div>
 	 
 	
 	<!-- paging -->
-	<div class="ui__section" id="ui_pagination" align="center">
+	<div id="ui_pagination" align="center">
 		<nav>
 			<ul class="pagination"> 
 			
