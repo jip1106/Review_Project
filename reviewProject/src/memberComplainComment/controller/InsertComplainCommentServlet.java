@@ -39,48 +39,13 @@ public class InsertComplainCommentServlet extends HttpServlet {
     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
     */
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      //list 나 map 을 json 배열로 내보내는 컨트롤러
-            request.setCharacterEncoding("utf-8");
-            response.setContentType("application/json; charset=utf-8");
-            
-            int complainNo = Integer.parseInt(request.getParameter("no"));
-            String content = request.getParameter("content");
-            String id = request.getParameter("id"); 
-            
-            ComplainCommentService service = new ComplainCommentService();
-            
-            int result = service.insertComplainComment(complainNo,id,content);
-            
-            ArrayList<ComplainComment> list = null;
-            
-            if(result > 0){
-               list = service.selectComplainComment(complainNo);
-            }
-            
-            System.out.println("나와라 댓글");
-            JSONObject job = new JSONObject();
-            JSONArray jarr = new JSONArray(); 
-            
-            for(ComplainComment comment : list){
-               
-               JSONObject j = new JSONObject(); 
-               j.put("commentNo", comment.getCommentNo());
-               j.put("postingNo", comment.getPostingNo()); 
-               j.put("userId", URLEncoder.encode(comment.getId(),"UTF-8"));
-               j.put("content",(comment.getCommentContent()).replaceAll("\n", "<br>"));
-               Date from = new Date(); 
-               SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-               String to = transFormat.format(comment.getCommentDate());
-               j.put("timePosted", to);
-               jarr.add(j);
-
-            }
-            
-            job.put("list",jarr);
-            PrintWriter pw = response.getWriter();
-            pw.print(job.toJSONString());
-            pw.flush();
-            pw.close(); 
+	   request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+		int postNum = Integer.parseInt(request.getParameter("postNum"));
+		String id = request.getParameter("id");
+		String content = request.getParameter("content");
+		new ComplainCommentService().insertComment(postNum,id,content);
             
    }
 

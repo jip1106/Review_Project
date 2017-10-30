@@ -76,6 +76,7 @@
 			<form class="form-group" role="form" action="/review/csearch" method="get" >
 				<select class="btn" name="searchValue" id="findType" style="height: 30px; color: #ffffff;">
 					<option value="findByTitle">제목</option>
+					<!-- <option value="findByWriter">작성자</option> -->
 				</select> 
 				<input style="height: 25px; width: 200px;" name ="searchValue" type="search"
 					id="searchKeyWord" placeholder="제목 혹은 작성자로 검색 " class="btn2">
@@ -128,7 +129,8 @@
 
 	글작성버튼
 	<div class="ui__section" id="ui_buttons" align="right">
-		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-sm btn-primary">글작성</a> 
+		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-sm btn-primary">글작성</a>
+	 
 	</div>
 
 =======
