@@ -127,7 +127,7 @@
 		<!-- / .container -->
 		<!-- Footer -->
 		<div class="body-plain__footer">
-			Copyright 2017 <a href="http://simpleqode.com/" style="color: red;">Simpleqode.com</a>.
+			Copyright 2017 <a href="/review/index.jsp" style="color: red;">Review</a>.
 			All Rights Reserved.
 		</div>
 	</div>

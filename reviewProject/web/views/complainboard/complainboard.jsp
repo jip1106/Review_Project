@@ -33,69 +33,98 @@
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
+
+<style type="text/css">
+.btn {
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
+	-webkit-border-radius: 4;
+	-moz-border-radius: 4;
+	border-radius: 4px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
+	text-decoration: none;
+}
+
+</style>
+
+
 </head>
 
 <body>
 <%@ include file="../../header.jsp" %>
 
-<br><br>
-<div class="row">
-		<div class="col-sm-5">    
-			<form class="form-inline topbar__search" role="form" action="/review/csearch" method="get" >
-				<select class="selectpicker" name="searchValue" id="findType">
+<br>
+<div align="left"  style="margin-left: 10%; margin-right: 10%">
+			<div align="left">
+			<form class="form-group" role="form" action="/review/csearch" method="get" >
+				<select class="btn" name="searchValue" id="findType" style="height: 30px; color: #ffffff;">
 					<option value="findByTitle">제목</option>
 					<option value="findByWriter">작성자</option>
 				</select> 
-				<label class="sr-only" for="nav-search">Search</label> 
-				<input type="text" class="form-control" id="searchKeyWord" name="searchKeyWord">
-				<button type="submit" id="searchSubmit">
-					<i class="fa fa-search"></i>
-				</button>
+				<input style="height: 25px; width: 200px;" name ="searchValue" type="search"
+					id="searchKeyWord" placeholder="제목 혹은 작성자로 검색 " class="btn2">
+				<button type="submit" id="searchSubmit" value="검색" class="btn" style="background-color:#4D81B0; color: #ffffff">검색</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;	
 			</form>
-		</div>
 </div>
-
-<div class="ui__section" id="ui_tables">  
-	<h2 class="header">신고게시판</h2>
-	<div class="table-responsive">
-		<table class="table table-striped table-bordered">
+</div>
+<div align="left" style="margin-left: 10%; margin-right: 10%">
+	<h2>신고게시판</h2>
 		<%if(searchKeyWord == null){ %>
-		<h3 align="left">총 게시글 갯수 : <%= listCount %></h3>
+		<h3>전체 게시글 수 : <%= listCount %></h3>
 		<%}else{ %>
-		<h3 align="left"> 검색된 게시글 수 : <%= request.getAttribute("SearchCount") %></h3>
+		<h3> 검색된 게시글 수 : <%= request.getAttribute("SearchCount") %></h3>
 		<%} %>
+		<div class="table-responsive">
+		<table class="table table-striped table-bordered">
 			<caption>불건전한 게시글 신고해주세요</caption>
-			<thead>
+			
 				<tr>
-					<th class="col-md-1">글번호</th>
-					<th class="col-md-6">제목</th>
-					<th class="col-md-1">작성자</th>
-					<th class="col-md-1">작성일</th>
-					<th class="col-md-1">조회수</th> 
+						<th style="background-color: #4D81B0; text-align: center; color: white;">글번호</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">제목</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">작성자</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">작성일</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">조회수</th>
 				</tr>
-			</thead>
-			<tbody>
+		
 			<%
 			for(ComplainBoard cb : list){
 				%>
 			<tr>
-					<td class="col-md-1"><%= cb.getPostingNo() %></td>
-					<td class="col-md-6"><a href="/review/cdetail?bnum=<%= cb.getPostingNo() %>&Page=<%= currentPage %>"><%= cb.getTitle() %></a></td> 
-					<td class="col-md-1"><%= cb.getId() %></td>
-					<td class="col-md-1"><%= cb.getPostingDate() %></td>
-					<td class="col-md-1"><%= cb.getHits() %></td>
+					<td style="text-align: center;"><%= cb.getPostingNo() %></td>
+					<td style="text-align: center;"><a style="color:red" href="/review/cdetail?bnum=<%= cb.getPostingNo() %>&Page=<%= currentPage %>"><%= cb.getTitle() %></a></td> 
+					<td style="text-align: center;"><%= cb.getId() %></td>
+					<td style="text-align: center;"><%= cb.getPostingDate() %></td>
+					<td style="text-align: center;"><%= cb.getHits() %></td>
 				</tr>
 				<% } %>
-			</tbody> 
 		</table>
+		<!-- 글작성버튼 -->
+	<div class="ui__section" id="ui_buttons" align="right" >
+		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-sm btn-primary" style="background:red">글작성</a>
+	</div>
 	</div>
 	
 	<!-- / .table-responsive -->
 	
-	<!-- 글작성버튼 -->
-	<div class="ui__section" id="ui_buttons" align="right">
-		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-sm btn-primary">글작성</a> 
-	</div>
+	
 	
 	<!-- paging -->
 	<div class="ui__section" id="ui_pagination" align="center">

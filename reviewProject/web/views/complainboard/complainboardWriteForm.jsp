@@ -90,11 +90,11 @@
 						class="help-block"></span>
 				</div> -->
 				<!-- 바꾼부분 -->
-					<button type="submit" class="btn btn-primary" onclick="return pleaseInputMessage();">글작성</button>
+					<button type="submit" class="btn btn-primary" onclick="return pleaseInputMessage();" style="background:#4D81B0">글작성</button>
 				
 				<!-- 바꾼부분 -->
-					<button type="reset" class="btn btn-primary" onclick="reviewWriteCancel()">작성 취소</button>
-					<button type="submit" class="btn btn-primary" onclick="/review/clist">돌아가기</button>
+					<button type="reset" class="btn btn-primary" onclick="reviewWriteCancel()" style="background:#4D81B0">작성 취소</button>
+					<button type="submit" class="btn btn-primary" onclick="/review/clist" style="background:#4D81B0">돌아가기</button>
 			</form>
 
 		</div>

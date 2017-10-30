@@ -150,25 +150,25 @@
 		<div id="review" class="menuSection">
 			<h2 align="center"><a href="#review"><label style="font-size: 15pt; text-align: center;">&nbsp;리뷰게시글관리&nbsp;</label></a></h2>
 			<p>
-			<label style="font-size: 15pt; text-align: center;">게시글 수 : <a href="/review/adminReviewList"><%= new ReviewBoardService().getReviewListCount() %>(개)</a></label>
+			<label style="font-size: 15pt; text-align: center;">게시글 수 : <a href="/review/adminReviewList" style="color: red"><%= new ReviewBoardService().getReviewListCount() %>(개)</a></label>
 			</p>
 		</div>
 		<div id="share" class="menuSection">
 			<h2 align="center"><a href="#share"><label style="font-size: 15pt; text-align: center">&nbsp;공유게시글관리&nbsp;</label></a></h2>
 			<p>
-			<label style="font-size: 15pt; text-align: center">게시글 수 : <a href="/review/adminsblist"><%= new ShareBoardService().getShareBoardListCount()%>(개)</a></label>
+			<label style="font-size: 15pt; text-align: center">게시글 수 : <a href="/review/adminsblist" style="color: red"><%= new ShareBoardService().getShareBoardListCount()%>(개)</a></label>
 			</p>
 		</div>
 		<div id="complain" class="menuSection">
 			<h2 align="center"><a href="#complain"><label style="font-size: 15pt; text-align: center">&nbsp;신고게시글관리&nbsp;</label></a></h2>
 			<p>
-			<label style="font-size: 15pt; text-align: center">게시글 수 : <a href = "/review/cblist"><%= new ComplainBoardService().getComplainBoardListCount() %>(개)</a></label>
+			<label style="font-size: 15pt; text-align: center">게시글 수 : <a href = "/review/cblist" style="color: red"><%= new ComplainBoardService().getComplainBoardListCount() %>(개)</a></label>
 			</p>
 		</div>
 		<div id="member" class="menuSection">
 			<h2 align="center"><a href="#member"><label style="font-size: 15pt; text-align: center">&nbsp;회원관리&nbsp;</label></a></h2>
 			<p>
-			<label style="font-size: 15pt; text-align: center">회원 수 : <a href="/review/mlist"><%= new MemberAdminService().getMemberCount() %>(명)</a></label>
+			<label style="font-size: 15pt; text-align: center">회원 수 : <a href="/review/mlist" style="color: red"><%= new MemberAdminService().getMemberCount() %>(명)</a></label>
 			</p>
 		</div>
 	</div>
