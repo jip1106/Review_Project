@@ -41,7 +41,6 @@ public class SharedCommentDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-		
 		int postNum = Integer.parseInt(request.getParameter("postNum"));
 		int commentNum = Integer.parseInt(request.getParameter("commentNum"));
 		String id = request.getParameter("id");

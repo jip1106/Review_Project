@@ -29,13 +29,14 @@ public class SharedCommentInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-		
-		int postNum = Integer.parseInt(request.getParameter("postNum"));
-		String id = request.getParameter("id");
-		String content = request.getParameter("content");
-		new SharedCommentService().insertComment(postNum,id,content);
+		//정보공유 게시판 댓글 insert
+				request.setCharacterEncoding("utf-8");
+				response.setContentType("text/html; charset=utf-8");
+				
+				int postNum = Integer.parseInt(request.getParameter("postNum"));
+				String id = request.getParameter("id");
+				String content = request.getParameter("content");
+				new SharedCommentService().insertComment(postNum,id,content);
 		
 	}
 

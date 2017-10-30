@@ -23,43 +23,54 @@ public class SharedCommentService {
 	}
 
 	public void insertComment(int postNum, String id, String content) {
-		//댓글 등록
-		Connection con = getConnection();
-		int result = new SharedCommentDao().insertComment(con, postNum,id,content);
-		
-		if(result >0){
-			commit(con);
-		}else{
-			rollback(con);
-		}
-		close(con);
+		// 댓글 입력
+				Connection con = getConnection();
+				int result = new SharedCommentDao().insertComment(con,postNum,id,content);
+				
+				if(result>0){
+					commit(con);
+				}else{
+					rollback(con);
+				}
+				
+				close(con);
 		
 	}
 
 	public void deleteComment(int postNum, int commentNum, String id) {
-		// 댓글 삭제
-		Connection con = getConnection();
-		int result = new SharedCommentDao().deleteComment(con,postNum,commentNum,id);
+		// 댓글 삭제 메서드
+				Connection con = getConnection();
+				int result = new SharedCommentDao().deleteComment(con,postNum,commentNum,id);
 				
-		if(result>0){
-			commit(con);
-		}else{
-			rollback(con);
-		}
-		close(con);
+				if(result>0){
+					commit(con);
+				}else{
+					rollback(con);
+				}
+				close(con);
 	}
 
 	public void updateComment(int postNum, int commentNum, String id, String content) {
-		Connection con = getConnection();
-		int result = new SharedCommentDao().updateComment(con,postNum,commentNum,id,content);
+		// 댓글 수정 메서드
+				Connection con = getConnection();
+				int result = new SharedCommentDao().updateComment(con,postNum,commentNum,id,content);
+				
+				if(result>0){
+					commit(con);
+				}else{
+					rollback(con);
+				}
+				close(con);
 		
-		if(result>0){
-			commit(con);
-		}else{
-			rollback(con);
-		}
-		close(con);
-		
+	}
+
+	public ArrayList<SharedComment> viewSharedComment(int postNum) {
+		// 댓글 불러오는 메서드
+				Connection con = getConnection();
+				ArrayList<SharedComment> list = new SharedCommentDao().viewSharedComment(con,postNum);
+				close(con);
+						
+				return list;
 	}
 
 }

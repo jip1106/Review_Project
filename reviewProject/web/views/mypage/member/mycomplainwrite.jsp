@@ -59,8 +59,8 @@
 	ArrayList<ComplainBoard> cboardList = new MemberService().viewMyComplainBoardList(id,currentPage,limit); 
 %>
 <div align="left" style="margin-left: 10%; margin-right: 10%;">  
-	<h2 style="color: black;">내가 작성한 신고글</h2>
-	<h2>내가 쓴 신고게시판 글 갯수 : <%= new MemberService().getMyComplainBoardWriteCount(member.getId()) %></h2>
+	<h2 style="color: black;"><b>내가 작성한 신고 게시글</b></h2>
+	<h2>내가 작성한 신고 게시판 글 수 : <%= new MemberService().getMyComplainBoardWriteCount(member.getId()) %></h2>
 	<div class="table-responsive">
 		<table class="table table-striped table-bordered">
 			<tr>

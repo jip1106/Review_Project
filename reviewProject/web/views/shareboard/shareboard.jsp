@@ -3,15 +3,15 @@
     pageEncoding="UTF-8" import="memberSharedBoard.model.vo.SharedBoard, java.util.*,
     member.model.vo.Member"%>
 <% 
-   ArrayList<SharedBoard> list = (ArrayList<SharedBoard>)request.getAttribute("list");
-   int listCount = ((Integer)request.getAttribute("listCount")).intValue();
-   int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
-   int startPage = ((Integer)request.getAttribute("startPage")).intValue();
-   int endPage = ((Integer)request.getAttribute("endPage")).intValue();
-   int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
-   String searchMenu = (String)request.getAttribute("searchMenu");
-   String keyword = (String)request.getAttribute("keyword");
-   
+	ArrayList<SharedBoard> list = (ArrayList<SharedBoard>)request.getAttribute("list");
+	int listCount = ((Integer)request.getAttribute("listCount")).intValue();
+	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
+	int startPage = ((Integer)request.getAttribute("startPage")).intValue();
+	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
+	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
+	String searchMenu = (String)request.getAttribute("searchMenu");
+	String keyword = (String)request.getAttribute("keyword");
+	
 %>   
 <!DOCTYPE html>
 <html lang="en">
@@ -22,8 +22,8 @@
     <meta name="author" content="">
     <meta charset=utf-8>
     <!--<link rel="icon" href="img/favicon.ico">-->
-   
-   <!-- CSS Global -->
+	
+	<!-- CSS Global -->
     <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
 
     <!-- CSS Plugins -->
@@ -36,34 +36,34 @@
 
 <style type="text/css">
 .col-sm-8 {
-   left: 50px;
+	left: 50px;
 }
 
 .btn {
-   background: #4D81B0;
-   background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
-   background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
-   background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
-   background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
-   background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
-   -webkit-border-radius: 4;
-   -moz-border-radius: 4;
-   border-radius: 4px;
-   font-family: Arial;
-   color: #ffffff;
-   font-size: 20px;
-   padding: 10px 20px 10px 20px;
-   text-decoration: none;
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
+	-webkit-border-radius: 4;
+	-moz-border-radius: 4;
+	border-radius: 4px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
 }
 
 .btn:hover {
-   background: #C2D6E9;
-   background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
-   background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
-   background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
-   background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
-   background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
-   text-decoration: none;
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
+	text-decoration: none;
 }
 
 </style>
@@ -96,14 +96,13 @@
 				<input style="height: 25px; width: 200px;" type="text" id="searchKeyWord" name="keyword" 
 				placeholder="작성일 검색 예:'17/10/27' " class="btn2">
 
-            <button type="submit" id="searchSubmit" class="btn" style="color: #ffffff;">검색</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-         </form>
-      </div>
+				<button type="submit" id="searchSubmit" class="btn" style="color: #ffffff;">검색</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+			</form>
+		</div>
 </div>
 
 <div align="left" style="margin-left: 10%; margin-right: 10%">  
-
 	<h2>정보공유 게시판</h2>
 			<!-- 검색 유무에 따라 게시글 수 조회 -->
 			<%if(keyword==null || keyword.equals("")) {%>
@@ -213,5 +212,6 @@
 	</div>
 	<!-- / .ui__section -->
 </div>
+<%@ include file="../../footer.jsp"%>
 </body>
 </html>

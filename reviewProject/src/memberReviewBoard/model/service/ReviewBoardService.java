@@ -206,5 +206,26 @@ public class ReviewBoardService {
 		close(con);
 		return list;
 	}
+	
+	public int getReviewLocationListCount(String location,String searchKeyWord) {
+	      Connection con = getConnection();
+	      int count = new ReviewBoardDao().getReviewLocationListCount(con,location,searchKeyWord);
+	      close(con);
+	      return count;
+	   }
 
+	   public int getReviewCategoryListCount(String category, String searchKeyWord) {
+	      Connection con = getConnection();
+	      int count = new ReviewBoardDao().getReviewCategoryListCount(con,category,searchKeyWord);
+	      close(con);
+	      return count;
+	   }
+
+	   public int getReviewAllListCount(String category, String location, String searchKeyWord) {
+	      Connection con = getConnection();
+	      int count = new ReviewBoardDao().getReviewAllListCount(con,category,location,searchKeyWord); 
+	      close(con);
+	      return count;
+	   }
+	
 }

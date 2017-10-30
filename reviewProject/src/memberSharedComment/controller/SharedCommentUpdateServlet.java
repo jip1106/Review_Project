@@ -42,7 +42,7 @@ public class SharedCommentUpdateServlet extends HttpServlet {
 		// 댓글 수정을 위한 서블릿
 				request.setCharacterEncoding("utf-8");
 				response.setContentType("text/html; utf-8");
-				
+						
 				int postNum = Integer.parseInt(request.getParameter("postNum"));
 				int commentNum = Integer.parseInt(request.getParameter("commentNum"));
 				String id = request.getParameter("id");
