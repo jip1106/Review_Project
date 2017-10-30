@@ -30,7 +30,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8">
-			<h3 class="header">Shareboard Update</h3>
+			<h3 style="color: black;"><b>Shareboard Update</b></h3>
 			<p class="text-muted">회원들의 정보를 자유롭게 공유해주세요</p>
 			
 			<form role="form" name="" action="/review/supdate?no=<%=sb.getPostingNum() %>&page=<%=currentPage %>" method="post">
@@ -60,9 +60,9 @@
 				</div>
 				
 				-->
-					<button type="submit" class="btn btn-primary">수정하기</button>
-					<button type="reset" class="btn btn-primary" onclick=" return reviewWriteCancel()">작성 취소</button>
-					<button class="btn btn-primary" onclick="javascript:history.go(-2); return false">목 록</button> 
+					<button type="submit" class="btn btn-primary" style="background: red;">수정하기</button>
+					<button type="reset" class="btn btn-primary" onclick=" return reviewWriteCancel()" style="background: red;">작성 취소</button>
+					<button class="btn btn-primary" onclick="javascript:history.go(-2); return false" style="background: red;">목 록</button> 
 			</form>
 		</div>
 		</div>

@@ -24,6 +24,15 @@
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
     
+    <style type="text/css">
+		@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.woff')}
+		@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.otf.eot')}
+	
+		body, table, div, p, a, h1, h2, h3, button, .header, li a.navbar-brand, .btn {
+			font-family:'CoreGTM5';
+		}
+	</style>
+	
      <script type="text/javascript">
     	
     	function checkpw(){
