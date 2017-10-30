@@ -24,6 +24,17 @@
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
+    
+    <style>
+      	button.btn:hover{
+		background: #e9c2c2;
+	}
+	
+	button.btn{
+		background: red;
+	}
+    </style>
+    
 </head>
 <body>
 <%@ include file="../../../header.jsp" %>
@@ -48,32 +59,31 @@
 	
 	ArrayList<SharedBoard> sboardList = new MemberService().viewMySharedBoard(id, currentPage, limit); 
 %>
-<div class="ui__section" id="ui_tables">  
-	<h2 class="header">내가 작성한 정보공유 게시글</h2>
+<div align="left" style="margin-left: 10%; margin-right: 10%">  
+	<h2 style="color: black;"><b>내가 작성한 정보공유 게시글</b></h2>
 	<h2>내가 작성한 정보공유 게시판 글 수 : <%= new MemberService().getMyShareBoardWriteCount(member.getId()) %></h2>
 	<div class="table-responsive">
 		<table class="table table-striped table-bordered">
-			<thead>
 				<tr>
-					<th class="col-md-2">글번호</th>
-					<th class="col-md-2">제목</th>
-					<th class="col-md-2">작성자</th>
-					<th class="col-md-2">작성일</th>
-					<th class="col-md-2">조회수</th>
-					<th class="col-md-2">삭제</th>
+					<th style="background-color: #4D81B0; text-align: center; color: white;">글번호</th>
+					<th style="background-color: #4D81B0; text-align: center; color: white;">제목</th>
+					<th style="background-color: #4D81B0; text-align: center; color: white;">작성자</th>
+					<th style="background-color: #4D81B0; text-align: center; color: white;">작성일</th>
+					<th style="background-color: #4D81B0; text-align: center; color: white;">조회수</th>	
+					<th style="background-color: #4D81B0; text-align: center; color: white;">삭제</th>
 				</tr>
-			</thead>
 			<tbody>
 				<%for(SharedBoard board : sboardList){ %>
 					<tr>
-						<th class="col-md-2" > <%=board.getPostingNum() %></th>
-						<td class="col-md-2"><a href="/review/sdetail?no=<%=board.getPostingNum()%>&index=1&page=<%=currentPage%>"> <%=board.getTitle()%></a></td> 
-						<td class="col-md-2"><%=board.getId() %></td> 
-						<td class="col-md-2"><%=board.getPostingDate()%></td>
-						<td class="col-md-2"><%=board.getHits() %></td>
-						<td>
-						<a href="/review/sdelete?no=<%= board.getPostingNum()%>&index=1&location=1&page=<%=currentPage%>">
-							<button class="btn btn-primary" style="color: white">게시글 삭제</button>
+						<th class="col-md-2" style="text-align: center;"> <%=board.getPostingNum() %></th>
+						<td class="col-md-2" style="text-align: center;">
+							<a href="/review/sdetail?no=<%=board.getPostingNum()%>&index=1&page=<%=currentPage%>" style="color: red;"> <%=board.getTitle()%></a></td> 
+						<td class="col-md-2" style="text-align: center;"><%=board.getId() %></td> 
+						<td class="col-md-2" style="text-align: center;"><%=board.getPostingDate()%></td>
+						<td class="col-md-2" style="text-align: center;"><%=board.getHits() %></td>
+						<td style="text-align:center;">
+						<a href="/review/sdelete?no=<%= board.getPostingNum()%>&index=1&location=1&page=<%=currentPage%>" >
+							<button class="btn btn-primary" style="color: white;">게시글 삭제</button>
 						</a>
 						<!-- 바뀐부분 -->
 						</td>
