@@ -76,24 +76,25 @@
 <br>
 
 <div align="left" style="margin-left: 10%; margin-right: 10%">
-      <div align="left">    
-         <form class="form-group" role="form" action="/review/ssearch" method="get">
-            <select id="findType" name="searchMenu" class="btn" style="height: 30px; color: #ffffff;">
-            
-            <%if(searchMenu!=null){ %>
-               <option value="findByTitle" <%= searchMenu.equals("findByTitle")?"selected":"" %>>제목</option>
-               <option value="findByWriter" <%= searchMenu.equals("findByWriter")?"selected":"" %>>작성자</option>
-               <option value="findByTitleContent" <%= searchMenu.equals("findByTitleContent")?"selected":"" %>>제목+내용</option>
-               <option value="findByDate" <%= searchMenu.equals("findByDate")?"selected":"" %>>작성일</option>
-            <%}else {%>
-               <option value="findByTitle" >제목</option>
-               <option value="findByWriter" >작성자</option>
-               <option value="findByTitleContent" >제목+내용</option>
-               <option value="findByDate">작성일</option>
-            <%} %>
-            </select> 
-            <input style="height: 25px; width: 200px;" type="text" id="searchKeyWord" name="keyword" 
-            placeholder="작성일 검색 예:'17/10/27' " class="btn2">
+		<div align="left">    
+			<form class="form-group" role="form" action="/review/ssearch" method="get">
+				<select id="findType" name="searchMenu" class="btn" style="height: 30px; color: #ffffff;">
+				
+				<%if(searchMenu!=null){ %>
+					<option value="findByTitle" <%= searchMenu.equals("findByTitle")?"selected":"" %>>제목</option>
+					<option value="findByWriter" <%= searchMenu.equals("findByWriter")?"selected":"" %>>작성자</option>
+					<option value="findByTitleContent" <%= searchMenu.equals("findByTitleContent")?"selected":"" %>>제목+내용</option>
+					<option value="findByDate" <%= searchMenu.equals("findByDate")?"selected":"" %>>작성일</option>
+	
+				<%}else {%>
+					<option value="findByTitle" >제목</option>
+					<option value="findByWriter" >작성자</option>
+					<option value="findByTitleContent" >제목+내용</option>
+					<option value="findByDate">작성일</option>
+				<%} %>
+				</select> 
+				<input style="height: 25px; width: 200px;" type="text" id="searchKeyWord" name="keyword" 
+				placeholder="작성일 검색 예:'17/10/27' " class="btn2">
 
             <button type="submit" id="searchSubmit" class="btn" style="color: #ffffff;">검색</button>
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -102,114 +103,115 @@
 </div>
 
 <div align="left" style="margin-left: 10%; margin-right: 10%">  
-   <h2>정보공유 게시판</h2>
-         <!-- 검색 유무에 따라 게시글 수 조회 -->
-         <%if(keyword==null || keyword.equals("")) {%>
-            <h3>전체 게시글 수 : <%= listCount %></h3>
-         <%}else if(list != null) {%>
-            <h3>검색된 게시글 수: <%= request.getAttribute("searchCount") %></h3>
-         <%}%>
-         <div class="table-responsive">
-         <table class="table table-striped table-bordered">
-         <caption>자유로운 정보공유 부탁드립니다</caption>
-               <tr>
-                  <th style="background-color: #4D81B0; text-align: center; color: white;">글번호</th>
-                  <th style="background-color: #4D81B0; text-align: center; color: white;">제목</th>
-                  <th style="background-color: #4D81B0; text-align: center; color: white;">작성자</th>
-                  <th style="background-color: #4D81B0; text-align: center; color: white;">작성일</th>
-                  <th style="background-color: #4D81B0; text-align: center; color: white;">조회수</th>   
-               </tr>
-      <% for(SharedBoard sb:list){ %>
-            <tr>
-               <td style="text-align: center;"><%= sb.getPostingNum() %></td>
-               <td style="text-align: center;"><a href="/review/sdetail?no=<%= sb.getPostingNum()%>&page=<%=currentPage%>">
-               <font color="red"><%= sb.getTitle() %></font></a></td> 
-                  <!-- 상세정보로 이동하는 링크입니다. -->
-               <td style="text-align: center;"><%= sb.getId() %></td> 
-               <td style="text-align: center;"><%= sb.getPostingDate() %></td>
-               <td style="text-align: center;"><%= sb.getHits() %></td>
-            </tr>
-      <%} %>
-      </table>
-      
-   </div>
-   <!-- / .table-responsive -->
-   <div id="ui_buttons" align="right">
-      <a href="views/shareboard/shareboardWriteForm.jsp" class="btn btn-sm btn-primary" style="background: red;">글작성</a>
-   </div>
-    
-   
-   <!-- paging -->
-   <div id="ui_pagination" align="center">
-      <nav>
-         <ul class="pagination"> 
-         
-         <!-- 검색 결과에 따른 페이징 처리 -->
-         <!-- 검색결과가 존재하지 않을때 전체 출력 -->
-         
-                <% if(keyword==null || keyword.equals("")){ %>
-                
-         <!-- 이전페이지 처리 --> 
-            <% if(currentPage <= 1) { %>
-            <li><span aria-hidden="true">«</span></li>
-            <%}else{ %>
-               <li><a href="/review/slist?page=<%=currentPage-1 %>" aria-label="Previous"><span
-                  aria-hidden="true">«</span></a></li>
-            <%} %>
-            
-            <!-- 현재 페이지 처리 -->
-            <%for(int p = startPage; p <= endPage; p++ ) { 
-               if(p == currentPage) { %>
-            <li class="active"><a><%=p %></a></li> 
-             <% }else{ %>
-             <li>
-            <a href="/review/slist?page=<%=p%>"><%=p %>
-            <span class="sr-only" >(current)</span></a></li> 
-             <%}} %>
-         
-         <!-- 다음페이지 처리 -->
-            <% if(currentPage >= maxPage){ %>
-             <li><span aria-hidden="true">»</span></li>
-            <%}else{ %>
-            <li><a href="/review/slist?page=<%=currentPage +1 %>"
-             aria-label="Next"><span aria-hidden="true">»</span></a></li>
-             <%} %>    
-             
-         <!-- 검색결과가 존재할 때   -->
-             <%}else{ %>
-             
-             <!-- 이전페이지 처리 --> 
-            <% if(currentPage <= 1) { %>
-            <li><span aria-hidden="true">«</span></li>
-            <%}else{ %>
-               <li><a href="/review/ssearch?searchMenu=<%=searchMenu %>&keyword=<%=keyword %>&page=<%=currentPage-1 %>" aria-label="Previous"><span
-                  aria-hidden="true">«</span></a></li>
-            <%} %>
-            
-            <!-- 현재 페이지 처리 -->
-            <%for(int p = startPage; p <= endPage; p++ ) { 
-               if(p == currentPage) { %>
-            <li class="active">
-               <a><%=p %></a>
-            </li> 
-             <% }else{ %>
-             <li>
-            <a href="/review/ssearch?searchMenu=<%=searchMenu %>&keyword=<%=keyword %>&page=<%=p%>"><%=p %>
-            <span class="sr-only"></span></a></li> 
-             <%}} %>
-         
-         <!-- 다음페이지 처리 -->
-            <% if(currentPage >= maxPage){ %>
-             <li><span aria-hidden="true">»</span></li>
-            <%}else{ %>
-            <li><a href="/review/ssearch?searchMenu=<%=searchMenu %>&keyword=<%=keyword %>&page=<%=currentPage +1 %>"
-             aria-label="Next"><span aria-hidden="true">»</span></a></li>
-             <%}}%>    
-            
-         </ul>
-      </nav>
-   </div>
-   <!-- / .ui__section -->
+
+	<h2>정보공유 게시판</h2>
+			<!-- 검색 유무에 따라 게시글 수 조회 -->
+			<%if(keyword==null || keyword.equals("")) {%>
+				<h3>전체 게시글 수 : <%= listCount %></h3>
+			<%}else if(list != null){%>
+				<h3>검색된 게시글 수: <%= request.getAttribute("searchCount") %></h3>
+			<%}%>
+			<div class="table-responsive">
+			<table class="table table-striped table-bordered">
+			<caption>자유로운 정보공유 부탁드립니다</caption>
+					<tr>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">글번호</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">제목</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">작성자</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">작성일</th>
+						<th style="background-color: #4D81B0; text-align: center; color: white;">조회수</th>	
+					</tr>
+		<% for(SharedBoard sb:list){ %>
+				<tr>
+					<td style="text-align: center;"><%= sb.getPostingNum() %></td>
+					<td style="text-align: center;"><a href="/review/sdetail?no=<%= sb.getPostingNum()%>&page=<%=currentPage%>">
+					<font color="red"><%= sb.getTitle() %></font></a></td> 
+						<!-- 상세정보로 이동하는 링크입니다. -->
+					<td style="text-align: center;"><%= sb.getId() %></td> 
+					<td style="text-align: center;"><%= sb.getPostingDate() %></td>
+					<td style="text-align: center;"><%= sb.getHits() %></td>
+				</tr>
+		<%} %>
+		</table>
+		
+	</div>
+	<!-- / .table-responsive -->
+	<div id="ui_buttons" align="right">
+		<a href="views/shareboard/shareboardWriteForm.jsp" class="btn btn-sm btn-primary" style="background: red;">글작성</a>
+	</div>
+	 
+	
+	<!-- paging -->
+	<div id="ui_pagination" align="center">
+		<nav>
+			<ul class="pagination"> 
+			
+			<!-- 검색 결과에 따른 페이징 처리 -->
+			<!-- 검색결과가 존재하지 않을때 전체 출력 -->
+			
+					 <% if(keyword==null || keyword.equals("")){ %>
+					 
+			<!-- 이전페이지 처리 --> 
+				<% if(currentPage <= 1) { %>
+				<li><span aria-hidden="true">«</span></li>
+				<%}else{ %>
+					<li><a href="/review/slist?page=<%=currentPage-1 %>" aria-label="Previous"><span
+						aria-hidden="true">«</span></a></li>
+				<%} %>
+				
+				<!-- 현재 페이지 처리 -->
+				<%for(int p = startPage; p <= endPage; p++ ) { 
+					if(p == currentPage) { %>
+				<li class="active"><a><%=p %></a></li> 
+			 	<% }else{ %>
+			 	<li>
+				<a href="/review/slist?page=<%=p%>"><%=p %>
+				<span class="sr-only" >(current)</span></a></li> 
+			 	<%}} %>
+			
+			<!-- 다음페이지 처리 -->
+				<% if(currentPage >= maxPage){ %>
+				 <li><span aria-hidden="true">»</span></li>
+				<%}else{ %>
+				<li><a href="/review/slist?page=<%=currentPage +1 %>"
+				 aria-label="Next"><span aria-hidden="true">»</span></a></li>
+				 <%} %>	 
+				 
+			<!-- 검색결과가 존재할 때   -->
+				 <%}else{ %>
+				 
+				 <!-- 이전페이지 처리 --> 
+				<% if(currentPage <= 1) { %>
+				<li><span aria-hidden="true">«</span></li>
+				<%}else{ %>
+					<li><a href="/review/ssearch?searchMenu=<%=searchMenu %>&keyword=<%=keyword %>&page=<%=currentPage-1 %>" aria-label="Previous"><span
+						aria-hidden="true">«</span></a></li>
+				<%} %>
+				
+				<!-- 현재 페이지 처리 -->
+				<%for(int p = startPage; p <= endPage; p++ ) { 
+					if(p == currentPage) { %>
+				<li class="active">
+					<a><%=p %></a>
+				</li> 
+			 	<% }else{ %>
+			 	<li>
+				<a href="/review/ssearch?searchMenu=<%=searchMenu %>&keyword=<%=keyword %>&page=<%=p%>"><%=p %>
+				<span class="sr-only"></span></a></li> 
+			 	<%}} %>
+			
+			<!-- 다음페이지 처리 -->
+				<% if(currentPage >= maxPage){ %>
+				 <li><span aria-hidden="true">»</span></li>
+				<%}else{ %>
+				<li><a href="/review/ssearch?searchMenu=<%=searchMenu %>&keyword=<%=keyword %>&page=<%=currentPage +1 %>"
+				 aria-label="Next"><span aria-hidden="true">»</span></a></li>
+				 <%}}%>	 
+				
+			</ul>
+		</nav>
+	</div>
+	<!-- / .ui__section -->
 </div>
 </body>
 </html>
