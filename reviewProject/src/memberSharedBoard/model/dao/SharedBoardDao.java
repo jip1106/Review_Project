@@ -301,14 +301,29 @@ public class SharedBoardDao {
 		
 		if(searchMenu.equals("findByTitle")){
 			query = "select count(*) from share_board where title like ? ";
-		}else if(searchMenu.equals("findByWriter")){
+			
+		}if(searchMenu.equals("findByWriter")){
 			query = "select count(*) from share_board where id like ?";
+			
+		}if(searchMenu.equals("findByTitleContent")) {
+			query = "select count(*) from share_board where title like ? or content like ? ";
+			
+		}if(searchMenu.equals("findByDate")) {
+			query = "select count(*) from share_board where posting_date like ? ";
 		}
 	
 		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "%"+keyword+"%");
-			rset = pstmt.executeQuery();
+			
+			if(searchMenu.equals("findByTitleContent")){
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setString(2, "%"+keyword+"%");
+				rset = pstmt.executeQuery();
+			}else {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, "%"+keyword+"%");
+				rset = pstmt.executeQuery();
+			}
 			
 			if(rset.next())
 				result = rset.getInt(1);

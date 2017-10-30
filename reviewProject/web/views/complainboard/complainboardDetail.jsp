@@ -75,7 +75,7 @@
 <div class="container">
    <div class="row">
       <div class="col-sm-8 col-md-9">
-         <span class="badge"><%= Complainboard.getPostingNo() %></span>
+         <span class="badge">No.<%= Complainboard.getPostingNo() %></span>
          <span class="badge">조회수 : <%= Complainboard.getHits() %></span>
          <span class="badge">날짜 : <%= Complainboard.getPostingDate() %></span>
       </div>

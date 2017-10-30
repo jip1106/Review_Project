@@ -56,14 +56,50 @@
 		}
 	}
 </script> -->
+
+<style type="text/css">
+.col-sm-8 {
+	left: 50px;
+}
+
+.btn {
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
+	-webkit-border-radius: 4;
+	-moz-border-radius: 4;
+	border-radius: 4px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
+	text-decoration: none;
+}
+
+</style>
+
+
 </head>
 <body>
 <%@ include file="../../header.jsp"%>
-<br><br>
-<div class="row">
-		<div class="col-sm-5">    
-			<form class="form-inline topbar__search" role="form" action="/review/reviewList">
-				<select class="selectpicker" name="findLocationType">
+<br>
+<div align="left" style="margin-left: 10%; margin-right: 10%">
+		<div align="left">    
+			<form class="" role="form" action="/review/reviewList">
+				<select name="findLocationType" class="btn" style="color: white">
 					<option value="">지역별</option>
 					<option value="서울특별시">서울특별시</option>
 					<option value="부산광역시">부산광역시</option>
@@ -76,7 +112,7 @@
 					<option value="제주도">제주도</option>
 				</select>
 				&nbsp;&nbsp;&nbsp;
-				<select class="selectpicker" name="findCategoryType">
+				<select class="btn" name="findCategoryType" style="color: white">
 					<option value="">카테고리별</option> 
 					<option value="식당">식당</option>
 					<option value="카페">카페</option>
@@ -84,29 +120,28 @@
 					<option value="숙박">숙박</option>
 				</select>
 				&nbsp;&nbsp;&nbsp;
-				<label class="sr-only" for="nav-search">Search</label>
-				<input type="text" class="form-control" name="searchKeyWord" placeholder="가게명">
-				<button type="submit" id="searchSubmit">
+				<!-- <label class="sr-only" for="nav-search">Search</label> -->
+				<input type="text" class="btn2" name="searchKeyWord" placeholder="가게명" style="height: 25px; width: 200px;">
+				<button type="submit" id="searchSubmit" class="btn" style="color: white">
 					<i class="fa fa-search"></i>
 				</button> 
 			</form>
 		</div>
 </div>
 
-<br>
-<h2 class="header">리뷰 게시판</h2> 
+<div align="left" style="margin-left: 10%; margin-right: 10%">  
+<h2>리뷰 게시판</h2> 
 <caption>리뷰를 남겨주세요</caption>
-<div class="ui__section" id="ui_buttons" align="right">
-		<a href="/review/views/reviewboard/reviewboardWriteForm.jsp" class="btn btn-sm btn-primary">글작성</a>
+<div class="" id="ui_buttons" align="right">
+		<a href="/review/views/reviewboard/reviewboardWriteForm.jsp" class="btn" style="background-color: red; color: white">글작성</a>
 </div>
-
+<br>
 <!-- PAGE CONTENT
     ============================== -->
 
-<div class="container">
 	<!-- Portfolio -->
 	<div class="portfolio__items">
-	  	<div class="row">
+	  	<div class="table-responsive">
 	  		<%for(int i = 0; i<list.size(); i++){%> 
 				<div class="col-xs-12 col-sm-4 filter__item filter_modernism">
 					<div class="portfolio__item">
@@ -119,7 +154,7 @@
 						<!-- Captions -->
 						<div class="portfolio__caption">
 							<h3 class="portfolio__title">
-								<a href="/review/ReviewDetail?no=<%=list.get(i).getPosting_no()%>&page=<%=currentPage%>">글제목: <%=list.get(i).getTitle()%></a></h3> 
+								<a href="/review/ReviewDetail?no=<%=list.get(i).getPosting_no()%>&page=<%=currentPage%>"><font color="red"><%=list.get(i).getTitle()%></font></a></h3> 
 								<div class="portfolio__intro">
 
 								<%if(list.get(i).getEvaluation() == 1){%>
@@ -145,8 +180,12 @@
 								<%}%>
 								가게명: <%=list.get(i).getStoreName()%><br>
 								지역: <%=list.get(i).getLocation()%><br>
-								카테고리: <%=list.get(i).getCategory()%> 
-
+								카테고리: <%=list.get(i).getCategory()%> <br>
+								작성자: <%= list.get(i).getId() %>
+								<div align="right">
+								&nbsp;&nbsp;<img src="resources/img/good.png">&nbsp;<font
+									size="2pt" color="#4D81B0"><%=list.get(i).getLikes() %></font>
+							</div>
 								</div>
 						</div>
 					</div>
@@ -156,11 +195,11 @@
 		<!-- / .row -->
 	</div>
 	<!-- / .portfolio__items -->
+	<br><br>
 
 <!-- / .container -->
-
 <!-- paging -->
-      <div class="ui__section" id="ui_pagination" align="center">
+      <div id="ui_pagination" align="center">
          <nav>
             <ul class="pagination">
                <!-- 이전페이지 처리 -->
@@ -190,5 +229,7 @@
             </ul>
          </nav>
       </div>
+      </div>
+      <%@ include file="../../footer.jsp"%>
 </body>
 </html>

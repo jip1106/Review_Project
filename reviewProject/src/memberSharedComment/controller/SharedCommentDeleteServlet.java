@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import adminComplainComment.model.service.ComplainCommentService;
 import memberSharedComment.model.service.SharedCommentService;
 import memberSharedComment.model.vo.SharedComment;
 
@@ -39,48 +40,12 @@ public class SharedCommentDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		int postNum = Integer.parseInt(request.getParameter("postNum"));
+		int commentNum = Integer.parseInt(request.getParameter("commentNum"));
+		String id = request.getParameter("id");
 		
-		int commentNo = Integer.parseInt(request.getParameter("cNo"));
-		System.out.println(commentNo);
-		int sharedNo = Integer.parseInt(request.getParameter("sNo"));
-		System.out.println(sharedNo);
-		
-		SharedCommentService service = new SharedCommentService();
-		
-		int result = service.deleteSharedComment(commentNo, sharedNo);
-		
-		ArrayList<SharedComment> list = null;
-		
-		if(result > 0){
-			list = service.sharedCommentList(sharedNo);
-		}
-			
-		JSONObject job = new JSONObject();
-		JSONArray jarr = new JSONArray(); 
-		
-		for(SharedComment comment : list){
-			JSONObject j = new JSONObject(); 
-			
-			j.put("commentNo", comment.getCommentNo());
-			j.put("postingNo", comment.getPostingNo()); 
-			j.put("userId", URLEncoder.encode(comment.getId(),"UTF-8"));
-			j.put("content",(comment.getCommentContent().replaceAll("\n", "<br>")));
-			
-			//Date from = new Date(); 
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String to = transFormat.format(comment.getCommentDate());
-			j.put("timePosted", to);
-			
-			jarr.add(j);
-		}
-		
-		job.put("list",jarr);
-		System.out.println("job : " + job.toJSONString()); 
-		PrintWriter pw = response.getWriter();
-		pw.print(job.toJSONString());
-		pw.flush();
-		pw.close(); 
+		new SharedCommentService().deleteComment(postNum,commentNum,id);
 		
 	}
 

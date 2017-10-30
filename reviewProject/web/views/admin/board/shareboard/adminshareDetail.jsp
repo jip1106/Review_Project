@@ -72,24 +72,26 @@
 		<div class="col-sm-8 col-md-9">
 			<div class="comment comment_new">
 				<div class="comment__author_img">
-					<%=member.getName()%>[<%=member.getId()%>]
+					<%=member.getName()%><font color="#4D81B0">[<%=member.getId()%>]</font>
 				</div>
 				<div class="comment__content">
 					<form>
-						<div class="form-group">
+						<div class="form-group" style="float: left; width: 80%">
 							<label for="comment-new__textarea" class="sr-only">Enter
 								your comment</label>
 							<textarea class="form-control" rows="2" id="commentContent"
 								placeholder="Enter your comment"></textarea>
 						</div>
-						<button type="button" id="sendComment" class="btn btn-primary"
-							onclick="return insertComment();">Send Comment</button>
+						<div style="float: left; width: 20%">
+						<button type="button" id="sendComment" class="btn"
+							onclick="return insertComment();" style="color: white;">Send Comment</button>
+						</div>
 					</form>
 				</div>
 			</div>
 			<!-- Comments header -->
 			<div class="comment__header">
-				<span>List of Comments</span>
+				<span><font color="red">List of Comments</font></span>
 			</div>
 			<!-- 댓글 보여주는 자리-->
 			<div id="viewComment"></div>

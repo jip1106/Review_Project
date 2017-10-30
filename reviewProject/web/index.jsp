@@ -203,7 +203,7 @@ ul.navi li {
 <body>
 	<div class="header">
 		<h1 align="center">
-			<a href=/review/views/member/login.jsp style="text-decoration: none; color: white">Review</a>
+			<a href=/review/views/member/login.jsp style="text-decoration: none; color: white; font-size: 110%">Review</a>
 		</h1> 
   		<div>
 

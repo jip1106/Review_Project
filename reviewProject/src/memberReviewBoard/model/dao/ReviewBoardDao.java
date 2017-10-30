@@ -845,6 +845,86 @@ public class ReviewBoardDao {
 		
 		return list;
 	}
+	
+	
+	   public int getReviewLocationListCount(Connection con, String location, String searchKeyWord) {
+		      PreparedStatement pstmt = null;
+		      ResultSet rset = null;
+		      String query = "select count(*) from review_board where location = ? and store_name like ?";
+		      int count = 0;
+		      
+		      try{
+		         pstmt = con.prepareStatement(query);
+		         pstmt.setString(1, location);
+		         pstmt.setString(2, "%"+searchKeyWord+"%");
+		         
+		         rset = pstmt.executeQuery();
+		         
+		         if(rset.next()){
+		            count = rset.getInt(1);
+		         }
+		      }catch(Exception e){
+		         e.printStackTrace();
+		      }finally{
+		         close(rset);
+		         close(pstmt);
+		      }
+		      
+		      return count;
+		   }
+
+		   public int getReviewCategoryListCount(Connection con, String category, String searchKeyWord) {
+		      PreparedStatement pstmt = null;
+		      ResultSet rset = null;
+		      String query = "select count(*) from review_board where category = ? and store_name like ?";
+		      int count = 0;
+		      
+		      try{
+		         pstmt = con.prepareStatement(query);
+		         pstmt.setString(1, category);
+		         pstmt.setString(2, "%"+searchKeyWord+"%");
+		         
+		         rset = pstmt.executeQuery();
+		         
+		         if(rset.next()){
+		            count = rset.getInt(1);
+		         }
+		      }catch(Exception e){
+		         e.printStackTrace();
+		      }finally{
+		         close(rset);
+		         close(pstmt);
+		      }
+		      
+		      return count;
+		   }
+
+		   public int getReviewAllListCount(Connection con, String category, String location, String searchKeyWord) {
+		      PreparedStatement pstmt = null;
+		      ResultSet rset = null;
+		      String query = "select count(*) from review_board where category = ? and location = ? and store_name like ?";
+		      int count = 0;
+		      
+		      try{
+		         pstmt = con.prepareStatement(query);
+		         pstmt.setString(1, category);
+		         pstmt.setString(2, location);
+		         pstmt.setString(3, "%"+searchKeyWord+"%");
+		         
+		         rset = pstmt.executeQuery();
+		         
+		         if(rset.next()){
+		            count = rset.getInt(1);
+		         }
+		      }catch(Exception e){
+		         e.printStackTrace();
+		      }finally{
+		         close(rset);
+		         close(pstmt);
+		      }
+		      
+		      return count;
+		   }
 
 
 }
