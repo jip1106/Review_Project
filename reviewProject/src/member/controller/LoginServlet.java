@@ -10,14 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import common.CryptTemplate;
 import member.model.service.MemberService;
 import member.model.vo.Member;
+import member.model.vo.PasswordSecurity;
 
 /**
  * Servlet implementation class LoginServlet
  */
 @WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet implements CryptTemplate{
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -43,8 +45,13 @@ public class LoginServlet extends HttpServlet {
 		Member member = mservice.loginCheck(id,password);
 		
 		
+		
 		RequestDispatcher view = null;
-		if(member!=null){			
+		if(member!=null){
+			PasswordSecurity ps = new PasswordSecurity(KEY_SIZE, ITERATION_COUNT);
+			String decrypt = ps.decrypt(SALT, IV, PASSPHRASE, member.getPassword());
+			member.setPassword(decrypt.trim());
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("member", member);
 				

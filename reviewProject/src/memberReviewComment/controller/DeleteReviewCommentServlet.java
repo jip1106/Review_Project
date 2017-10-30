@@ -62,16 +62,15 @@ public class DeleteReviewCommentServlet extends HttpServlet {
 		//list 옮겨담을 json 배열 선언
 		JSONArray jarr = new JSONArray(); 
 		
-		for(ReviewComment comment : list){
+		for(ReviewComment comment : list){ 
 			//user 객체 한 개를 저장할 json 객체 선언
 			JSONObject j = new JSONObject(); 
 			j.put("commentNo", comment.getCommentNo());
 			j.put("postingNo", comment.getPostingNo()); 
 			j.put("userId", URLEncoder.encode(comment.getId(),"UTF-8"));
-			j.put("content",URLEncoder.encode(comment.getCommentContent(),"UTF-8"));
-			Date from = new Date(); 
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String to = transFormat.format(from);
+			j.put("content",comment.getCommentContent());
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");   
+			String to = transFormat.format(comment.getCommentDate());
 			j.put("timePosted", to);
 			
 			jarr.add(j);

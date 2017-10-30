@@ -58,37 +58,46 @@
 							<td><%=review.getContent()%></td> 
 						</tr>
 					</table>
-				
-				<%if(review.getRenameImageName()!= null){ %> 
-				<div class="item" align="right">
-					 <img src="/review/uploadfile/<%=review.getRenameImageName()%>" width="25%" height="25%" alt="...">
-				</div>
-				<%}%>
-				</div>
+					<br><br><br><br><hr>
+					<table align="left">
+						<tr>
+							<td>		
+							<%if(review.getRenameImageName()!= null){ %> 
+								<div class="col-sm-8">
+										<div class="badge">이미지</div>
+								</div> 
+								<div class="item">
+									 <img src="/review/uploadfile/<%=review.getRenameImageName()%>" width="250px" height="250px" alt="...">
+								</div>
+							
+							<%}%>					
+							</td>
+							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+							<td>
+									<div class="col-sm-8">
+										<div class="badge">위치정보</div>
+									</div> 
+								<div id="map" style="width: 250px; height: 250px; align:right"></div>
+							</td>
+						</tr>						
+					</table>
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<%if(member.getId().equals(review.getId())){%>
 						<a href="/review/ReviewUpdateView?no=<%=review.getPosting_no()%>&page=<%=currentPage%>" class="btn btn-default">수정</a>
 						<a href="/review/reviewDelete?no=<%=review.getPosting_no()%>" class="btn btn-default">삭제</a>
-						<%}%>
+						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-default">좋아요</a>
+						<%}else{%>
 						<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-default">신고</a>
 						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-default">좋아요</a>
+						<%} %>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-<br><br>
-<!-- 지도 api-->
-<div class="col-sm-1"></div>
-<div class="col-sm-2">
-	<div class="badge">위치정보</div>
-</div> 
-<br><br>
-<div id="map" style="width: 350px; height: 350px; left: 120px;"></div>
-
+</div>
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
@@ -146,7 +155,7 @@
 													json += "시간: "+j.list[i].timePosted;
 													json += "<br> 댓글내용";
 													json += "<p>";
-													json += decodeURIComponent(j.list[i].content);
+													json += j.list[i].content;
 													json += "</p>";
 													var id = decodeURIComponent(j.list[i].userId);
 													var nowid="";
@@ -163,11 +172,13 @@
 													json += "</div></div>";
 												}
 												 $("#commentView").html(json);
+												
 											}
 											//callback			
 										}); //ajax
+								
 							}); // sendCommentclick 이벤트
-
+							
 			$("#commentView").on("click","#editComment",function() {
 								content = $(this).parent().prev().html().trim();
 								commentNo = $(this).parent().next().val();
@@ -199,7 +210,7 @@
 													json += "시간: "+j.list[i].timePosted;
 													json += "<br> 댓글내용";
 													json += "<p>";
-													json += decodeURIComponent(j.list[i].content);
+													json += j.list[i].content;
 													json += "</p>";
 													var id = decodeURIComponent(j.list[i].userId);
 													var nowid="";
@@ -217,6 +228,7 @@
 													json += "</div></div>";
 												}
 												$("#commentView").html(json);
+												
 											}
 									}); //ajax
 								 }else{
@@ -245,7 +257,7 @@
 														json += "시간: "+j.list[i].timePosted;
 														json += "<br> 댓글내용";
 														json += "<p>";
-														json += decodeURIComponent(j.list[i].content);
+														json += j.list[i].content;
 														json += "</p>";
 														var id = decodeURIComponent(j.list[i].userId);
 														var nowid="";
@@ -276,20 +288,20 @@
 	<div class="col-sm-5">
 		<div class="badge">댓글을 입력해주세요</div>
 	</div> 
-	<div class="col-sm-8 col-md-9">
-		<div class="comment comment_new">
-			<div class="comment__author_img"><%=member.getName()%></div>
-				<div class="comment__content">
-					<form>
-						<div class="form-group">
-							<label for="comment-new__textarea" class="sr-only">Enteryour comment</label>
+			<div class="col-sm-8 col-md-9">
+				<div class="comment comment_new">
+					<div class="comment__author_img"><%=member.getName()%></div>
+					<div class="comment__content">
+						<form>
+							<div class="form-group">
+								<label for="comment-new__textarea" class="sr-only">Enteryour comment</label>
 								<textarea class="form-control" rows="2" id="sendContent" placeholder="Enter your comment"></textarea>
-						</div>
-						<button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
-					</form>
-				</div>
+							</div>
+							<button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
+						</form>
+					</div>
 					<!-- / .comment__content -->
-		</div>
+				</div>
 				<!-- / .comment__new -->
 				
 				<!-- Comments header -->

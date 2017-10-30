@@ -37,10 +37,6 @@ public class UpdateSueccessServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		
-		System.out.println("서블릿 단 : " + postNo);
-		System.out.println("서블릿 단 : " + title);
-		System.out.println("서블릿 단 : " + content);
-		
 		int result = new NoticeService().updateNotice(postNo,title,content);
 		
 		if(result>0){

@@ -15,7 +15,7 @@ import memberComplainBoard.model.vo.ComplainBoard;
 /**
  * Servlet implementation class ComplainUpdateServlet
  */
-@WebServlet("/cupdate")
+@WebServlet("/cupdate")//updateview
 public class ComplainUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,7 +35,7 @@ public class ComplainUpdateServlet extends HttpServlet {
 				response.setContentType("text/html; charset=utf-8");
 				
 				int bnum = Integer.parseInt(request.getParameter("bnum"));
-				//int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+				int Page = Integer.parseInt(request.getParameter("Page"));
 				
 				ComplainBoard Complainboard = new ComplainBoardService().selectBoard(bnum);
 				
@@ -43,7 +43,7 @@ public class ComplainUpdateServlet extends HttpServlet {
 				if(Complainboard != null){
 					view = request.getRequestDispatcher("views/complainboard/complainUpdateForm.jsp");
 					request.setAttribute("Complainboard", Complainboard);
-					//request.setAttribute("currentPage", currentPage);
+					request.setAttribute("Page",Page);
 					view.forward(request, response);
 				}
 				

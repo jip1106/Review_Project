@@ -1,6 +1,5 @@
 package memberComplainComment.model.service;
 
-
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -8,62 +7,63 @@ import memberComplainComment.model.dao.ComplainCommentDao;
 import memberComplainComment.model.vo.ComplainComment;
 import java.sql.*;
 
-
 import com.sun.corba.se.impl.ior.GenericTaggedComponent;
 
 import static common.JDBCTemplate.*;
 
 public class ComplainCommentService {
-   
-   public ComplainCommentService(){}
 
+	public ComplainCommentService() {
+	}
 
-   public int insertComplainComment(int complainNo, String id, String content) {
-      Connection con = getConnection();
-      int result = new ComplainCommentDao().insertComplainComment(con,complainNo,id,content);
-      if(result > 0){
-         commit(con);
-      }else{
-         rollback(con);
-      }
-      close(con); 
-      return result;
-   }
+	public ArrayList<ComplainComment> viewComplainComment(int postNum) {
+		// 댓글 불러오는 메서드
+		Connection con = getConnection();
+		ArrayList<ComplainComment> list = new ComplainCommentDao().viewComplainComment(con, postNum);
+		close(con);
 
-   public ArrayList<ComplainComment> selectComplainComment(int complainNo) {
-      Connection con = getConnection();
-      ArrayList<ComplainComment> list = new ComplainCommentDao().selectComplainComment(con,complainNo);
-      return list;
-   }
+		return list;
+	}
 
+	public void deleteComment(int postNum, int commentNum, String id) {
+		// 댓글 삭제
+		Connection con = getConnection();
+		int result = new ComplainCommentDao().deleteComment(con, postNum, commentNum, id);
 
-   public int deleteComplainComment(int commentNo, int complainNo) {
-      Connection con = getConnection();
-      int result = new ComplainCommentDao().deleteComplainComment(con,commentNo,complainNo);
-      
-      if(result > 0){
-         commit(con);
-      }else{
-         rollback(con);
-      }
-      close(con);
-      return result;
-   }
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
 
+	}
 
-   public int updateReviewComment(int commentNo, int complainNo, String content) {
-      Connection con = getConnection();
-      int result = new ComplainCommentDao().updateComplainComment(con,commentNo,complainNo,content);
-      
-      if(result > 0){
-         commit(con);
-      }else{
-         rollback(con);
-      }
-      close(con);
-      return result;
-   }
+	public void insertComment(int postNum, String id, String content) {
+		// 댓글 입력
+		Connection con = getConnection();
+		int result = new ComplainCommentDao().insertComment(con, postNum,id,content);
+		
+		if(result >0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+		
 
-   
+	}
+
+	public void updateComment(int postNum, int commentNum, String id, String content) {
+		Connection con = getConnection();
+		int result = new ComplainCommentDao().updateComment(con,postNum,commentNum,id,content);
+		
+		if(result>0){
+			commit(con);
+		}else{
+			rollback(con);
+		}
+		close(con);
+	}
 
 }

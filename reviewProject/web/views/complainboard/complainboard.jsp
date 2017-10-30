@@ -11,6 +11,7 @@
 	
 	String searchValue = (String)request.getAttribute("searchValue");
 	String searchKeyWord = (String)request.getAttribute("searchKeyWord");
+	
     %>
 
 <!DOCTYPE html>
@@ -44,7 +45,7 @@
 			<form class="form-inline topbar__search" role="form" action="/review/csearch" method="get" >
 				<select class="selectpicker" name="searchValue" id="findType">
 					<option value="findByTitle">제목</option>
-					<option value="findByWriter">작성자</option>
+					<!-- <option value="findByWriter">작성자</option> -->
 				</select> 
 				<label class="sr-only" for="nav-search">Search</label> 
 				<input type="text" class="form-control" id="searchKeyWord" name="searchKeyWord">
@@ -94,7 +95,8 @@
 	
 	<!-- 글작성버튼 -->
 	<div class="ui__section" id="ui_buttons" align="right">
-		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-sm btn-primary">글작성</a> 
+		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-sm btn-primary">글작성</a>
+	 
 	</div>
 	
 	<!-- paging -->

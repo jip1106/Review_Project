@@ -54,7 +54,7 @@ public class ReviewListViewServlet extends HttpServlet {
 		
 
 		String searchKeyWord = request.getParameter("searchKeyWord");
-		System.out.println(searchKeyWord);
+		
 		
 		//해당 페이지용 목록 조회
 		if(location == null && category == null){
@@ -79,6 +79,8 @@ public class ReviewListViewServlet extends HttpServlet {
 		if(maxPage < endPage){
 			endPage = maxPage;
 		}
+		
+
 		
 		if(list != null){
 			RequestDispatcher view = request.getRequestDispatcher("views/reviewboard/reviewboard.jsp");

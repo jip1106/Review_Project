@@ -64,221 +64,189 @@
 			</div>
 		</div>
 	</div>
-</div>
 
-<!-- 댓글공간 -->
-<script type="text/javascript">
-    	$(document).ready(function(){
-    		var boardNo = "<%=sb.getPostingNum()%>";
-    		var userId = "<%=member.getId()%>";
-    		var content = "";
-			var commentNo = "";
-			$("#sendComment").click(function() {
-								var comment = $("#sendContent").val(); 
-								var queryString = {no: boardNo, id: userId, content: comment};
-								$.ajax({
-											type : "get",
-											url : "/review/admininsertsc",
-											data : queryString,
-											dataType: "json",
-											success : function(data) { 
-												var json = "";
-												var j = JSON.parse(JSON.stringify(data));
-												
-												for (var i in j.list) {
-													json += "<div class='comment'>";
-													json += "<div class='comment__content' id='commentresetView'>";
-													json += "<div class='comment__author_name'>"
-													json += "아이디: "+decodeURIComponent(j.list[i].userId);
-													json += "</div>";
-													json += "시간: "+j.list[i].timePosted;
-													json += "<br> 댓글내용";
-													json += "<p>";
-													json += decodeURIComponent(j.list[i].content);
-													json += "</p>";
-													var id = decodeURIComponent(j.list[i].userId);
-													var nowid="";
-													nowid = "<%=member.getId()%>";   
-													if (id == nowid) {
-														json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
-														json += " <a  id='removeComment' class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
-														json += " <a  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
-														json += "</div>"
-													}
-													json += "<input type='hidden' id='commentNo'  value="
-													json += j.list[i].commentNo
-													json +=">"
-													json += "</div></div>";
-													
-												}
-												
-												$("#commentView").html(json);
-												 
-												//여기다 입력되면 textarea부분 지워지게하기
-												var deletehagoship = "";
-												deletehagoship += "<textarea class='form-control' rows='2' id='sendContent' placeholder='Enter your comment'></textarea>";
-												$("#deletehagoship").html(deletehagoship);  
-												
-											}
-											//callback			
-										}); //ajax
-							}); // sendCommentclick 이벤트
+		<div class="col-sm-5">
+			<div class="badge">댓글을 입력해주세요</div>
+		</div>
 
-			$("#commentView").on("click","#editComment",function() {
-								content = $(this).parent().prev().html().trim();
-								commentNo = $(this).parent().next().val();
-								$("#commentresetView").empty();
-								$("#commentresetView").html("<textarea class='form-control'"+"rows='2' id='comment'>"
-								+ content+ "</textarea>"+ "<a id='updateComment' class='btn btn-default btn-xs'>"
-							+ "<i class='fa fa-edit'></i> 수정하기</a>");
-
-							});//editComment (댓글 수정)
-
-			$("#commentView").on("click","#updateComment",function(){
-							if(confirm("댓글을 수정하시겠습니까?")){
-								content = $(this).prev().val();
-								var queryString = {shareNo: boardNo, cNo: commentNo, scontent: content}; /////////////////////////////
-								$.ajax({
-											type : "get",
-											url : "/review/adminupdatesc",
-											data : queryString,
-											dataType: "json",
-											success : function(data) {
-												var json = "";
-												var j =  JSON.parse(JSON.stringify(data));
-												for (var i in j.list) {
-													json += "<div class='comment'>";
-													json += "<div class='comment__content' id='commentresetView'>";
-													json += "<div class='comment__author_name'>"
-													json += "아이디: "+decodeURIComponent(j.list[i].userId);
-													json += "</div>";
-													json += "시간: "+j.list[i].timePosted;
-													json += "<br> 댓글내용";
-													json += "<p>";
-													json += decodeURIComponent(j.list[i].content);
-													json += "</p>";
-													var id = decodeURIComponent(j.list[i].userId);
-													var nowid="";
-													nowid = "<%=member.getId()%>";
-
-													if (id == nowid) {
-														json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
-														json += " <a  id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
-														json += " <a  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
-														json += "</div>"
-													}
-													json += "<input type='hidden' id='commentNo'  value="
-													json += j.list[i].commentNo
-													json +=">"
-													json += "</div></div>";
-												}
-												$("#commentView").html(json);
-											}
-									}); //ajax
-								 }else{
-									 location.href = "/review/adminsbdetail?no=<%=sb.getPostingNum()%>&page=<%=currentPage%>";
-								 }//confirm
-							}); //commentView 수정하기 버튼
-			//삭제하기
-			$("#commentView").on("click","#removeComment",function() {
-								if (confirm("댓글을 삭제하시겠습니까?")) {
-									commentNo = $(this).parent().next().val();
-									var queryString = {shareNo: boardNo, cNo: commentNo};
-									$.ajax({
-												type : "get",
-												url : "/review/admindeletesc",
-												data : queryString,
-												dataType: "json",
-												success : function(data) {
-													var json = "";
-													var j =  JSON.parse(JSON.stringify(data));
-													for (var i in j.list) {
-														json += "<div class='comment'>";
-														json += "<div class='comment__content' id='commentresetView'>";
-														json += "<div class='comment__author_name'>"
-														json += "아이디: "+decodeURIComponent(j.list[i].userId);
-														json += "</div>";
-														json += "시간: "+j.list[i].timePosted;
-														json += "<br> 댓글내용";
-														json += "<p>";
-														json += decodeURIComponent(j.list[i].content);
-														json += "</p>";
-														var id = decodeURIComponent(j.list[i].userId);
-														var nowid="";
-														nowid = "<%=member.getId()%>";
-
-														if (id == nowid) {
-															json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
-															json += " <a id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
-															json += " <a  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
-															json += "</div>"
-														}
-														json += "<input type='hidden' id='commentNo'  value="
-														json += j.list[i].commentNo
-														json +=">"
-														json += "</div></div>";
-													}
-													$("#commentView").html(json);
-												}
-											}); //ajax
-								} else {
-									location.href = "/review/adminsbdetail?no=<%=sb.getPostingNum()%>&page=<%=currentPage%>";
-								}
-							}); //commentView 삭제하기 버튼
-    		
-    	}); 
-</script>
-	
-	<div class="col-sm-5">
-		<div class="badge">댓글을 입력해주세요</div>
-	</div> 
-			<div class="col-sm-8 col-md-9">
-				<div class="comment comment_new">
-					<div class="comment__author_img"><%=member.getName()%></div>
-					<div class="comment__content">
-						<form>
-							<div class="form-group">
-								<label for="comment-new__textarea" class="sr-only">Enteryour comment</label>
-								<div id="deletehagoship"> <!-- textarea 비워줄 떄 사용할거야 -->
-								<textarea class="form-control" rows="2" id="sendContent" placeholder="Enter your comment"></textarea>
-								</div>
-							</div>
-							<button type="button" id="sendComment" class="btn btn-primary" >Send Comment</button> 
-						</form>
-					</div>
-					<!-- / .comment__content -->
+		<div class="col-sm-8 col-md-9">
+			<div class="comment comment_new">
+				<div class="comment__author_img">
+					<%=member.getName()%>[<%=member.getId()%>]
 				</div>
-				<!-- / .comment__new -->
-				
-				<!-- Comments header -->
-				<div class="comment__header">
-					<span>List of Comments</span>
-				</div>
-
-				<!-- All comments -->
-				<div id="commentView">
-					<%for(int i = 0; i<commentList.size(); i++){%>
-						<div class="comment">
-							<div class="comment__content" id="commentresetView">
-								<div class="comment__author_name">
-									아이디: <%=commentList.get(i).getId()%> 
-								</div>
-									시간: <%=commentList.get(i).getCommentDate()%><br>
-									댓글내용
-									<p><%=commentList.get(i).getCommentContent()%></p> 
-								<%if(member.getId().equals(commentList.get(i).getId())){%> 
-									<div class="btn-group pull-right" role="group" aria-label="comment__actions">
-										<a  id="removeComment"class="btn btn-default btn-xs"><i class="fa fa-times"></i>Remove</a> 
-										<a id="editComment"class="btn btn-default btn-xs"><i class="fa fa-edit"></i>Edit</a> 
-									</div>
-									<input type="hidden" id="commentNo" value="<%=commentList.get(i).getCommentNo()%>">
-								<%}%>
-							</div>
-							<!-- / .comment__content -->
+				<div class="comment__content">
+					<form>
+						<div class="form-group">
+							<label for="comment-new__textarea" class="sr-only">Enter
+								your comment</label>
+							<textarea class="form-control" rows="2" id="commentContent"
+								placeholder="Enter your comment"></textarea>
 						</div>
-						<!-- / .comment -->
-					<%}%>
+						<button type="button" id="sendComment" class="btn btn-primary"
+							onclick="return insertComment();">Send Comment</button>
+					</form>
 				</div>
 			</div>
+			<!-- Comments header -->
+			<div class="comment__header">
+				<span>List of Comments</span>
+			</div>
+			<!-- 댓글 보여주는 자리-->
+			<div id="viewComment"></div>
+
+		</div>
+
+</div>
+
+<!-- 자바스크립트 -->
+<script type="text/javascript">
+    $(function(){
+    	selectComment();
+    	
+    	$("#commentContent").keydown(function(key){
+    		if(key.keyCode==13){
+    			insertComment();
+    		}
+    	})
+    });
+    
+    function selectComment(){
+    	var sharePostNum = "<%=sb.getPostingNum()%>";
+    	
+    	$.ajax({
+    		url:"/review/adminSharecomment.do",
+    		data: {postNum: sharePostNum},
+    		type: "get",
+    		dataType : "json",
+    		success: function(data){
+    			var jsonStr = JSON.stringify(data);
+    			var json = JSON.parse(jsonStr);
+    			var memberId = "<%=member.getId()%>";
+    			
+    			var values="";
+    				for(var i in json.list){
+    					if(memberId === decodeURIComponent(json.list[i].id)){
+    						values +=
+    							"<div class='comment'>"+
+    								"<div class='comment__content' id='commentresetView'>"+
+    									"<div class='comment__author_name'>"+									
+    										"아이디 :"+decodeURIComponent(json.list[i].id)+ 
+    									"</div>"+
+    									"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
+    									"<br>댓글내용 :"+
+    									"<input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
+    										"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
+    											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
+    											"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
+    										"</div>"+	
+    								"</div>" +
+    								"<div id='updateWriteForm"+json.list[i].commentNo+"'>" + "</div>" +
+    							"</div>" + "<hr>";
+    					}else{
+    						values +=
+								"<div class='comment'>"+
+									"<div class='comment__content' id='commentresetView'>"+
+										"<div class='comment__author_name'>"+									
+											"아이디 : "+decodeURIComponent(json.list[i].id)+ 
+										"</div>"+
+											"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi, " ") +
+											"<br>댓글내용 :" +
+											"<h2>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</h2>"
+											+"<hr>"
+					
+    					}
+    				}
+    				
+    				$("#viewComment").html(values);
+    		}
+    	})
+    }
+    
+    function insertComment(){	//댓글 삽입
+    	if($("#commentContent").val()==""){
+    		alert("댓글 내용을 입력해 주세요!");
+    		focus("#commentContent");
+    		return false;
+    	}else{
+    		var postNum = "<%=sb.getPostingNum()%>";
+    		var id = "<%=member.getId()%>";
+    		var content = $("#commentContent").val();
+    		$.ajax({
+    			url:"/review/insertSharedComment.do",
+    			data:{postNum:postNum, id:id, content:content},
+    			type:"get",
+    			async:false
+    		});    		
+    		$("#commentContent").val("");
+    		selectComment();
+    		return true;
+    	}
+    }
+    
+    function removeCommentFun(commentNo){	//댓글 삭제
+		//넘겨야 될 값 : 게시글 번호, 댓글 번호, 아이디
+		if(confirm("정말 댓글을 삭제하시겠습니까?")==false){
+			return false;
+		}else{
+			var postNum = "<%=sb.getPostingNum()%>";
+			var id = "<%=member.getId()%>";
+			var commentNum = commentNo+"";
+			$.ajax({
+				url:"/review/deleteSharedComment.do",
+				data:{postNum:postNum, id:id, commentNum:commentNum},
+				type:"get",
+				async:false
+			})
+			
+			selectComment();
+			alert("삭제 되었습니다.");
+			return true;
+		}
+	}
+    
+    function viewEditCommentFun(commentNo){	
+		
+		var commentNum = commentNo+"";		
+		var divId = '#updateWriteForm'+commentNum;
+		var editCommentId = '#editComment'+commentNum;
+		
+		var previousContent = $(editCommentId).val().replace(/\+/gi, " ");
+		
+		
+		var values="<div><textarea class='form-control'"+"rows='2' id='reply'>"
+		+ previousContent+ "</textarea>"+ "<a id='updateComment' class='btn btn-default btn-xs' onclick='return editCommentFun(" +commentNum+ ")'>"
+		+ "<i class='fa fa-edit'></i> 수정하기</a></div>"
+		
+		$(divId).html(values);
+	}
+    
+	function editCommentFun(commentNo){ //댓글 수정
+		var postNum = "<%=sb.getPostingNum()%>";
+		var id = "<%=member.getId()%>"
+		var commentNum = commentNo+"";
+		
+		var content = $("#reply").val().replace(/\+/gi," ");
+				
+		if(content===""){
+			alert("댓글 내용을 입력해주세요");
+			return false;
+		}else{
+			$.ajax({
+				url:"/review/updateSharedComment.do",
+				data:{postNum:postNum , commentNum:commentNum , id:id, content:content},
+				type:"get",
+				async:false
+			})
+					
+			selectComment();
+			alert("수정완료");
+			return true;
+		}
+	}
+
+    
+</script>
+	<%@ include file = "../../../../footer.jsp" %>
+	
 </body>
 </html>

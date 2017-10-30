@@ -39,6 +39,7 @@ public class ReviewSearchListServlet extends HttpServlet {
 		
 		ArrayList<ReviewBoard> list = new ReviewBoardService().reviewSearchList(findType,search);
 		
+		
 		if(list != null){
 			
 		}else{

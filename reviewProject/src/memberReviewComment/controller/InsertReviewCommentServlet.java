@@ -69,11 +69,10 @@ public class InsertReviewCommentServlet extends HttpServlet {
 			j.put("commentNo", comment.getCommentNo());
 			j.put("postingNo", comment.getPostingNo()); 
 			j.put("userId", URLEncoder.encode(comment.getId(),"UTF-8"));
-			j.put("content",URLEncoder.encode(comment.getCommentContent(),"UTF-8"));
-			Date from = new Date(); 
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String to = transFormat.format(from);
-			j.put("timePosted", to);
+			j.put("content",comment.getCommentContent());
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");  
+			String to = transFormat.format(comment.getCommentDate());
+			j.put("timePosted", to); 
 			
 			jarr.add(j);
 		}

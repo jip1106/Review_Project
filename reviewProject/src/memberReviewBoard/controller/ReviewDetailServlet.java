@@ -46,6 +46,8 @@ public class ReviewDetailServlet extends HttpServlet {
 		ReviewBoard review = rservice.reviewDetail(reviewNo);
 		ArrayList<ReviewComment> list = rservice.selectCommentList(reviewNo);
 		
+		
+		
 		if(review != null && result > 0){
 			RequestDispatcher view = request.getRequestDispatcher("views/reviewboard/reviewboardDetail.jsp");
 			request.setAttribute("review", review);

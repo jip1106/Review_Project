@@ -22,7 +22,7 @@ import memberSharedComment.model.vo.SharedComment;
 /**
  * Servlet implementation class AdminDeleteShareCommentServlet
  */
-@WebServlet("/admindeletesc")
+@WebServlet("/deleteSharedComment.do")
 public class AdminDeleteShareCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,48 +39,12 @@ public class AdminDeleteShareCommentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		int postNum = Integer.parseInt(request.getParameter("postNum"));
+		int commentNum = Integer.parseInt(request.getParameter("commentNum"));
+		String id = request.getParameter("id");
 		
-		int commentNo = Integer.parseInt(request.getParameter("cNo"));
-		int shareNo = Integer.parseInt(request.getParameter("shareNo"));
-		SharedCommentService service = new SharedCommentService();
-		
-		int result = service.deleteSharedComment(commentNo,shareNo);  
-		
-		ArrayList<SharedComment> list = null;
-		
-		if(result > 0){
-			list = service.selectSharedComment(shareNo);
-		}
-		
-		//json 객체 하나만 내보낼 수 있음
-		//json 배열을 json 객체에 저장함
-		//내보낼 json 객체 선언
-		JSONObject job = new JSONObject();
-		//list 옮겨담을 json 배열 선언
-		JSONArray jarr = new JSONArray(); 
-		
-		for(SharedComment comment : list){
-			//user 객체 한 개를 저장할 json 객체 선언
-			JSONObject j = new JSONObject(); 
-			j.put("commentNo", comment.getCommentNo());
-			j.put("postingNo", comment.getPostingNo()); 
-			j.put("userId", URLEncoder.encode(comment.getId(),"UTF-8"));
-			j.put("content",URLEncoder.encode(comment.getCommentContent(),"UTF-8"));
-			Date from = new Date(); 
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String to = transFormat.format(from);
-			j.put("timePosted", to);
-			
-			jarr.add(j);
-		}
-		
-		job.put("list",jarr);
-		System.out.println("job : " +job.toJSONString()); 
-		PrintWriter pw = response.getWriter();
-		pw.print(job.toJSONString());
-		pw.flush();
-		pw.close(); 
+		new SharedCommentService().deleteComment(postNum,commentNum,id);
 	}
 
 	/**

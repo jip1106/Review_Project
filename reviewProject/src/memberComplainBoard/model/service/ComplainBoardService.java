@@ -43,9 +43,9 @@ public class ComplainBoardService {
       return;
    }
 
-   public ComplainBoard selectBoard(int bnum, String id) {
+   public ComplainBoard selectBoard(int bnum) {
       Connection con = getConnection();
-      ComplainBoard ComplainBoard = new ComplainBoardDao().selectBoard(con, bnum, id);
+      ComplainBoard ComplainBoard = new ComplainBoardDao().selectBoard(con, bnum);
       close(con);
       return ComplainBoard;
    }

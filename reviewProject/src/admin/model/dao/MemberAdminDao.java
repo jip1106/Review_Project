@@ -200,6 +200,23 @@ public class MemberAdminDao {
 		return result;
 	}
 
+	public int insertExileMember(Connection con, String email) {
+		PreparedStatement pstmt = null;
+		String query = "insert into ExileMember values(?)";
+		int result = 0;
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, email);
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 	
 

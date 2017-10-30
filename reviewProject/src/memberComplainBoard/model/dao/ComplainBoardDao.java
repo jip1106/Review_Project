@@ -117,12 +117,12 @@ public class ComplainBoardDao {
       return result;
    }
 
-   public ComplainBoard selectBoard(Connection con, int bnum, String id) {
+   public ComplainBoard selectBoard(Connection con, int bnum) {
       ComplainBoard ComplainBoard = null;
       PreparedStatement pstmt = null;
       ResultSet rset = null;
 
-      String query = "select posting_no, replace(id,substr(id,3),'**')as id, title, content, hits, posting_date, del_yn from complain_board where posting_no = ?";
+      String query = "select posting_no, id, title, content, hits, posting_date, del_yn from complain_board where posting_no = ?";
 
       try {
          pstmt = con.prepareStatement(query);
@@ -175,9 +175,9 @@ public class ComplainBoardDao {
    public int insertBoard(Connection con, ComplainBoard cb) {
       int result = 0;
       PreparedStatement pstmt = null;
-
+      
       String query = "insert into complain_board values (complain_seq.nextval,"
-            + "?, ?, ?, default,default, default)";
+            + "?, ?, ?, default,default,default)";
 
       try {
          pstmt = con.prepareStatement(query);
