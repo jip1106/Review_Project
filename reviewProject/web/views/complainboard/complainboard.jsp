@@ -93,9 +93,9 @@
 	<!-- / .table-responsive -->
 	
 	<!-- 글작성버튼 -->
-	<div class="ui__section" id="ui_buttons" align="right">
+<!-- 	<div class="ui__section" id="ui_buttons" align="right">
 		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-sm btn-primary">글작성</a> 
-	</div>
+	</div> -->
 	
 	<!-- paging -->
 	<div class="ui__section" id="ui_pagination" align="center">

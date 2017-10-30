@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="memberComplainBoard.model.vo.ComplainBoard"%>
-    <%
-    	ComplainBoard Complainboard = (ComplainBoard)request.getAttribute("ComplainBoard");
-    	
-    %>
+    pageEncoding="UTF-8"%>
+<%
+	int reviewNo = ((Integer)request.getAttribute("reviewNo")).intValue();
+    String reviewTitle= (String)request.getAttribute("reviewTitle");
+    
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +32,7 @@
 	<div class="row">
 		<div class="col-sm-8">
 			<h3 class="header">Complainboard Write</h3>
-			<p class="text-muted">불 건전한 게시글을 신고해 주세요</p>
+			<p class="text-muted">리뷰게시판 에서 부적절한 게시물을 신고해 주세요!</p>
 			<form role="form" action="/review/cinsert" method="post">
 			<input type="hidden" name="id" value="<%= member.getId() %>">
 				<div class="form-group">
@@ -39,16 +40,25 @@
 					<input type="text" name="title" class="form-control" id="title" placeholder="title"> 
 					<span class="help-block"></span>
 				</div>
+					<!-- 바꾼부분 -->
+					
+				<div class="form-group">
+					<label for="title">reviewNo</label> 
+					<input type="text" name="reviewNo" class="form-control" id="reviewNo" style="width:50%" readonly value=<%=reviewNo %>> 
+					<span class="help-block"></span>
+				</div>
+				<div class="form-group">
+					<label for="title">reviewTitle</label> 
+					<input type="text" name="reviewTitle" class="form-control" id="reviewTitle"  style="width:50%" readonly value=<%=reviewTitle%>> 
+					<span class="help-block"></span>
+				</div>
+					<!-- 바꾼부분 -->
+					
 				<div class="form-group">
 					<label for="content">Content</label>
 					<textarea cols="20" rows="20" name="content" class="form-control"  id="content" placeholder="content"></textarea>
 					 <span class="help-block"></span>  
 				</div>
-				<!-- <div class="form-group">
-					<label for="image">image</label> <input type="file" name="image"
-						class="form-control" id="image" placeholder="picture"> <span
-						class="help-block"></span>
-				</div> -->
 					<button type="submit" class="btn btn-primary">글작성</button>
 					<button type="reset" class="btn btn-primary" onclick="reviewWriteCancel()">작성 취소</button>
 					<button type="submit" class="btn btn-primary" onclick="/review/clist">돌아가기</button>
