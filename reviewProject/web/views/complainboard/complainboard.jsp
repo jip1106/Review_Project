@@ -45,7 +45,6 @@
 			<form class="form-inline topbar__search" role="form" action="/review/csearch" method="get" >
 				<select class="selectpicker" name="searchValue" id="findType">
 					<option value="findByTitle">제목</option>
-					<option value="findByWriter">작성자</option>
 				</select> 
 				<label class="sr-only" for="nav-search">Search</label> 
 				<input type="text" class="form-control" id="searchKeyWord" name="searchKeyWord">
