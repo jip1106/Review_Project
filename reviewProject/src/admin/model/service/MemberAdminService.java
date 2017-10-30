@@ -88,5 +88,15 @@ public class MemberAdminService {
 		close(con);
 	}
 
+	public ArrayList<Member> viewWarningCountOverThree() {
+		// 경고 수 3회 이상인 회원 뽑아오기
+		Connection con = getConnection();
+		
+		ArrayList<Member> list = new MemberAdminDao().viewWarningCountOverThree(con);
+		close(con);
+		
+		return list;
+	}
+
 	
 }

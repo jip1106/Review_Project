@@ -218,6 +218,43 @@ public class MemberAdminDao {
 		return result;
 	}
 
+	public ArrayList<Member> viewWarningCountOverThree(Connection con) {
+		// 경고횟수 많은 회원 3명 뽑아오기
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		String query = "select * from "
+				+ "(select rownum as rnum,id,password,name,email,warning_count,user_type "
+				+ "from (select * from member where warning_count>=3 order by warning_count desc)) "
+				+ "where rnum>=1 and rnum<=3";
+		try{
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset!=null){
+				while(rset.next()){
+					Member member = new Member();
+					member.setId(rset.getString("id"));
+					member.setPassword(rset.getString("password"));
+					member.setName(rset.getString("name"));
+					member.setEmail(rset.getString("email"));
+					member.setWarningCount(rset.getInt("warning_count"));
+					member.setUserType(rset.getInt("user_type"));
+					
+					list.add(member);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
 	
 
 }

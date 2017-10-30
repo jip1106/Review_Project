@@ -120,7 +120,6 @@
 	<div align="left" style="margin-left: 10%; margin-right: 10%">
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered" align="center">
-				
 				<caption>
 				<%if(searchValue==null){ %>
 					<h2>전체 회원 수 : <%=listCount %></h2>

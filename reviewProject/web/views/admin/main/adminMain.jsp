@@ -17,8 +17,10 @@
 <%@
 	page import = "memberSharedBoard.model.vo.SharedBoard,adminShareBoard.model.dao.ShareBoardDao,adminShareBoard.model.service.ShareBoardService"
  %>
+
 <%		
 	ArrayList<Notice> noticeList = new NoticeService().viewNoticeList();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -177,7 +179,7 @@
 		
 		<div style="float: left; width: 80%">
 		<h2>공지사항</h2>
-		<!-- <form role="form" action="/review/nlist" method="post"> -->
+		
 			<table class="table table-striped table-bordered">
 					<tr>
 						<td colspan="6" align="right">
@@ -209,7 +211,7 @@
 					<td style=" text-align: center">
 						<%if(member.getId().equals(notice.getId())){ %>
 				 		<a href="/review/noticedel?postno=<%=notice.getPostingNo()%>">
-							<button class="btn" style="background-color: #C2D6E9; color: white">공지사항 삭제</button>
+							<button class="btn" style="background-color: #4D81B0; color: white">공지사항 삭제</button>
 						</a>		 			
 						<%} %>
 					</td>
@@ -220,15 +222,99 @@
 				%>
 			</table>
 			</div>
+			<!-- 공지사항 끝 --><br><br>
+			<hr>
+			
+			<!-- 삭제될 회원 시작 ajax 이용-->
+			
+			<div style="float: left; width: 80%">
+				<h2>경고수 3회 이상인 회원</h2>
+				<table class='table table-striped table-bordered'>
+					
+						<tr>
+							<th style='background-color: #4D81B0; color: white; text-align: center'>회원Id</th>
+							<th style='background-color: #4D81B0; color: white; text-align: center'>이름</th>
+							<th style='background-color: #4D81B0; color: white; text-align: center' >이메일</th>
+							<th style='background-color: #4D81B0; color: white; text-align: center' >경고횟수</th>
+							<th style='background-color: #4D81B0; color: white; text-align: center' >삭제</th>
+						</tr>
+					
+					<tbody id = "maxWarningCount">	<!-- 회원정보 찍어주는 자리 -->
+					
+					</tbody>
+					
+					
+				</table>
+			</div>
+			
+			<script type="text/javascript">
+			$(function(){
+				selectWarningCountOverThreeMember();
+			})
+			
+			function selectWarningCountOverThreeMember(){
+				$.ajax({
+					url: "/review/viewWarningCountOverThree.do",
+					type: "get",
+					dataType: "json",
+					success: function(data){
+						var jsonStr = JSON.stringify(data);
+						var json = JSON.parse(jsonStr);
+						var values = "";
+						
+						for(var i in json.list){
+							values+="<tr>"+
+										"<td style='text-align:center'>" + decodeURIComponent(json.list[i].id) + "</td>"+
+										"<td style='text-align:center'>" + decodeURIComponent(json.list[i].name) + "</td>"+
+										"<td style='text-align:center'>" + decodeURIComponent(json.list[i].email) + "</td>"+
+										"<td style='text-align:center'><font color='red'>" + json.list[i].warningCount  +"</font></td>"+
+										"<td style='text-align:center'>"+
+											"<button class='btn' onclick='return adminMainMemberForceDelete("+decodeURIComponent(json.list[i].id)+");' style='background-color:#4D81B0; color:white'>삭제</button>"+
+										"</td><tr>";
+							
+						}
+						
+						$("#maxWarningCount").html(values);
+					}
+				});
+			}
 			
 			
-			<!-- </form> -->
+			 function adminMainMemberForceDelete(id){
+				alert(id);
+				if(confirm("정말 회원을 탈퇴 시키시겠습니까?")==false){
+					return false;
+				}else{
+					var passId = id;
+					$.ajax({
+						url:"/review/mainForceDelete.do",
+						data : {"id":passId},
+						type:"get",
+						async:false
+					})
+									
+					selectWarningCountOverThreeMember();
+					
+					alert("탈퇴 되었습니다.");
+					return true;
+				}
+			}
+			 
+			
+		</script>
+			
+			
+			
 			<br>
 		<table border="1" class="table table-striped table-bordered">
-			<!-- 여기에 top3 보여주는거 넣을꺼야!!!!!!!  -->
+			<!-- 여기에 top3 보여주는거 넣을꺼야!!!!!!  -->
+			<!-- 신고 게시판 최신글 3개 뽑아오기 -->
+			
 		</table>
 		</div>
 	</div>
+		
+	
 <%@ include file = "../../../footer.jsp" %>
 </body>
 </html>
