@@ -26,6 +26,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>관리자 메인 페이지</title>
 <!-- CSS Global -->
     <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
@@ -38,16 +39,6 @@
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
 	
-
-<!-- jQuery 쓸라고 추가한거 -->
-<script type="text/javascript" src = "../../../js/jquery-3.2.1.min.js"></script>
-
-
-<script type="text/javascript">
-	function noticeWrite(){
-		location.href="../notice/noticewrite.jsp";
-	}
-</script>
 
 <!-- 아코디언 메뉴 스타일부분임 -->
 <style>
@@ -127,16 +118,15 @@
 		overflow: auto;
 		height:50px; /* 펼쳐진 아코디언 높이  */
 	}
-	
-	
-	
-  </style>
+	</style>
 
 </head>
 
 
 <body>
 <%@ include file = "../../../header.jsp" %>
+
+
 <!-- <div class="container" align="center"> -->
 	<!-- noticeWrite() 메서드 구동, 글작성 페이지로 이동 noticewrite.jsp-->
 				
@@ -232,76 +222,20 @@
 				<table class='table table-striped table-bordered'>
 					
 						<tr>
-							<th style='background-color: #4D81B0; color: white; text-align: center'>회원Id</th>
+							<th style="background-color: #4D81B0; color: white; text-align: center">회원Id</th>
 							<th style='background-color: #4D81B0; color: white; text-align: center'>이름</th>
 							<th style='background-color: #4D81B0; color: white; text-align: center' >이메일</th>
 							<th style='background-color: #4D81B0; color: white; text-align: center' >경고횟수</th>
 							<th style='background-color: #4D81B0; color: white; text-align: center' >삭제</th>
+							
 						</tr>
 					
 					<tbody id = "maxWarningCount">	<!-- 회원정보 찍어주는 자리 -->
 					
 					</tbody>
-					
-					
+									
 				</table>
 			</div>
-			
-			<script type="text/javascript">
-			$(function(){
-				selectWarningCountOverThreeMember();
-			})
-			
-			function selectWarningCountOverThreeMember(){
-				$.ajax({
-					url: "/review/viewWarningCountOverThree.do",
-					type: "get",
-					dataType: "json",
-					success: function(data){
-						var jsonStr = JSON.stringify(data);
-						var json = JSON.parse(jsonStr);
-						var values = "";
-						
-						for(var i in json.list){
-							values+="<tr>"+
-										"<td style='text-align:center'>" + decodeURIComponent(json.list[i].id) + "</td>"+
-										"<td style='text-align:center'>" + decodeURIComponent(json.list[i].name) + "</td>"+
-										"<td style='text-align:center'>" + decodeURIComponent(json.list[i].email) + "</td>"+
-										"<td style='text-align:center'><font color='red'>" + json.list[i].warningCount  +"</font></td>"+
-										"<td style='text-align:center'>"+
-											"<button class='btn' onclick='return adminMainMemberForceDelete("+decodeURIComponent(json.list[i].id)+");' style='background-color:#4D81B0; color:white'>삭제</button>"+
-										"</td><tr>";
-							
-						}
-						
-						$("#maxWarningCount").html(values);
-					}
-				});
-			}
-			
-			
-			 function adminMainMemberForceDelete(id){
-				alert(id);
-				if(confirm("정말 회원을 탈퇴 시키시겠습니까?")==false){
-					return false;
-				}else{
-					var passId = id;
-					$.ajax({
-						url:"/review/mainForceDelete.do",
-						data : {"id":passId},
-						type:"get",
-						async:false
-					})
-									
-					selectWarningCountOverThreeMember();
-					
-					alert("탈퇴 되었습니다.");
-					return true;
-				}
-			}
-			 
-			
-		</script>
 			
 			
 			
@@ -314,6 +248,73 @@
 		</div>
 	</div>
 		
+		<script type="text/javascript">
+	
+	$(function(){
+		selectWarningCountOverThreeMember();		
+	})
+	
+	function selectWarningCountOverThreeMember(){
+		$.ajax({
+			url: "/review/viewWarningCountOverThree.do",
+			type: "get",
+			dataType: "json",
+			success: function(data){
+				var jsonStr = JSON.stringify(data);
+				var json = JSON.parse(jsonStr);
+				var values = "";
+				
+				for(var i in json.list){
+					console.log("유저 아이디 : " + decodeURIComponent(json.list[i].id));
+					console.log("타입 : " + typeof decodeURIComponent(json.list[i].id));
+					values+="<tr>"+ 
+								"<td style='text-align:center'>" + decodeURIComponent(json.list[i].id) + "</td>"+
+								"<td style='text-align:center'>" + decodeURIComponent(json.list[i].name) + "</td>"+
+								"<input type='hidden' id='fdeleteEmail' value='"+decodeURIComponent(json.list[i].email)+"'>"+
+								"<td style='text-align:center'>" + decodeURIComponent(json.list[i].email) + "</td>"+
+								"<td style='text-align:center'><font color='red'>" + json.list[i].warningCount  +"</font></td>"+
+								"<td style='text-align:center'>"+
+									"<input type='hidden' id='fdelete' value='"+decodeURIComponent(json.list[i].id)+"'>"+
+										"<a class='btn' onclick='forceDelete()' style='background-color: #4D81B0; color: white'>삭제</a></td></tr>";
+								
+					
+				}
+				
+				$("#maxWarningCount").html(values);
+			}
+		});
+	}
+	
+	
+	 function forceDelete(){
+		var id = $("#fdelete").val();
+		var email =$("#fdeleteEmail").val(); 
+		if(confirm("정말 회원을 탈퇴 시키시겠습니까?")==false){
+			return false;
+		}else{
+			
+			$.ajax({
+				url:"/review/mainForceDelete.do",
+				data : {"id":id,"email":email},
+				type:"get",
+				async:false
+			})
+							
+			selectWarningCountOverThreeMember();
+			
+			alert("탈퇴 되었습니다.");
+			return true;
+		}
+	}
+ 
+	
+	function noticeWrite(){
+		location.href="../notice/noticewrite.jsp";
+	}
+	
+	
+	
+</script>
 	
 <%@ include file = "../../../footer.jsp" %>
 </body>

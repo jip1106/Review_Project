@@ -33,9 +33,12 @@ public class MemberForceDeleteMainJSPServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		String id = request.getParameter("id");
-		System.out.println("서블릿에서 받는 id 값 : " + id);
+		String email = request.getParameter("email");
 		
-		new MemberAdminService().deleteMember(id);
+		MemberAdminService maservice = new MemberAdminService();
+		
+		maservice.insertExileMember(email);
+		maservice.deleteMember(id);
 	}
 
 	/**

@@ -130,9 +130,14 @@
 		$("#commentContent").keydown(function(key){
 			if(key.keyCode==13){
 				insertComment();
+				$("#commentContent").val("");
+				
 			}
 		})
+		
 	
+		
+		
 	});
 	
 	function selectComment(){
@@ -188,6 +193,7 @@
 			}
 		})
 	}	
+	
 	function insertComment(){
 		if($("#commentContent").val() ==""){
 			alert("댓글 내용을 입력해주세요!");
@@ -204,8 +210,10 @@
 				async:false
 			
 			});
-			$("#commentContent").val("");
+		
+			
 			selectComment();
+						
 			return true;
 			
 		}
