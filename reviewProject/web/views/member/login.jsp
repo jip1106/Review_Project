@@ -38,7 +38,7 @@
 	}
 	
 	.btn:hover{
-		background: #4D81B0;
+		background: #C2D6E9;
 	}
 	
 	.btn{
@@ -101,8 +101,8 @@
 						<button type="submit" class="btn btn-primary btn-lg btn-block" 
 									onclick="return checkInput();">Login</button>
 						<!-- <button type="submit" class="btn btn-primary btn-block btn-lg">Login</button> -->
-						<button type="reset" class="btn btn-primary btn-block btn-lg" 
-									id="cancel" style=" background: #4D81B0;">취소</button>
+						<button type="reset" class="btn btn-primary btn-lg btn-block" 
+									id="cancel" >취소</button>
 				</form> 
 
 				
