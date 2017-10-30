@@ -125,7 +125,7 @@
 <body>
 <%@ include file="../../../../header.jsp"%>
 <br>
-<div align="left" style="margin-left: 10%; margin-right:10%">
+<div class="container">
 	<div class="row">
 			<form class="form-inline topbar__search" role="form" action="/review/adminSearch" onsubmit="return inputPleaseMessage();">
 				<div class="col-lg-1">    
