@@ -11,6 +11,7 @@
 	
 	String searchValue = (String)request.getAttribute("searchValue");
 	String searchKeyWord = (String)request.getAttribute("searchKeyWord");
+	
     %>
 
 <!DOCTYPE html>
