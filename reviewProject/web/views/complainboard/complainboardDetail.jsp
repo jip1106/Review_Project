@@ -95,7 +95,7 @@
             </div>
             <div align="center">
                   <% if(member.getId().equals(Complainboard.getId())){ %>
-	                 <a href="/review/cupdate?bnum=<%= Complainboard.getPostingNo() %>&Page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red; color: white">수정</a>&nbsp;
+	                 <a href="/review/cupdate?Page=<%=currentPage%>&bnum=<%= Complainboard.getPostingNo() %>" class="btn btn-primary" style="width: 100px; background: red; color: white">수정</a>&nbsp;
                      <a class="btn btn-primary" style="width: 100px; background: red; color: white" onclick="return board_delete()">삭제</a>&nbsp;
                    	 <button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
                      

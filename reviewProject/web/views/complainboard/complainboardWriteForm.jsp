@@ -63,20 +63,13 @@
 					<textarea cols="20" rows="20" name="content" class="form-control"  id="content" placeholder="content"></textarea>
 					 <span class="help-block"></span>  
 				</div>
-<<<<<<< HEAD
-				
-					<button type="submit" class="btn btn-primary" onclick = "return pleaseInputMessage()" style="background:#4D81B0">글작성</button>
-					<button type="reset" class="btn btn-primary" style="background:#4D81B0">작성 취소</button>
-					<button type="submit" class="btn btn-primary" onclick="/review/clist" style="background:#4D81B0">돌아가기</button>
-				
 
-=======
 				<div class="form-group" align="center">
 					<button type="submit" class="btn btn-primary" style="width: 160px; background: red;" onclick = "return pleaseInputMessage()">글작성</button>
 					<button type="reset" class="btn btn-primary" style="width: 160px; background: red;">작성 취소</button>
 					<button  class="btn btn-primary" style="width: 160px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button>
 				</div>
->>>>>>> somi
+
 			</form>
 
 		</div>
