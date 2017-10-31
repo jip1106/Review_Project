@@ -95,10 +95,19 @@
 </head>
 <body>
 <%@ include file="../../header.jsp"%>
+<script type=text/javascript>
+
+function inputPleaseMessage(){
+	if($("#searchStoreName").val()==""){
+		alert("검색할 장소를 입력해 주세요");
+		return false;
+	}
+}
+</script>
 <br>
 <div align="left" style="margin-left: 10%; margin-right: 10%">
 		<div align="left">    
-			<form class="" role="form" action="/review/reviewList">
+			<form class="" role="form" action="/review/reviewList" onsubmit = "return inputPleaseMessage();">
 				<select name="findLocationType" class="btn" style="color: white">
 					<option value="">지역별</option>
 					<option value="서울특별시">서울특별시</option>
@@ -121,7 +130,7 @@
 				</select>
 				&nbsp;&nbsp;&nbsp;
 				<!-- <label class="sr-only" for="nav-search">Search</label> -->
-				<input type="text" class="btn2" name="searchKeyWord" placeholder="가게명" style="height: 25px; width: 200px;">
+				<input type="text" class="btn2" name="searchKeyWord" id="searchStoreName" placeholder="가게명" style="height: 25px; width: 200px;">
 				<button type="submit" id="searchSubmit" class="btn" style="color: white">
 					<i class="fa fa-search"></i>
 				</button> 

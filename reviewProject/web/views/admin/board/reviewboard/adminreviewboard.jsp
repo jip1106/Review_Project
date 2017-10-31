@@ -99,6 +99,10 @@
  
  <script type="text/javascript">
 	function inputPleaseMessage(){
+		if($("#searchStoreName").val()==""){
+			alert("검색할 장소를 입력해 주세요");
+			return false;
+		}
 		
 		if( $("#findLocationType").val()=="" && $("#findCategoryType").val()==""){
 			alert("검색할 지역이나 카테고리 중 하나를 선택 해 주세요");

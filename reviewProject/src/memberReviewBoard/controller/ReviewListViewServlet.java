@@ -62,17 +62,17 @@ public class ReviewListViewServlet extends HttpServlet {
           System.out.println(listCount);
           list = rservice.selectReview(currentPage, limit);
       }else if(category == null || category.trim() == ""){
-          listCount = rservice.getReviewLocationListCount(location,searchKeyWord);
+          listCount = rservice.getReviewLocationListCount(location.trim(),searchKeyWord.trim());
           System.out.println(listCount);
-          list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);  
+          list = rservice.reviewSearchList(currentPage,limit,location.trim(),category.trim(),searchKeyWord.trim());  
       }else if(location == null || location.trim() == ""){
-         listCount = rservice.getReviewCategoryListCount(category,searchKeyWord);
+         listCount = rservice.getReviewCategoryListCount(category.trim(),searchKeyWord.trim());
          System.out.println(listCount);
-         list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);
+         list = rservice.reviewSearchList(currentPage,limit,location.trim(),category.trim(),searchKeyWord.trim());
       }else if(location != null && category != null){
-         listCount = rservice.getReviewAllListCount(category,location,searchKeyWord);
+         listCount = rservice.getReviewAllListCount(category.trim(),location.trim(),searchKeyWord.trim());
          System.out.println(listCount);
-         list = rservice.reviewSearchList(currentPage,limit,location,category,searchKeyWord);
+         list = rservice.reviewSearchList(currentPage,limit,location.trim(),category.trim(),searchKeyWord.trim());
       }
       
       //총 페이지 수 계산 : 목록이 최소 1개일 때는 한 페이지로 처리함

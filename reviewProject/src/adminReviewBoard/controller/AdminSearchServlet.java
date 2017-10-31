@@ -40,7 +40,7 @@ public class AdminSearchServlet extends HttpServlet {
 		String storeName = request.getParameter("storeName");
 		
 		System.out.println("장소검색 : " + searchLocation + " 장소검색 길이 : " + searchLocation.length());
-		System.out.println("카테고리 검색  : " + searchCategory);
+		System.out.println("카테고리 검색  : " + searchCategory + "카테고리검색  길이: " +searchCategory.length());
 		
 		int listCount =0;
 		
@@ -51,15 +51,16 @@ public class AdminSearchServlet extends HttpServlet {
 		ReviewBoardService rservice = new ReviewBoardService();
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		
-		if(searchLocation.length()==0){	//서울특별시... 없고 식당/카페/교통/숙박 으로 검색한 경우
-			listCount = rservice.getSearchByCategoryCount(searchCategory,storeName);
-			list = rservice.getSearchByCategoryList(currentPage,limit,searchCategory,storeName);System.out.println("장소 검색 카운트 : " + listCount);
-			System.out.println("장소 검색 리스트 : " + list);
-						
-		}else if(searchCategory.length()==0){ //서울특별시...로 검색한 경우
+		if(searchLocation.length()!=0 && searchCategory.length()==0){	//서울특별시... 없고 식당/카페/교통/숙박 으로 검색한 경우
 			listCount = rservice.getSearchByLocationCount(searchLocation,storeName);
 			list = rservice.getSearchByLocationList(currentPage,limit,searchLocation, storeName);
-			
+			System.out.println("장소 검색 리스트 : " + list);
+			System.out.println("장소 검색 카운트 : " + listCount);
+						
+		}else if(searchCategory.length()!=0 && searchLocation.length()==0){ //서울특별시...로 검색한 경우
+			listCount = rservice.getSearchByCategoryCount(searchCategory,storeName);
+			list = rservice.getSearchByCategoryList(currentPage,limit,searchCategory,storeName);System.out.println("장소 검색 카운트 : " + listCount);
+						
 			System.out.println("카테고리 검색 카운트 : " + listCount);
 			System.out.println("카테고리 검색 리스트 : " + list);
 		
