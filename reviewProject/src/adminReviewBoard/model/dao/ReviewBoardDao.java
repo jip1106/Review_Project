@@ -388,7 +388,7 @@ public class ReviewBoardDao {
 		String query =  "select * from "
 	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
 	              + "from (select * from review_board)) "
-	              + "where rnum>=? and rnum<=? and category=? and store_name like ? order by posting_no desc"; 
+	              + "where rnum>=? and rnum<=? and category=? order by posting_no desc"; 
 		
 		int startRow = (currentPage -1 )*limit+1;
 		int endRow = startRow + limit -1;
@@ -398,7 +398,7 @@ public class ReviewBoardDao {
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			pstmt.setString(3, searchCategory);
-			pstmt.setString(4, "%"+storeName+"%");
+			//pstmt.setString(4, "%"+storeName+"%");
 			
 			rset = pstmt.executeQuery();
 			

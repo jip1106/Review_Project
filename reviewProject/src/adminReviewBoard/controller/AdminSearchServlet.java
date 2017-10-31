@@ -34,10 +34,13 @@ public class AdminSearchServlet extends HttpServlet {
 		//검색 서블릿
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-			
+		
 		String searchLocation = request.getParameter("searchLocation");
 		String searchCategory = request.getParameter("searchCategory");
 		String storeName = request.getParameter("storeName");
+		
+		System.out.println("장소검색 : " + searchLocation + " 장소검색 길이 : " + searchLocation.length());
+		System.out.println("카테고리 검색  : " + searchCategory);
 		
 		int listCount =0;
 		
@@ -50,15 +53,21 @@ public class AdminSearchServlet extends HttpServlet {
 		
 		if(searchLocation.length()==0){	//서울특별시... 없고 식당/카페/교통/숙박 으로 검색한 경우
 			listCount = rservice.getSearchByCategoryCount(searchCategory,storeName);
-			list = rservice.getSearchByCategoryList(currentPage,limit,searchCategory,storeName);
+			list = rservice.getSearchByCategoryList(currentPage,limit,searchCategory,storeName);System.out.println("장소 검색 카운트 : " + listCount);
+			System.out.println("장소 검색 리스트 : " + list);
 						
 		}else if(searchCategory.length()==0){ //서울특별시...로 검색한 경우
 			listCount = rservice.getSearchByLocationCount(searchLocation,storeName);
 			list = rservice.getSearchByLocationList(currentPage,limit,searchLocation, storeName);
+			
+			System.out.println("카테고리 검색 카운트 : " + listCount);
+			System.out.println("카테고리 검색 리스트 : " + list);
 		
 		}else{ //둘다 선택하고 검색한 경우
 			listCount = rservice.getSearchAllCount(searchCategory,searchLocation,storeName);
 			list = rservice.getSearchByAllList(currentPage,limit,searchCategory, searchLocation,storeName);
+			System.out.println("둘다 검색 카운트 : " + listCount);
+			System.out.println("둘다 검색 리스트 : " + list);
 			
 		}		
 		

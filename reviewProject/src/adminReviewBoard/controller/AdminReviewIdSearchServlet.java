@@ -39,14 +39,14 @@ public class AdminReviewIdSearchServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		int currentPage = Integer.parseInt(request.getParameter("page"));
 		int limit = 9;
-	
+		
 		ReviewBoardService rservice = new ReviewBoardService();
 		
 		ArrayList<ReviewBoard> list = rservice.viewSearchByID(id, currentPage, limit);
 		
 		
 		int listCount = rservice.getSearchIdCount(id);
-		System.out.println("=============="+listCount);
+		
 		int maxPage = (int)((double)listCount/limit + 0.9);
 		
 		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;

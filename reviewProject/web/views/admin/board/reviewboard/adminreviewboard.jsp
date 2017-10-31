@@ -99,11 +99,7 @@
  
  <script type="text/javascript">
 	function inputPleaseMessage(){
-		if($("#searchStoreName").val()==""){
-			alert("식당 이름을 입력하세요");
-			
-			return false;
-		}
+		
 		if( $("#findLocationType").val()=="" && $("#findCategoryType").val()==""){
 			alert("검색할 지역이나 카테고리 중 하나를 선택 해 주세요");
 			
@@ -133,12 +129,15 @@
 					<select class="selectpicker" id="findLocationType" name="searchLocation">
 						<option value="">지역별</option>
 						<option value="서울특별시">서울특별시</option>
+						<option value="부산광역시">부산광역시</option>
+						<option value="대구광역시">대구광역시</option>
 						<option value="인천광역시">인천광역시</option>
 						<option value="광주광역시">광주광역시</option>
 						<option value="대전광역시">대전광역시</option>
 						<option value="울산광역시">울산광역시</option>
 						<option value="경기도">경기도</option>
 						<option value="제주도">제주도</option>
+						
 					</select> 
 				</div>
 			
