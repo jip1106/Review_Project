@@ -62,7 +62,6 @@ public class LoginServlet extends HttpServlet implements CryptTemplate{
 			}
 		}else{
 			view = request.getRequestDispatcher("views/member/memberError.jsp");
-			request.setAttribute("message", "로그인 실패! 아이디 또는 암호 확인하세요");
 			view.forward(request, response);
 		}
 			

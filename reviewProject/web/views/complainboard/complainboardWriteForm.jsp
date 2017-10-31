@@ -38,13 +38,8 @@
 <%@ include file = "../../header.jsp" %>
 <script type="text/javascript">	
 	 function pleaseInputMessage(){
-		var reviewNum = $("#reviewNum").val();
-		var reviewTitle = $("#reviewTitle").val();
 	
-		if(reviewNum=="" || reviewTitle==""){
-			alert("신고할 게시글의 글 번호와 글 제목을 입력해 주세요");
-			return false;
-		}
+	
 	}
 </script>
 <div class="container">
@@ -72,7 +67,6 @@
 					<button type="submit" class="btn btn-primary" onclick = "return pleaseInputMessage()" style="background:#4D81B0">글작성</button>
 					<button type="reset" class="btn btn-primary" style="background:#4D81B0">작성 취소</button>
 					<button type="submit" class="btn btn-primary" onclick="/review/clist" style="background:#4D81B0">돌아가기</button>
-
 				
 
 			</form>
