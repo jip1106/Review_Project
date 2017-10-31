@@ -211,14 +211,10 @@
 				}
 				%>
 			</table>
-			</div>
 			<!-- 공지사항 끝 --><br><br>
 			<hr>
-			
-			<!-- 삭제될 회원 시작 ajax 이용-->
-			
-			<div style="float: left; width: 80%">
-				<h2>경고수 3회 이상인 회원</h2>
+			<div style="float: left; width: 100%">
+				<h2>경고수 <font color="red">3회</font> 이상인 회원</h2>
 				<table class='table table-striped table-bordered'>
 					
 						<tr>
@@ -236,6 +232,15 @@
 									
 				</table>
 			</div>
+			
+			
+			
+			</div>
+			
+			
+			<!-- 삭제될 회원 시작 ajax 이용-->
+			
+			
 			
 			
 			

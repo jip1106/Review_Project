@@ -41,8 +41,8 @@
 <%@ include file = "../../../../header.jsp" %>
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8">
-			<h3 class="header">공지사항 수정하기</h3>
+		<div align="left" style="margin-left: 15%; margin-right: 15%">
+			<h3 style="color: black;"><b>공지사항 수정하기</b></h3>
 			<p class="text-muted"><%= member.getName() %> 관리자님 공지사항을 수정하세요</p>
 			<form role="form" name="noticeWrite" action="/review/noticeUpdateSuccess">
 				<div class="form-group">
@@ -63,15 +63,16 @@
 				
 				<input type="hidden" name="postno" value="<%=postNo %>">
 				<!-- UpdateSuccess 서블릿으로 보냄 -->				
-								
-				<button type="submit" class="btn btn-primary">수정하기</button>
-				<button type="reset" class="btn btn-primary" onclick = "reviewWriteCancel()">작성 취소</button>
-				<button class="btn btn-primary" onclick="goMain();">메인 화면으로</button>
+						<div align="center">		
+				<button type="submit" class="btn btn-primary" style="width: 100px; background: red; color: white">수정하기</button>
+				<button type="reset" class="btn btn-primary" style="width: 100px; background: red; color: white" onclick = "reviewWriteCancel()">작성 취소</button>
+				<button  class="btn btn-primary" style="width: 100px; background: red; color: white" onclick="javascript:history.go(-1); return false">뒤로가기</button>
+				</div>
 			</form>
 
 		</div>
 		</div>
 </div>
-
+<%@ include file = "../../../../footer.jsp" %>
 </body> 
 </html>

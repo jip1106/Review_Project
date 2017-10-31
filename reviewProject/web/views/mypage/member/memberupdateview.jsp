@@ -102,7 +102,7 @@
 					<div>
 						<%if(member.getWarningCount()>=1){ %>
 							<h2>신고 게시판에 신고가 들어 왔습니다<br>
-								경고횟수가 3번 이상이면 강제 탈퇴 되니 조심해 주세요</h2>
+								경고횟수가 <font color="red">3번</font> 이상이면 강제 탈퇴 되니 조심해 주세요</h2>
 						<%}%>						
 						
 					</div>
@@ -123,7 +123,7 @@
 	</div>
 	<!-- / .row -->
 </div>
-
+<%@ include file="../../../footer.jsp" %>
 <!-- / .container -->
 <!-- / .container -->
 </body>

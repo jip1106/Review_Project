@@ -66,18 +66,18 @@
 </head>
 <body>
 <%@ include file = "../../../../header.jsp" %>
-<br>
+<div class="container">
 <div align="left" style="margin-left: 10%; margin-right: 10%">
-		<div align="left">
+		<div style="float: left;">
 		<!-- <session> -->
-			<span class="badge"><%= board.getPostingNo() %>번 글 상세보기</span>
+			<span class="badge">No. <%= board.getPostingNo() %></span>
 			<span class="badge">조회수 : <%= board.getHits() %></span>
 			<span class="badge">날짜 : <%= board.getPostingDate() %></span>
 		</div>
-		<div class="nav nav-pills text-right">
-			<a href="#"><font color="red">작성자 : </font><font color="black"><%= board.getId() %></font></a> 
+		<div style="float: right;">
+			<font color="red">작성자 : </font><font color="black"><%= board.getId() %></font>
 		</div>
-	
+	<br><br>
 				<div class="well well"><%= board.getTitle() %></div>
 				<div class="panel-body">
 					<table>
@@ -85,35 +85,32 @@
 							<td><%= board.getContent() %></td>
 						</tr>
 					</table>
+						<br><br><br><br><hr>
 				</div>
-				<div class="panel-footer">
-					<div class="btn-group btn-group-justified">
+				<div align="center">
 						<!-- 게시판 제목 눌러서 상세보기 했을 때 관리자가 삭제할 수 있게 해주는 서블릿 cbdfDelete -->
-						<a href="cbdfDelete?postno=<%= board.getPostingNo()%>&currentPage=<%=currentPage%>&limit=<%=limit%>&endPage=<%=endPage%>" class="btn" style="color: white; width: 48%">삭제 하기</a> <!-- 상세보기에서 삭제하는 서블릿 연결 -->
-						<div style="float: left; width: 4%"></div>
-						<a href="cblist?page=<%=currentPage %>" class="btn" style="color:white; width: 48%">목 록 보 기</a>	<!-- 목록 돌아가는거 연결 -->
-					</div>
+						<a href="cbdfDelete?postno=<%= board.getPostingNo()%>&currentPage=<%=currentPage%>&limit=<%=limit%>&endPage=<%=endPage%>" class="btn btn-primary" style="width: 100px; background: red; color: white">삭제 하기</a> <!-- 상세보기에서 삭제하는 서블릿 연결 -->
+						<a href="cblist?page=<%=currentPage %>" class="btn btn-primary" style="width: 100px; background: red; color: white">목 록 보 기</a>	<!-- 목록 돌아가는거 연결 -->
 				</div>
 	<br>
-		<div class="badge">댓글을 입력해주세요</div>
-	<br><br>
+	<div class="comment comment_new">
 			<div class="comment__author_img">	
 				<%=member.getName()%><font color="#4D81B0">[<%=member.getId() %>]</font>
 			</div>
 			<div class="comment__content">
 				<form>
-					<div class="form-group" style="float: left; width: 80%">
+					<div style="float: left; width: 80%">
 	
 					<label for="comment-new__textarea" class="sr-only">Enter your comment</label>
 						<textarea class="form-control" rows="1" id="commentContent" placeholder="Enter your comment" style="width: 98%"></textarea>
 					</div>
-					<div style="float: left; width: 20%">
+					<div style="float: right; width: 15%">
 						<button type="button" id="sendComment" class="btn" onclick="return insertComment();" style="color: white;">Send Comment</button> 
 					</div>
 				</form>
 			</div>
-		
-	<br>
+			</div>
+	<br><br>
 		<!-- Comments header -->
 		<div class="comment__header">
 			<span><font color="red">List of Comments</font></span>
@@ -162,9 +159,9 @@
     									"<div class='comment__author_name'>"+									
     										"<font color='#4D81B0'>아이디 : </font>"+decodeURIComponent(json.list[i].id)+ 
     									"</div>"+
-    									"<font color='#4D81B0'>시간: </font>"+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
-    									"<br><div style='float:left; width:'80%'><font color='#4D81B0'>댓글내용 : &nbsp;</font></div>"+
-    									"<div style='float:left; width:'20%'><input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
+    									"<font color='#4D81B0'><b>시간 : </b></font>"+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
+    									"<br><div style='float:left; width: 10%'><font color='#4D81B0'>댓글내용 ▶</font></div>"+
+    									"<div style='float:left; width: 90%'><input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
     										"</div><div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
     											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
     											"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
@@ -180,7 +177,7 @@
 											"아이디 : "+decodeURIComponent(json.list[i].id)+ 
 										"</div>"+
 											"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi, " ") +
-											"<br>댓글내용 :" +
+											"<br><div style='float:left; width: 10%'>댓글내용 ▶</div>" +
 											decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")
 											+"<hr>"
 					

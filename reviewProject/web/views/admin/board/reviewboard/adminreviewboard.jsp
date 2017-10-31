@@ -69,12 +69,12 @@
 }
 
 .btn {
-	background: #ff6347;
-	background-image: -webkit-linear-gradient(top, #ff6347, #ff6347);
-	background-image: -moz-linear-gradient(top, #ff6347, #ff6347);
-	background-image: -ms-linear-gradient(top, #ff6347, #ff6347);
-	background-image: -o-linear-gradient(top, #ff6347, #ff6347);
-	background-image: linear-gradient(to bottom, #ff6347, #ff6347);
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
 	-webkit-border-radius: 4;
 	-moz-border-radius: 4;
 	border-radius: 4px;
@@ -86,12 +86,12 @@
 }
 
 .btn:hover {
-	background: #f75234;
-	background-image: -webkit-linear-gradient(top, #f75234, #f75234);
-	background-image: -moz-linear-gradient(top, #f75234, #f75234);
-	background-image: -ms-linear-gradient(top, #f75234, #f75234);
-	background-image: -o-linear-gradient(top, #f75234, #f75234);
-	background-image: linear-gradient(to bottom, #f75234, #f75234);
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
 	text-decoration: none;
 }
  
@@ -125,12 +125,12 @@
 <body>
 <%@ include file="../../../../header.jsp"%>
 <br>
-<div class="container">
-	<div class="row">
-			<form class="form-inline topbar__search" role="form" action="/review/adminSearch" onsubmit="return inputPleaseMessage();">
-				<div class="col-lg-1">    
+<div align="left" style="margin-left: 10%; margin-right:10%">
+	
+	<form class="form-inline topbar__search" role="form" action="/review/adminSearch" onsubmit="return inputPleaseMessage();">
+				<div style="float: left; width: 12%;">    
 					<input type = "hidden" name="page" value=<%=currentPage %>>
-					<select class="selectpicker" id="findLocationType" name="searchLocation">
+					<select class="btn" id="findLocationType" name="searchLocation" style="color: white">
 						<option value="">지역별</option>
 						<option value="서울특별시">서울특별시</option>
 						<option value="부산광역시">부산광역시</option>
@@ -143,10 +143,9 @@
 						<option value="제주도">제주도</option>
 						
 					</select> 
-				</div>
-			
-				<div class="col-lg-1" align = "left">   				
-					<select class="selectpicker" id="findCategoryType" name="searchCategory">
+					</div>
+					<div style="float: left; width: 12%;">
+					<select class="btn" id="findCategoryType" name="searchCategory" style="color: white">
 						<option value="">카테고리별</option>
 						<option value="식당">식당</option>
 						<option value="카페">카페</option>
@@ -169,8 +168,8 @@
 				</div>
 			</form>
 			
-			<form method="post" action="/review/adminReviewIdSearch" onsubmit="return idInputCheck();">
-				<div align = "left" class="col-md-4" style="margin-right:30%"> 			
+	<form class="form-inline topbar__search" role="form" action="/review/adminSearch" onsubmit="return inputPleaseMessage();">
+				<div style="float: left; width: 30%">    		
 						<div align="left">
 							<div class="input-group stylish-input-group">
 								<input type="text" class="form-control" placeholder="회원 id로 검색" name="id" id="searchId">
@@ -184,10 +183,7 @@
 						</div>
 				</div>
 			</form>
-	</div>
-</div>
-
-<div align="left" style="margin-left: 10%; margin-right:10%">
+			<br>
 	<h2>리뷰 게시판</h2> 
 	<%if(searchLocation ==null && searchCategory ==null && storeName ==null && id==null){ %>
 		<h3>전체 게시글 수 : <%=listCount %></h3>
@@ -206,49 +202,53 @@
 <div class="container" align="left" style="margin-left:8%; margin-right:10%">
 	<!-- Portfolio -->
 	<div class="portfolio__items">
+	
 	<%for(ReviewBoard r : list){ %>
 		<div class="cols">
 			<div class="col-xs-12 col-sm-4 filter__item filter_modernism">
 					<div class="portfolio__item">
 						<!-- Image -->
 						<div class="portfolio__img">
-							<a href="portfolio-item.html"> 
-							<img src="${pageContext.request.contextPath}/uploadfile/<%=r.getRenameImageName() %>" alt="Portfolio Image">
+							<a> 
+							<img src="${pageContext.request.contextPath}/uploadfile/<%=r.getRenameImageName() %>" alt="Portfolio Image" width="350px" height="300px">
 							</a>
 						</div>
 						<!-- Captions -->
 						<div class="portfolio__caption">
 							<h3 class="portfolio__title">
-								<a href="/review/adminReviewDetail?postNo=<%=r.getPosting_no()%>&page=<%=currentPage%>">글제목  : <%=r.getTitle() %></a>
-								<a href="/review/adminForceDelete?postNo=<%=r.getPosting_no()%>&page=<%=currentPage%>&limit=9"><button class = "btn btn-primary">삭제</button></a>
+								<a href="/review/adminReviewDetail?postNo=<%=r.getPosting_no()%>&page=<%=currentPage%>"><font color="red"><%=r.getTitle() %></font></a>
+								
 							</h3>  
 							
 								<div class="portfolio__intro">
 								<%if(r.getEvaluation() == 1){%>
-									평점: <img src="/review/resources/img/one.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
+									평점 : <img src="/review/resources/img/one.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 2){%>
-									평점: <img src="/review/resources/img/2점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
+									평점 : <img src="/review/resources/img/2점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 3){%>
-									평점: <img src="/review/resources/img/3점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
+									평점 : <img src="/review/resources/img/3점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 4){%>
-									평점: <img src="/review/resources/img/4점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
+									평점 : <img src="/review/resources/img/4점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 5){%>
-									평점: <img src="/review/resources/img/5점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
+									평점 : <img src="/review/resources/img/5점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 6){%>
-									평점: <img src="/review/resources/img/6점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
+									평점 : <img src="/review/resources/img/6점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 7){%>
-									평점: <img src="/review/resources/img/7점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
+									평점 : <img src="/review/resources/img/7점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 8){%>
-									평점: <img src="/review/resources/img/8점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
+									평점 : <img src="/review/resources/img/8점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() == 9){%>
-									평점: <img src="/review/resources/img/9점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
+									평점 : <img src="/review/resources/img/9점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
 								<%}else if(r.getEvaluation() ==10){%>
-									평점: <img src="/review/resources/img/10점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
-								<%}%>	
-								가게명: <%=r.getStoreName()%> <br>	
+									평점 : <img src="/review/resources/img/10점.PNG" width="100px" height="25px"> <%=r.getEvaluation()%>점<br>
+								<%}%>
+								가게명 : <%=r.getStoreName()%> <br>	
 								지역 : <%=r.getLocation() %>	<br>
 								카테고리 : <%=r.getCategory() %> <br>
-								작성자:<%=r.getId() %>
+								작성자 :<%=r.getId() %>
+								<div align="right">
+								<a href="/review/adminForceDelete?postNo=<%=r.getPosting_no()%>&page=<%=currentPage%>&limit=9"><button class = "btn btn-primary" style="width: 60px; background: red;">삭제</button></a>
+								</div>
 								</div>
 						</div>
 					</div>
@@ -292,5 +292,6 @@
             </ul>
          </nav>
       </div>
+      <%@ include file="../../../../footer.jsp"%>
 </body>
 </html>

@@ -115,11 +115,11 @@ ArrayList<ReviewComment> commentList = (ArrayList<ReviewComment>)request.getAttr
 						<a href="/review/ReviewUpdateView?no=<%=review.getPosting_no()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">수정</a>&nbsp;
 						<a href="/review/reviewDelete?no=<%=review.getPosting_no()%>" class="btn btn-primary" style="width: 100px; background: red;">삭제</a>&nbsp;
 						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">좋아요</a>&nbsp;
-						<button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
+						<a href="/review/reviewList?Page=<%=currentPage %>" class="btn btn-primary" style="width: 100px; background: red;">목 록</a>
 						<%}else{%>
 						<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-primary" style="width: 100px; background: red;">신고</a>&nbsp;
 						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">좋아요</a>&nbsp;
-						<button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
+						<a href="/review/reviewList?Page=<%=currentPage %>" class="btn btn-primary" style="width: 100px; background: red;">목 록</a>
 						<%} %>
 				</div>
 			</div>
@@ -137,8 +137,8 @@ ArrayList<ReviewComment> commentList = (ArrayList<ReviewComment>)request.getAttr
 						<textarea class="form-control" rows="1" id="commentContent" placeholder="Enter your comment"></textarea>
 						
 					</div>
-					<div style="float: right; width: 15%">
-					<button type="button" id="sendComment" class="btn" onclick="return insertComment();">Send Comment</button> 
+					<div style="float: right; width: 18%">
+					<button type="button" id="sendComment" class="btn" onclick="return insertComment();" style="color: white">Send Comment</button> 
 					</div>
 				</form>
 			</div>
@@ -235,8 +235,8 @@ ArrayList<ReviewComment> commentList = (ArrayList<ReviewComment>)request.getAttr
 										"<div class='comment__author_name'>"+									
 											"아이디 : "+decodeURIComponent(json.list[i].id)+ 
 										"</div>"+
-											"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi, " ") +
-											"<br>댓글내용 :" +
+											"시간 : "+ decodeURIComponent(json.list[i].date).replace(/\+/gi, " ") +
+											"<br><div style='float:left; width: 10%'>댓글내용 ▶</div>" +
 											decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")
 											+"<hr>"
 					

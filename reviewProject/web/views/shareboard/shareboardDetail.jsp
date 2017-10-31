@@ -105,9 +105,13 @@
 						
 						<a class="btn btn-primary" style="width: 100px; background-color: red; color: white" onclick="board_delete()" id="listBtn">삭제</a>&nbsp;
 						
-						<button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
+						<a 
+                  href="/review/slist?page=<%= currentPage %>" 
+                  class="btn btn-primary" style="width: 100px; background: red; color: white"  id="listBtn">목 록</a>
 				<% }else{ %>
-						<button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
+						<a 
+                  href="/review/slist?page=<%= currentPage %>" 
+                  class="btn btn-primary" style="width: 100px; background: red; color: white"  id="listBtn">목 록</a>
 				<%} %>
 					</div>
 				</div>
@@ -206,8 +210,8 @@ function board_delete(){
 											"아이디 : "+decodeURIComponent(json.list[i].id)+ 
 										"</div>"+
 											"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi, " ") +
-											"<br>댓글내용 :" +
-											"<h2>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</h2>"
+											"<br><div style='float:left; width: 10%'>댓글내용 ▶</div>" +
+											decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")
 											+"<hr>"
 					
     					}

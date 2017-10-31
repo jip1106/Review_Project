@@ -113,7 +113,7 @@
 					 <br><br><br><br><hr>
 				</div>
 				   <div align="center">
-						<a href="views/main/main.jsp" class="btn btn-primary" style="width: 100px;">메인으로</a>						
+						<a href="views/main/main.jsp" class="btn btn-primary" style="background: red; width: 100px;">메인으로</a>						
 				</div>
 			</div>
 		</div>

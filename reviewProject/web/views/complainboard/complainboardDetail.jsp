@@ -97,10 +97,9 @@
                   <% if(member.getId().equals(Complainboard.getId())){ %>
 	                 <a href="/review/cupdate?Page=<%=currentPage%>&bnum=<%= Complainboard.getPostingNo() %>" class="btn btn-primary" style="width: 100px; background: red; color: white">수정</a>&nbsp;
                      <a class="btn btn-primary" style="width: 100px; background: red; color: white" onclick="return board_delete()">삭제</a>&nbsp;
-                   	 <button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
-                     
+                     <a href="/review/clist?Page=<%=currentPage %>" class="btn btn-primary" style="width: 100px; background: red;">목 록</a>
                   <% }else{ %>
-                  	<button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
+                  	<a href="/review/clist?Page=<%=currentPage %>" class="btn btn-primary" style="width: 100px; background: red;">목 록</a>
 	              <% } %>
                </div>
 <br>
@@ -181,7 +180,7 @@ function board_delete(){
     										"<font color='#4D81B0'>아이디 : </font>"+decodeURIComponent(json.list[i].id)+ 
     									"</div>"+
     									"<font color='#4D81B0'><b>시간 : </b></font>"+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
-    									"<br><div style='float:left; width:'10%'><font color='#4D81B0'>댓글내용  ▶ </font></div>"+
+    									"<br><div style='float:left; width:10%'><font color='#4D81B0'>댓글내용  ▶ </font></div>"+
     									"<div style='float:left; width:'90%'><input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
     										"</div><div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
     											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
@@ -198,7 +197,7 @@ function board_delete(){
 											"아이디 : "+decodeURIComponent(json.list[i].id)+ 
 										"</div>"+
 											"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi, " ") +
-											"<br>댓글내용 :" +
+											"<br><div style='float:left; width: 10%'>댓글내용 ▶</div>" +
 											decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")
 											+"<hr>"
 					

@@ -31,8 +31,8 @@
 <%@ include file = "../../../../header.jsp" %>
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8">
-			<h3 class="header">Notice Write</h3>
+		<div align="left" style="margin-left: 15%; margin-right: 15%">
+			<h3 style="color: black;"><b>Notice Write</b></h3>
 			<p class="text-muted"><%= member.getName() %> 관리자님 공지사항을 등록하세요</p>
 			<form role="form" name="noticeWrite" action="/review/nwrite" onsubmit="">
 				<div class="form-group">
@@ -50,15 +50,16 @@
 				<input type="hidden" name="id" value="<%=member.getId() %>">
 				
 				
-								
-				<button type="submit" class="btn btn-primary">글작성</button>
-				<button type="reset" class="btn btn-primary" onclick="reviewWriteCancel()">작성 취소</button>
-				<button class="btn btn-primary" onclick="goMain();">메인 화면으로</button>
+							 <div class="form-group" align="center">			
+				<button type="submit" class="btn btn-primary" style="width: 160px; background: red;">글작성</button>&nbsp;&nbsp;&nbsp;
+				<button type="reset" class="btn btn-primary" style="width: 160px; background: red;" onclick="reviewWriteCancel()">작성 취소</button>&nbsp;&nbsp;&nbsp;
+				<button class="btn btn-primary" style="width: 160px; background: red;"  onclick="goMain();">메인으로</button>
+				</div>
 			</form>
 
 		</div>
 		</div>
 </div>
-
+<%@ include file = "../../../../footer.jsp" %>
 </body> 
 </html>
