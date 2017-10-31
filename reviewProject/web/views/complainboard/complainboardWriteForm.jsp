@@ -32,21 +32,21 @@
 			}
 		}
 	</script>
-
-</head>
-<body>
-<%@ include file = "../../header.jsp" %>
 <script type="text/javascript">	
 	 function pleaseInputMessage(){
 	
 	
 	}
 </script>
+</head>
+<body>
+<%@ include file = "../../header.jsp" %>
+
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8">
-			<h3 class="header">Complainboard Write</h3>
-			<p class="text-muted">불 건전한 게시글을 신고해 주세요</p>
+		<div align="left" style="margin-left: 15%; margin-right: 15%">
+			<h3 style="color: black;"><b>Complainboard Write</b></h3><br>
+			<p class="text-muted">불건전한 게시글을 신고해 주세요</p>
 			<form role="form" action="/review/cinsert" method="post">
 			<input type="hidden" name="id" value="<%= member.getId() %>">
 				
@@ -63,16 +63,25 @@
 					<textarea cols="20" rows="20" name="content" class="form-control"  id="content" placeholder="content"></textarea>
 					 <span class="help-block"></span>  
 				</div>
+<<<<<<< HEAD
 				
 					<button type="submit" class="btn btn-primary" onclick = "return pleaseInputMessage()" style="background:#4D81B0">글작성</button>
 					<button type="reset" class="btn btn-primary" style="background:#4D81B0">작성 취소</button>
 					<button type="submit" class="btn btn-primary" onclick="/review/clist" style="background:#4D81B0">돌아가기</button>
 				
 
+=======
+				<div class="form-group" align="center">
+					<button type="submit" class="btn btn-primary" style="width: 160px; background: red;" onclick = "return pleaseInputMessage()">글작성</button>
+					<button type="reset" class="btn btn-primary" style="width: 160px; background: red;">작성 취소</button>
+					<button  class="btn btn-primary" style="width: 160px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button>
+				</div>
+>>>>>>> somi
 			</form>
 
 		</div>
 		</div>
 </div>
+<%@ include file = "../../footer.jsp" %>
 </body>
 </html>

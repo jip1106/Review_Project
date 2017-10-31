@@ -83,7 +83,7 @@
 						<td class="col-md-2" style="text-align: center;"><%=board.getHits() %></td>
 						<td style="text-align:center;">
 						<a href="/review/sdelete?no=<%= board.getPostingNum()%>&index=1&location=1&page=<%=currentPage%>" >
-							<button class="btn btn-primary" style="color: white;">게시글 삭제</button>
+							<button class="btn" style="color: white;">게시글 삭제</button>
 						</a>
 						<!-- 바뀐부분 -->
 						</td>

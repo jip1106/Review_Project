@@ -37,14 +37,12 @@
 	font-family:'CoreGTM5';
 	}
 	
-	.btn:hover{
-		background: #C2D6E9;
-	}
-	
 	.btn{
 		background: #4D81B0;
 	}
-	
+	.btn:hover{
+		background: #C2D6E9;
+	}
 
 </style>
     
@@ -98,14 +96,12 @@
 					<!-- 	<div id="idpwdCheck" style="color: red;"></div> -->
 						<br>
 					
-						<button type="submit" class="btn btn-primary btn-lg btn-block" 
-									onclick="return checkInput();">Login</button>
-						<!-- <button type="submit" class="btn btn-primary btn-block btn-lg">Login</button> -->
-						<button type="reset" class="btn btn-primary btn-lg btn-block" 
-									id="cancel" >취소</button>
+						<button type="submit" class="btn btn-lg btn-block" 
+								onclick="return checkInput();" style="color: white;">Login</button>
+						<button type="reset" class="btn btn-lg btn-block" 
+									id="cancel" style="color:white;">취소</button>
 				</form> 
 
-				
 					<!-- Sign Up link -->
 					<hr />
 					<p align="center">
@@ -115,15 +111,13 @@
 
 					<br>
 					 <p align="center">회원이 아니면 <a href="signup.jsp" style="color: red;">회원 가입 하러가기</a></p>
-					<!--
-					<div class="body-plain__footer">
-						Copyright 2017 <a href="http://simpleqode.com/">Simpleqode.com</a>.
-						All Rights Reserved.
-					</div> -->
+	
+					 <p align="center"><a href="/review/index.jsp" style="color: red;">메인으로 이동</a></p>
 				</div>
 			</div>
 			<!-- / .row -->
 		</div>
+	 
 		<!-- / .container -->
 		<!-- Footer -->
 		<div class="body-plain__footer">

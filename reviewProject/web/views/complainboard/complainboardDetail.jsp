@@ -73,20 +73,17 @@
 <%@include file="../../header.jsp" %>
 
 <div class="container">
-   <div class="row">
-      <div class="col-sm-8 col-md-9">
-         <span class="badge">No.<%= Complainboard.getPostingNo() %></span>
+   <div align="left" style="margin-left: 10%; margin-right: 10%">  
+		<div style="float: left;">
+         <span class="badge">No. <%= Complainboard.getPostingNo() %></span>
          <span class="badge">조회수 : <%= Complainboard.getHits() %></span>
          <span class="badge">날짜 : <%= Complainboard.getPostingDate() %></span>
       </div>
-      <div class="nav nav-pills col-md-8 text-right">
+     <div style="float: right;">
 
          <font color="red">작성자 :  </font><font color="black"><%=fakeId%></font>
       </div>
-   </div>
-   <div class="container">
-      <div class="row">
-         <div class="col-sm-8 col-md-9">
+      <br><br>
             <div class="well well"><%= Complainboard.getTitle() %></div>
             <div class="panel-body">
                <table>
@@ -94,45 +91,39 @@
                      <td><%= Complainboard.getContent() %></td>
                   </tr>
                </table>
+               <br><br><br><br><hr>
             </div>
-            <div class="panel-footer">
-               <div class="btn-group btn-group-justified">
+            <div align="center">
                   <% if(member.getId().equals(Complainboard.getId())){ %>
-	                 <a href="/review/cupdate?bnum=<%= Complainboard.getPostingNo() %>&Page=<%=currentPage%>" class="btn" style="color: white; width: 10%">수정</a>
-                     <a class="btn" style="color: white; width:10%" onclick="return board_delete()">삭제</a>
-                   	 <a href="/review/clist?Page=<%=currentPage %>" class="btn" style="color: white; width: 10%">목 록</a>
+	                 <a href="/review/cupdate?bnum=<%= Complainboard.getPostingNo() %>&Page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red; color: white">수정</a>&nbsp;
+                     <a class="btn btn-primary" style="width: 100px; background: red; color: white" onclick="return board_delete()">삭제</a>&nbsp;
+                   	 <button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
                      
                   <% }else{ %>
-                  	<a href="/review/clist?Page=<%=currentPage %>" class="btn btn-default">목 록</a>
+                  	<button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
 	              <% } %>
                </div>
-            </div>
-         </div>
-      </div>
-   </div>
-
-</div>
-
+<br>
    <!-- 댓글공간 -->
-<div class="badge">댓글을 입력해주세요</div>
-	<br><br>
+   <div class="comment comment_new">
 			<div class="comment__author_img">	
 				<%=member.getName()%><font color="#4D81B0">[<%=member.getId() %>]</font>
 			</div>
 			<div class="comment__content">
 				<form>
-					<div class="form-group" style="float: left; width: 80%">
+					<div style="float: left; width: 80%">
 	
 					<label for="comment-new__textarea" class="sr-only">Enter your comment</label>
 						<textarea class="form-control" rows="1" id="commentContent" placeholder="Enter your comment" style="width: 98%"></textarea>
 					</div>
-					<div style="float: left; width: 20%">
-						<button type="button" id="sendComment" class="btn" onclick="return insertComment();" style="color: white;">Send Comment</button> 
-					</div>
+					<div style="float: right; width: 15%">
+						<button type="button" id="sendComment" class="btn"
+							onclick="return insertComment();" style="color: white;">Send Comment</button>
+						</div>
 				</form>
 			</div>
-		
-	<br>
+			</div>
+	<br><br>
 		<!-- Comments header -->
 		<div class="comment__header">
 			<span><font color="red">List of Comments</font></span>
@@ -140,7 +131,6 @@
 		<!-- 댓글 보여주는 자리-->
 		<div id="viewComment">
 		</div>
-
 <!-- 삭제 확인 -->
 <script>
 function board_delete(){
@@ -190,9 +180,9 @@ function board_delete(){
     									"<div class='comment__author_name'>"+									
     										"<font color='#4D81B0'>아이디 : </font>"+decodeURIComponent(json.list[i].id)+ 
     									"</div>"+
-    									"<font color='#4D81B0'>시간: </font>"+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
-    									"<br><div style='float:left; width:'80%'><font color='#4D81B0'>댓글내용 : &nbsp;</font></div>"+
-    									"<div style='float:left; width:'20%'><input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
+    									"<font color='#4D81B0'><b>시간 : </b></font>"+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
+    									"<br><div style='float:left; width:'10%'><font color='#4D81B0'>댓글내용  ▶ </font></div>"+
+    									"<div style='float:left; width:'90%'><input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
     										"</div><div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
     											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
     											"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
@@ -307,8 +297,8 @@ function board_delete(){
 
 		
 </script>
-
-
+</div>
+</div>
 <%@ include file = "../../../../footer.jsp" %>
 
 </body>

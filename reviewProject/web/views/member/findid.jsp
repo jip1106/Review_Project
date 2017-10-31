@@ -10,7 +10,7 @@
 <meta name="author" content="">
 <!--<link rel="icon" href="img/favicon.ico">-->
 
-<title>혼자서도 잘해요</title>
+<title>find ID</title>
 
 <!-- CSS Global -->
 <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
@@ -28,6 +28,25 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <style type="text/css">
+	@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.woff')}
+	@font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.otf.eot')}
+	
+	body, table, div, p, a, h1, h2, h3, button, .header, li a.navbar-brand, .btn{
+	font-family:'CoreGTM5';
+	}
+	
+	.btn:hover{
+		background: #C2D6E9;
+	}
+	
+	.btn{
+		background: #4D81B0;
+	}
+	
+
+</style>
     
    <script type="text/javascript" src="/review/js/jquery-3.2.1.min.js"></script> 
 
@@ -91,8 +110,8 @@
 							<input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요">
 						</div>
 						<br>
-						<button type="button" id="findId" class="btn btn-primary btn-block btn-lg">아이디찾기</button>
-						<button type="reset" class="btn btn-primary btn-block btn-lg">취소</button>
+						<button type="button" id="findId" class="btn btn-block btn-lg" style="color: white;">아이디찾기</button>
+						<button type="reset" class="btn btn-block btn-lg" style="color: white;">취소</button>
 						<br>
 						 <p align="center"><a href="login.jsp">로그인 하러가기</a></p>
 					</form>
@@ -100,9 +119,9 @@
 					<span id ="findEmail"></span>
 				<!-- Footer -->
 					<div class="body-plain__footer">
-						Copyright 2016 <a href="http://simpleqode.com/">Simpleqode.com</a>.
-						All Rights Reserved.
-					</div>
+					Copyright 2017 <a href="/review/index.jsp" style="color: red;">Review</a>.
+					All Rights Reserved.
+		</div>
 				</div>
 			</div>
 			<!-- / .row -->

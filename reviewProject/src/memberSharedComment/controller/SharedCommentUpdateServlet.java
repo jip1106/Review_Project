@@ -48,7 +48,8 @@ public class SharedCommentUpdateServlet extends HttpServlet {
 				String id = request.getParameter("id");
 				String content = request.getParameter("content");
 				
-				new SharedCommentService().updateComment(postNum,commentNum,id,content);
+				new SharedCommentService().updateComment(postNum, commentNum, id, content);
+				
 	}
 
 	/**

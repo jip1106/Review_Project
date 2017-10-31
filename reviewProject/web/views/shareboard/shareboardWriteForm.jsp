@@ -29,8 +29,8 @@
 <%@ include file = "../../header.jsp" %>
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8">
-			<h3 style="color: black;"><b>Shareboard Write</b></h3>
+		<div align="left" style="margin-left: 15%; margin-right: 15%">
+			<h3 style="color: black;"><b>Shareboard Write</b></h3><br>
 			<p class="text-muted">회원들의 정보를 자유롭게 공유해주세요</p>
 		
 			<form role="form" action="/review/sinsert" method="post">
@@ -55,13 +55,16 @@
 						class="help-block"></span>
 				</div>
 				 -->
-					<button type="submit" class="btn btn-primary" style="background: red;">글작성</button>
-					<button type="reset" class="btn btn-primary" style="background: red;">작성 취소</button>
-					<button  class="btn btn-primary" onclick="javascript:history.go(-1); return false" style="background: red;">목 록</button> 
+				 <div class="form-group" align="center">
+					<button type="submit" class="btn btn-primary" style="width: 160px; background: red;">글작성</button>&nbsp;&nbsp;&nbsp;
+					<button type="reset" class="btn btn-primary" style="width: 160px; background: red;">작성 취소</button>&nbsp;&nbsp;&nbsp;
+					<button  class="btn btn-primary" style="width: 160px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
+				</div>
 			</form>
 
 		</div>
 		</div>
 </div>
+<%@include file="../../footer.jsp" %> 
 </body>
 </html>

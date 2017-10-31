@@ -120,6 +120,33 @@
 	    font:bold 18px Helvetica, Arial, sans-serif;
 	    vertical-align: middle;
 	}
+	
+	.btn {
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
+	-webkit-border-radius: 4;
+	-moz-border-radius: 4;
+	border-radius: 4px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
+	text-decoration: none;
+}
 </style>
 <script type="text/javascript"> 
    //star rating
@@ -160,8 +187,8 @@
 <%@ include file="../../header.jsp" %>
 <div class="container"> 
 	<div class="row">
-		<div class="col-sm-8">
-			<h3 class="header">ReviewBoard Write</h3>
+		<div align="left" style="margin-left: 15%; margin-right: 15%">
+			<h3 style="color: black;"><b>ReviewBoard Write</b></h3><br>
 			<p class="text-muted">회원님들의 리뷰를 남겨주세요</p>
 			<form role="form" name="reviewWriteForm" action="/review/reviewWrite" method="post" onsubmit="return reviewWrite()" enctype="multipart/form-data">
 				<input type="hidden" name="writer" value="<%=member.getId()%>">  
@@ -217,7 +244,7 @@
 				
 				<div class="form-group">
 					<label for="title">StoreName</label>  
-					<input type="text" name="storename" class="form-control" id="address" placeholder="address" required> 
+					<input type="text" name="storename" class="form-control" id="address" placeholder="store name" required> 
 					<span class="help-block"></span>
 				</div>
 				
@@ -236,12 +263,16 @@
 						class="form-control" id="image" placeholder="picture"> <span
 						class="help-block"></span>
 				</div>
-					<button type="submit" class="btn btn-primary">글작성</button>
-					<button type="reset" class="btn btn-primary">작성취소</button>
+				<div class="form-group" align="center">
+					<button type="submit" class="btn btn-primary" style="width: 160px; background: red;">글작성</button>&nbsp;&nbsp;&nbsp;
+					<button type="reset" class="btn btn-primary" style="width: 160px; background: red;">작성취소</button>&nbsp;&nbsp;&nbsp;
+					<button  class="btn btn-primary" style="width: 160px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
+					</div>
 			</form>
 
 		</div>
 		</div>
 </div>
+<%@include file="../../footer.jsp" %> 
 </body>
 </html>

@@ -118,7 +118,7 @@
 		<!-- 글작성버튼 -->
 	<br>
 	<div  id="ui_buttons" align="right" >
-		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn" style="background:red">글작성</a>
+		<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn" style="background:red; color: white">글작성</a>
 	</div>
 	</div>
 	
@@ -192,5 +192,6 @@
 	</div>
 	<!-- / .ui__section -->
 </div>
+<%@ include file="../../footer.jsp" %>
 </body>
 </html>

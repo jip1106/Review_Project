@@ -30,9 +30,9 @@
 <%@ include file = "../../header.jsp" %>
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8">
-			<h3 class="header">Complainboard Write</h3>
-			<p class="text-muted">불 건전한 게시글을 신고해 주세요</p>
+		<div align="left" style="margin-left: 15%; margin-right: 15%">
+			<h3 style="color: black;"><b>Complainboard Write</b></h3><br>
+			<p class="text-muted">불건전한 게시글을 신고해 주세요</p>
 			<form role="form" action="/review/cup?bnum=<%=Complainboard.getPostingNo() %>&Page=<%=currentPage %>" method="post">
 			<input type="hidden" name="postno" value="<%= Complainboard.getPostingNo() %>">
 				<div class="form-group">
@@ -52,13 +52,16 @@
 						class="form-control" id="image" placeholder="picture"> <span
 						class="help-block"></span>
 				</div> -->
+				<div align="center">
 					<button type="submit" class="btn btn-primary">수정하기</button>
 					<button type="reset" class="btn btn-primary">작성 취소</button>
-					<button type="submit" class="btn btn-primary" onclick="/review/clist">돌아가기</button>
+					<button  class="btn btn-primary" style="width: 160px; background: red;" onclick="javascript:history.go(-1); return false">뒤로가기</button>
+				</div>
 			</form>
 
 		</div>
 		</div>
 </div>
+<%@ include file = "../../footer.jsp" %>
 </body>
 </html>

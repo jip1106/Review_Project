@@ -142,7 +142,7 @@ function inputPleaseMessage(){
 <h2>리뷰 게시판</h2> 
 <caption>리뷰를 남겨주세요</caption>
 <div class="" id="ui_buttons" align="right">
-		<a href="/review/views/reviewboard/reviewboardWriteForm.jsp" class="btn" style="background-color: red; color: white">글작성</a>
+		<a href="/review/views/reviewboard/reviewboardWriteForm.jsp" class="btn btn-primary" style="width: 60px; background: red;">글작성</a>
 </div>
 <br>
 <!-- PAGE CONTENT
@@ -156,7 +156,7 @@ function inputPleaseMessage(){
 					<div class="portfolio__item">
 						<!-- Image -->
 						<div class="portfolio__img">
-							<a href="portfolio-item.html"> 
+							<a> 
 							<img src="${pageContext.request.contextPath}/uploadfile/<%=list.get(i).getRenameImageName()%>" alt="Portfolio Image">
 							</a>
 						</div>
