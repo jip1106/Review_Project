@@ -217,26 +217,26 @@
 			
 			<!-- 삭제될 회원 시작 ajax 이용-->
 			
-			<div style="float: left; width: 80%">
-				<h2>경고수 3회 이상인 회원</h2>
-				<table class='table table-striped table-bordered'>
-					
-						<tr>
-							<th style="background-color: #4D81B0; color: white; text-align: center">회원Id</th>
-							<th style='background-color: #4D81B0; color: white; text-align: center'>이름</th>
-							<th style='background-color: #4D81B0; color: white; text-align: center' >이메일</th>
-							<th style='background-color: #4D81B0; color: white; text-align: center' >경고횟수</th>
-							<th style='background-color: #4D81B0; color: white; text-align: center' >삭제</th>
-							
-						</tr>
-					
-					<tbody id = "maxWarningCount">	<!-- 회원정보 찍어주는 자리 -->
-					
-					</tbody>
-									
-				</table>
+				<div style="float: left; width: 80%">
+					<h2>경고수 3회 이상인 회원</h2>
+					<table class='table table-striped table-bordered'>
+						
+							<tr>
+								<th style="background-color: #4D81B0; color: white; text-align: center">회원Id</th>
+								<th style='background-color: #4D81B0; color: white; text-align: center'>이름</th>
+								<th style='background-color: #4D81B0; color: white; text-align: center' >이메일</th>
+								<th style='background-color: #4D81B0; color: white; text-align: center' >경고횟수</th>
+								<th style='background-color: #4D81B0; color: white; text-align: center' >삭제</th>
+								
+							</tr>
+						
+						<tbody id = "maxWarningCount">	<!-- 회원정보 찍어주는 자리 -->
+						
+						</tbody>
+										
+					</table>
+				</div>
 			</div>
-			
 			
 			
 			<br>
@@ -246,7 +246,7 @@
 			
 		</table>
 		</div>
-	</div>
+
 		
 		<script type="text/javascript">
 	
