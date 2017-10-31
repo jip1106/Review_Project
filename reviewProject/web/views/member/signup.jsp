@@ -21,6 +21,22 @@
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
     
+     <style>
+     @font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.woff')}
+	 @font-face{font-family:'CoreGTM5'; src:url('/review/resources/fonts/CoreGTM5.otf.eot')}
+	
+		body, table, div, p, a, h1, h2, h3, button, .header, li a.navbar-brand, .btn{
+		font-family:'CoreGTM5';
+	}
+    .btn:hover{
+		background: #C2D6E9;
+	}
+	
+	.btn{
+		background: #4D81B0;
+	}
+    </style>
+    
     <script type="text/javascript" src="/review/js/jquery-3.2.1.min.js"></script> 
 
     
@@ -106,19 +122,26 @@
                	  <label for="sign-up__tel" class="sr-only">email</label>
               	  <input type="email" class="form-control" id="sign-up__email"  name="email"  placeholder="이메일" required>
               </div>
-             <input type="submit" class="btn btn-primary btn-block btn-lg" value="가입완료"><br>
-             <input type="reset" class="btn btn-primary btn-block btn-lg"  value="취소">
+             <input type="submit" class="btn btn-primary btn-block btn-lg" 
+              value="가입완료"><br>
+             <input type="reset" class="btn btn-primary btn-block btn-lg"  
+               value="취소">
             </form>
 
             <!-- Sign In link -->
+             
             <hr />
-            <p align="center">회원이면 <a href="login.jsp">로그인 하러가기</a></p>
+          
+            <p align="center">회원이면 <a href="login.jsp" style="color: red;">로그인 하러가기</a></p>
+            <br>
+             <p align="center"><a href="/review/index.jsp" style="color: red;">메인으로 이동</a></p>
           </div> <!-- / .body-plain__form -->
 
           <!-- Footer -->
           <div class="body-plain__footer">
-            Copyright 2017 <a href="http://simpleqode.com/">Simpleqode.com</a>. All Rights Reserved.
-          </div>
+			Copyright 2017 <a href="/review/index.jsp" style="color: red;">Review</a>.
+			All Rights Reserved.
+		</div>
         </div>
       </div> <!-- / .row -->
     </div> <!-- / .container -->

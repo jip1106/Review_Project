@@ -115,15 +115,13 @@
 
 					<br>
 					 <p align="center">회원이 아니면 <a href="signup.jsp" style="color: red;">회원 가입 하러가기</a></p>
-					<!--
-					<div class="body-plain__footer">
-						Copyright 2017 <a href="http://simpleqode.com/">Simpleqode.com</a>.
-						All Rights Reserved.
-					</div> -->
+	
+					 <p align="center"><a href="/review/index.jsp" style="color: red;">메인으로 이동</a></p>
 				</div>
 			</div>
 			<!-- / .row -->
 		</div>
+	 
 		<!-- / .container -->
 		<!-- Footer -->
 		<div class="body-plain__footer">
