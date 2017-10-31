@@ -36,3 +36,5 @@ Project Workspace/TestProject/.classpath
 *.class
 *.class
 *.class
+reviewProject/web/WEB-INF/classes/memberSharedComment/model/dao/SharedCommentDao.class
+*.class

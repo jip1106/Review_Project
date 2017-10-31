@@ -174,7 +174,7 @@ public class SharedBoardDao {
 							+ "order by posting_no desc )) "
 							+ "where rnum >= ? and rnum <= ? ";
 					
-			}else if(searchMenu.equals("findByWriter")){
+			}if(searchMenu.equals("findByWriter")){
 				query="select * from ("
 						+ "select rownum rnum, posting_no, id, "
 						+ "title, content, hits, posting_date, del_yn "
@@ -183,7 +183,7 @@ public class SharedBoardDao {
 						+ "order by posting_no desc )) "
 						+ "where rnum >= ? and rnum <= ? ";
 				
-			}else if(searchMenu.equals("findByTitleContent")){
+			}if(searchMenu.equals("findByTitleContent")){
 				query="select * from ("
 						+ "select rownum rnum, posting_no, id, "
 						+ "title, content, hits, posting_date, del_yn "
@@ -192,7 +192,7 @@ public class SharedBoardDao {
 						+ "order by posting_no desc )) "
 						+ "where rnum >= ? and rnum <= ? ";
 				
-			}else if(searchMenu.equals("findByDate")){
+			}if(searchMenu.equals("findByDate")){
 				query="select * from ("
 						+ "select rownum rnum, posting_no, id, "
 						+ "title, content, hits, posting_date, del_yn "
