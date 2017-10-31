@@ -120,8 +120,8 @@
 							<input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요">
 						</div>
 						<br>
-						<button type="button" id="findPassword" class="btn btn-primary btn-block btn-lg">비밀번호 찾기</button>
-						<button type="reset" class="btn btn-primary btn-block btn-lg">취소</button>
+						<button type="button" id="findPassword" class="btn btn-block btn-lg" style="color: white;">비밀번호 찾기</button>
+						<button type="reset" class="btn btn-block btn-lg" style="color: white;">취소</button>
 					</form>
 					<br>
 					<span id=findPwd></span>

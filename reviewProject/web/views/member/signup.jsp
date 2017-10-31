@@ -122,10 +122,10 @@
                	  <label for="sign-up__tel" class="sr-only">email</label>
               	  <input type="email" class="form-control" id="sign-up__email"  name="email"  placeholder="이메일" required>
               </div>
-             <input type="submit" class="btn btn-primary btn-block btn-lg" 
-              value="가입완료"><br>
-             <input type="reset" class="btn btn-primary btn-block btn-lg"  
-               value="취소">
+             <input type="submit" class="btn btn-block btn-lg" 
+              value="가입완료" style="color: white;"><br>
+             <input type="reset" class="btn btn-block btn-lg"  
+               value="취소" style="color: white;">
             </form>
 
             <!-- Sign In link -->

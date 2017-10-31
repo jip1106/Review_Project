@@ -86,7 +86,8 @@
 						href="/review/slist?page=<%= currentPage %>" 
 						class="btn btn-default" id="listBtn">목 록</a>
 				<% }else{ %>
-						<a href="/review/slist?page=<%= currentPage %>" class="btn btn-default" id="listBtn">목 록</a>
+						<a href="/review/slist?page=<%= currentPage %>" 
+						class="btn btn-default" id="listBtn" style="color: white;">목 록</a>
 				<%} %>
 					</div>
 				</div>

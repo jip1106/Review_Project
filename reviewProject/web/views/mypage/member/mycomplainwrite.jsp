@@ -85,7 +85,7 @@
 						<!-- 바뀐부분 -->
 						<td style="text-align: center;">
 							<a href = "/review/cdelete?bnum=<%=board.getPostingNo()%>&index=1&location=1">
-								<button class="btn btn-primary" style="color:white;">게시글 삭제</button>
+								<button class="btn" style="color:white;">게시글 삭제</button>
 							</a>
 						
 					</tr>
