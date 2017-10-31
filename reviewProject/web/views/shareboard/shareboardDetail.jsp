@@ -43,6 +43,33 @@
 	div a#listBtn{
 		background: #4D81B0;
 	}
+	
+	 .btn {
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
+	-webkit-border-radius: 4;
+	-moz-border-radius: 4;
+	border-radius: 4px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
+	text-decoration: none;
+}
 	</style>
 	
 </head>
@@ -50,21 +77,18 @@
 <%@include file="../../header.jsp" %>
 
 <div class="container">
-	<div class="row">
-		<div class="col-sm-8 col-md-9">
+	<div align="left" style="margin-left: 10%; margin-right: 10%">  
+		<div style="float: left;">
 			<span class="badge">No.<%= share.getPostingNum() %></span>
 			<span class="badge">조회수 : <%= share.getHits() %></span>	
 			<span class="badge">날짜 : <%= share.getPostingDate() %></span>
 		</div>
-		<div class="nav nav-pills col-md-8 text-right">
-		<label style="color:red;">작성자 : </label>
-			<a href="/review/ssearch?searchMenu=findByWriter&keyword=<%=share.getId()%>&page=1"
-			style="color:black;"><%= share.getId() %></a> 
+		<div style="float: right;">
+		<font style="color:red;">작성자 : </font>
+			<a style="color: black;" href="/review/ssearch?searchMenu=findByWriter&keyword=<%=share.getId()%>&page=1"><%= share.getId() %></a> 
 		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8 col-md-9">
+	
+	<br><br>
 				<div class="well well"><%= share.getTitle() %></div>
 				<div class="panel-body">
 					<table>
@@ -72,30 +96,22 @@
 							<td><%= share.getContent() %></td>
 						</tr>
 					</table>
-				</div>
-				
+				<br><br><br><br><hr>
 				<div>
 					<div align="center">
 				<% if(member.getId().equals(share.getId())) {%>
-						<a style="color: white;" 
-						href="/review/supview?no=<%= share.getPostingNum() %>&page=<%=currentPage %>" 
-						class="btn btn-default" id="listBtn">수정</a>
+						<a class="btn btn-primary" href="/review/supview?no=<%= share.getPostingNum() %>&page=<%=currentPage %>" 
+						style="width: 100px; background-color: red; color: white" id="listBtn">수정</a>&nbsp;
 						
-						<a style="color: white;" class="btn btn-default" onclick="board_delete()" id="listBtn">삭제</a>
+						<a class="btn btn-primary" style="width: 100px; background-color: red; color: white" onclick="board_delete()" id="listBtn">삭제</a>&nbsp;
 						
-						<a style="color: white;" 
-						href="/review/slist?page=<%= currentPage %>" 
-						class="btn btn-default" id="listBtn">목 록</a>
+						<button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
 				<% }else{ %>
-						<a href="/review/slist?page=<%= currentPage %>" 
-						class="btn btn-default" id="listBtn" style="color: white;">목 록</a>
+						<button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
 				<%} %>
 					</div>
 				</div>
 		</div>
-	</div>
-</div>
-</div>
 <br>
 
 <!-- 게시글 삭제여부 재확인 -->
@@ -109,30 +125,26 @@ function board_delete(){
 }
 </script>
 
-<div class="col-sm-5">
-			<div class="badge">댓글을 입력해주세요</div>
-		</div>
-
-		<div class="col-sm-8 col-md-9">
 			<div class="comment comment_new">
 				<div class="comment__author_img">
 					<%=member.getName()%><font color="#4D81B0">[<%=member.getId()%>]</font>
 				</div>
 				<div class="comment__content">
 					<form>
-						<div class="form-group" style="float: left; width: 80%">
+						<div style="float: left; width: 80%">
 							<label for="comment-new__textarea" class="sr-only">Enter
 								your comment</label>
-							<textarea class="form-control" rows="2" id="commentContent"
+							<textarea class="form-control" rows="1" id="commentContent"
 								placeholder="Enter your comment"></textarea>
 						</div>
-						<div style="float: left; width: 20%">
+						<div style="float: right; width: 15%">
 						<button type="button" id="sendComment" class="btn"
 							onclick="return insertComment();" style="color: white;">Send Comment</button>
 						</div>
 					</form>
 				</div>
 			</div>
+			<br><br>
 			<!-- Comments header -->
 			<div class="comment__header">
 				<span><font color="red">List of Comments</font></span>
@@ -140,7 +152,6 @@ function board_delete(){
 			<!-- 댓글 보여주는 자리-->
 			<div id="viewComment"></div>
 
-		</div>
 
 
 <!-- 자바스크립트 -->
@@ -175,11 +186,11 @@ function board_delete(){
     							"<div class='comment'>"+
     								"<div class='comment__content' id='commentresetView'>"+
     									"<div class='comment__author_name'>"+									
-    										"아이디 :"+decodeURIComponent(json.list[i].id)+ 
+    										"<font color='#4D81B0'>아이디 : </font>"+decodeURIComponent(json.list[i].id)+ 
     									"</div>"+
-    									"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
-    									"<br>댓글내용 :"+
-    									"<input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
+    									"<font color='#4D81B0'><b>시간 : </b></font>"+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
+    									"<br><div style='float: left; width: 10%'><font color='#4D81B0'>댓글내용  ▶ </font></div>"+
+    									"<div style='float: left; width: 90%'><input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p></div>" +
     										"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
     											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
     											"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
@@ -291,6 +302,10 @@ function board_delete(){
 
     
 </script>
+</div>
+</div>
+<%@ include file = "../../../../footer.jsp" %>
+
 </body>
 </html>
 		

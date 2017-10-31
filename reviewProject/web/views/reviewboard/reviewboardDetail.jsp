@@ -32,49 +32,75 @@ ArrayList<ReviewComment> commentList = (ArrayList<ReviewComment>)request.getAttr
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
-    
+    <style type="text/css">
+    .btn {
+	background: #4D81B0;
+	background-image: -webkit-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -moz-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -ms-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: -o-linear-gradient(top, #4D81B0, #4D81B0);
+	background-image: linear-gradient(to #4D81B0, #4D81B0, #4D81B0);
+	-webkit-border-radius: 4;
+	-moz-border-radius: 4;
+	border-radius: 4px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #C2D6E9;
+	background-image: -webkit-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -moz-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -ms-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: -o-linear-gradient(top, #C2D6E9, #C2D6E9);
+	background-image: linear-gradient(to bottom, #C2D6E9, #C2D6E9);
+	text-decoration: none;
+}
+
+</style>
 </head> 
 <body>
 <%@include file="../../header.jsp" %> 
 
 <div class="container">
-	<div class="row">
-		<div class="col-sm-8 col-md-9">
+	<div align="left" style="margin-left: 10%; margin-right: 10%">  
+		<div style="float: left;">
 			<span class="badge">No. <%=review.getPosting_no()%></span>
 			<span class="badge">조회수 : <%=review.getHits()%></span>
 			<span class="badge">날짜 : <%=review.getPostingDate()%></span>
 		</div>
-		<div class="nav nav-pills col-md-8 text-right">
-			작성자 : <%=review.getId()%> &nbsp;
-			좋아요 : <%=review.getLikes()%> &nbsp;
+		<div style="float: right;">
+			<font color="red">작성자 : </font><%=review.getId()%> &nbsp;
+			<img src="resources/img/good.png">&nbsp; <%=review.getLikes()%> &nbsp;
 		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-8 col-md-9">
+			<br><br>
 				<div class="well well"><%=review.getTitle()%></div>
 				<div class="panel-body">
+				<div align="center">
 					<table>
 						<tr>
 							<td><%=review.getContent()%></td> 
 						</tr>
 					</table>
 					<br><br><br><br><hr>
-					<table align="left">
-						<tr>
-							<td>		
+					<table>
+						<tr align="center">
+							<td align="center">		
 							<%if(review.getRenameImageName()!= null){ %> 
 								<div class="col-sm-8">
 										<div class="badge">이미지</div>
 								</div> 
+								<br>
 								<div class="item">
 									 <img src="/review/uploadfile/<%=review.getRenameImageName()%>" width="250px" height="250px" alt="...">
 								</div>
 							
 							<%}%>					
 							</td>
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							<td>
+							<td align="center">
 									<div class="col-sm-8">
 										<div class="badge">위치정보</div>
 									</div> 
@@ -82,49 +108,49 @@ ArrayList<ReviewComment> commentList = (ArrayList<ReviewComment>)request.getAttr
 							</td>
 						</tr>						
 					</table>
-				<div class="panel-footer">
-					<div class="btn-group btn-group-justified">
+					
+					<br><br>
+				<div class="panel-footer" align="center">
 						<%if(member.getId().equals(review.getId())){%>
-						<a href="/review/ReviewUpdateView?no=<%=review.getPosting_no()%>&page=<%=currentPage%>" class="btn btn-default">수정</a>
-						<a href="/review/reviewDelete?no=<%=review.getPosting_no()%>" class="btn btn-default">삭제</a>
-						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-default">좋아요</a>
+						<a href="/review/ReviewUpdateView?no=<%=review.getPosting_no()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">수정</a>&nbsp;
+						<a href="/review/reviewDelete?no=<%=review.getPosting_no()%>" class="btn btn-primary" style="width: 100px; background: red;">삭제</a>&nbsp;
+						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">좋아요</a>&nbsp;
+						<button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
 						<%}else{%>
-						<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-default">신고</a>
-						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-default">좋아요</a>
+						<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-primary" style="width: 100px; background: red;">신고</a>&nbsp;
+						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">좋아요</a>&nbsp;
+						<button  class="btn btn-primary" style="width: 100px; background: red;" onclick="javascript:history.go(-1); return false">목 록</button> 
 						<%} %>
-					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		
 		<!-- 댓글공간 -->
-	<div class="col-sm-8 col-md-9">
+	<div class="">
 		<div class="comment comment_new">
 			<div class="comment__author_img">	
-				<%=member.getName()%>[<%=member.getId() %>]
+				<%=member.getName()%><font color="#4D81B0">[<%=member.getId() %>]</font>
 			</div>
 			<div class="comment__content">
 				<form>
-					<div class="form-group">
-	
+					<div style="float: left; width: 80%">
 					<label for="comment-new__textarea" class="sr-only">Enter your comment</label>
-						<textarea class="form-control" rows="2" id="commentContent" placeholder="Enter your comment"></textarea>
+						<textarea class="form-control" rows="1" id="commentContent" placeholder="Enter your comment"></textarea>
+						
 					</div>
-					
-						<button type="button" id="sendComment" class="btn btn-primary" onclick="return insertComment();" >Send Comment</button> 
-
+					<div style="float: right; width: 15%">
+					<button type="button" id="sendComment" class="btn" onclick="return insertComment();">Send Comment</button> 
+					</div>
 				</form>
 			</div>
 		</div>
-	
+	<br><br>
 		<!-- Comments header -->
 		<div class="comment__header">
-			<span>List of Comments</span>
+			<span><font color="red">List of Comments</font></span>
 		</div>
 		<!-- 댓글 보여주는 자리-->
 		<div id="viewComment">
 		</div>
-</div>
 </div>
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -190,11 +216,11 @@ ArrayList<ReviewComment> commentList = (ArrayList<ReviewComment>)request.getAttr
     							"<div class='comment'>"+
     								"<div class='comment__content' id='commentresetView'>"+
     									"<div class='comment__author_name'>"+									
-    										"아이디 :"+decodeURIComponent(json.list[i].id)+ 
+    										"<font color='#4D81B0'>아이디 : </font>"+decodeURIComponent(json.list[i].id)+ 
     									"</div>"+
-    									"시간: "+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
-    									"<br>댓글내용 :"+
-    									"<input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
+    									"<font color='#4D81B0'><b>시간 : </b></font>"+ decodeURIComponent(json.list[i].date).replace(/\+/gi," ") +
+    									"<br><div style='float: left; width: 10%'><font color='#4D81B0'>댓글내용  ▶ </font></div>"+
+    									"<div style='float: left; width: 90%'><input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p></div>" +
     										"<div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
     											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
     											"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
@@ -309,6 +335,8 @@ ArrayList<ReviewComment> commentList = (ArrayList<ReviewComment>)request.getAttr
 		
 	</script>
 	</div>
-	
+</div>
+</div>
+<%@include file="../../footer.jsp" %> 
 </body>
 </html>

@@ -29,7 +29,7 @@
 <%@ include file = "../../header.jsp" %>
 <div class="container">
 	<div class="row">
-		<div class="col-sm-8">
+		<div align="left" style="margin-left: 15%; margin-right: 15%">
 			<h3 style="color: black;"><b>Shareboard Update</b></h3>
 			<p class="text-muted">회원들의 정보를 자유롭게 공유해주세요</p>
 			
@@ -60,12 +60,15 @@
 				</div>
 				
 				-->
-					<button type="submit" class="btn btn-primary" style="background: red;">수정하기</button>
-					<button type="reset" class="btn btn-primary" onclick=" return reviewWriteCancel()" style="background: red;">작성 취소</button>
-					<button class="btn btn-primary" onclick="javascript:history.go(-2); return false" style="background: red;">목 록</button> 
+				<div align="center">
+					<button type="submit" class="btn btn-primary" style="background: red; width: 160px">수정하기</button>
+					<button type="reset" class="btn btn-primary" onclick=" return reviewWriteCancel()" style="background: red; width: 160px">작성 취소</button>
+					<button class="btn btn-primary" onclick="javascript:history.go(-1); return false" style="background: red; width: 160px">뒤로가기</button> 
+				</div>
 			</form>
 		</div>
 		</div>
 </div>
+<%@include file="../../footer.jsp" %> 
 </body>
 </html>
