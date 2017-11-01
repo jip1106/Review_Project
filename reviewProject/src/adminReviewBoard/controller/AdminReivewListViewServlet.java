@@ -35,7 +35,10 @@ public class AdminReivewListViewServlet extends HttpServlet {
 		// 관리자 페이지에서 게시물들을 보여주는 서블릿
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-		
+		String id = null;
+		String searchLocation = null;
+		String searchCategory = null;
+		String storeName = null;
 		int currentPage = 1;
 		
 		int limit = 9;
@@ -46,8 +49,46 @@ public class AdminReivewListViewServlet extends HttpServlet {
 		
 		ReviewBoardService rservice = new ReviewBoardService();
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
+					
+		int listCount = 0;
+	
+		
+		if(request.getParameter("searchLocation")==null && request.getParameter("searchCategory")==null && request.getParameter("storeName")== null &&request.getParameter("id")==null){
+			listCount = rservice.getReviewListCount();
+			list = rservice.viewAllReviewBoard(currentPage,limit);
+		}
+		
+		if(request.getParameter("id")!=null){
+			id = request.getParameter("id");
+			listCount = rservice.getSearchIdCount(id);
+			list = rservice.viewSearchByID(id, currentPage, limit);
+		}
+		
+		if(request.getParameter("searchLocation")!=null && request.getParameter("searchCategory")==null && request.getParameter("storeName")!=null){
+			searchLocation = request.getParameter("searchLocation");
+			storeName = request.getParameter("storeName");
+			listCount = rservice.getSearchByLocationCount(searchLocation, storeName);
+			list = rservice.getSearchByLocationList(currentPage, limit, searchLocation, storeName);
+		}
+		
+		if(request.getParameter("searchCategory")!=null && request.getParameter("searchLocation")==null && request.getParameter("storeName")!=null){
+			searchCategory = request.getParameter("searchCategory");
+			storeName = request.getParameter("storeName");
 			
-		int listCount = rservice.getReviewListCount();
+			listCount = rservice.getSearchByCategoryCount(searchCategory, storeName);
+			list = rservice.getSearchByCategoryList(currentPage, limit, searchCategory, storeName);
+		}
+		
+		if(request.getParameter("searchCategory")!=null && request.getParameter("searchLocation")!=null && request.getParameter("storeName")!=null){
+			searchLocation = request.getParameter("searchLocation");
+			searchCategory = request.getParameter("searchCategory");
+			storeName = request.getParameter("storeName");			
+			
+			listCount = rservice.getSearchAllCount(searchCategory, searchLocation, storeName);
+			list = rservice.getSearchByAllList(currentPage, limit, searchCategory, searchLocation, storeName);
+		}
+		
+		
 		int maxPage = (int)((double)listCount/limit + 0.9);
 	
 		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;
@@ -58,7 +99,7 @@ public class AdminReivewListViewServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		list = rservice.viewAllReviewBoard(currentPage,limit);
+		
 		
 		if(list != null){
 			RequestDispatcher view = request.getRequestDispatcher("views/admin/board/reviewboard/adminreviewboard.jsp");

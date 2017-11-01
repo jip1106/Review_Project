@@ -46,6 +46,7 @@ public class AdminReviewIdSearchServlet extends HttpServlet {
 		
 		
 		int listCount = rservice.getSearchIdCount(id);
+		System.out.println("id 검색 리스트 카운트 : " + listCount);
 		
 		int maxPage = (int)((double)listCount/limit + 0.9);
 		
@@ -56,7 +57,7 @@ public class AdminReviewIdSearchServlet extends HttpServlet {
 		if(maxPage < endPage){
 			endPage = maxPage;
 		}
-		
+	
 		if(list!=null){
 			RequestDispatcher view = request.getRequestDispatcher("views/admin/board/reviewboard/adminreviewboard.jsp");
 			request.setAttribute("list", list);

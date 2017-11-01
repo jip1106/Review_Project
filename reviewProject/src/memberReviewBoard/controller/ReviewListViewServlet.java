@@ -34,6 +34,7 @@ public class ReviewListViewServlet extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       request.setCharacterEncoding("utf-8");
       response.setContentType("text/html; charset=utf-8");
+      RequestDispatcher view = null;
       // 페이지 처리용
       int currentPage = 1;
       // 한 페이지에 출력할 페이지 갯수 지정
@@ -49,31 +50,17 @@ public class ReviewListViewServlet extends HttpServlet {
       //전체 목록 갯수 조회함
       int listCount = 0; 
       
-      String location = request.getParameter("findLocationType");
-      System.out.println(location);
-      String category = request.getParameter("findCategoryType");
-      System.out.println(category);
-      String searchKeyWord = request.getParameter("searchKeyWord");
-      System.out.println(searchKeyWord);
+      String location = null;
+      String category = null;
+     String searchKeyWord = null;
+      
       
       //해당 페이지용 목록 조회
-      if(location == null && category == null){
-          listCount = rservice.getReviewListCount();
-          System.out.println(listCount);
-          list = rservice.selectReview(currentPage, limit);
-      }else if(category == null || category.trim() == ""){
-          listCount = rservice.getReviewLocationListCount(location.trim(),searchKeyWord.trim());
-          System.out.println(listCount);
-          list = rservice.reviewSearchList(currentPage,limit,location.trim(),category.trim(),searchKeyWord.trim());  
-      }else if(location == null || location.trim() == ""){
-         listCount = rservice.getReviewCategoryListCount(category.trim(),searchKeyWord.trim());
-         System.out.println(listCount);
-         list = rservice.reviewSearchList(currentPage,limit,location.trim(),category.trim(),searchKeyWord.trim());
-      }else if(location != null && category != null){
-         listCount = rservice.getReviewAllListCount(category.trim(),location.trim(),searchKeyWord.trim());
-         System.out.println(listCount);
-         list = rservice.reviewSearchList(currentPage,limit,location.trim(),category.trim(),searchKeyWord.trim());
-      }
+     
+      listCount = rservice.getReviewListCount(); 
+      list = rservice.selectReview(currentPage, limit);
+       
+  
       
       //총 페이지 수 계산 : 목록이 최소 1개일 때는 한 페이지로 처리함
       //페이지 1이 되려면 = 목록 0.1 개  + 0.9 계산되게 함
@@ -89,13 +76,16 @@ public class ReviewListViewServlet extends HttpServlet {
       }
       
       if(list != null){
-         RequestDispatcher view = request.getRequestDispatcher("views/reviewboard/reviewboard.jsp");
+         view = request.getRequestDispatcher("views/reviewboard/reviewboard.jsp");
          request.setAttribute("list", list);
          request.setAttribute("currentPage", currentPage);
          request.setAttribute("maxPage", maxPage);
          request.setAttribute("startPage", startPage);
          request.setAttribute("endPage", endPage);
          request.setAttribute("listCount", listCount);
+         request.setAttribute("location", location);
+         request.setAttribute("category", category);
+         request.setAttribute("searchKeyWord", searchKeyWord);
          view.forward(request, response);
       }
    }

@@ -90,6 +90,8 @@ public class ComplainBoardDao {
 		
 		}
 		System.out.println("DAO딴 result 값 : " + result);
+		System.out.println("DAO딴 searchMenu : " + searchMenu);
+		System.out.println("DAO딴 searchValue : " + searchValue);
 		
 		return result;
 	}

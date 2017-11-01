@@ -387,7 +387,7 @@ public class ReviewBoardDao {
 		
 		String query =  "select * from "
 	              + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
-	              + "from (select * from review_board where category=? order by posting_no desc)) "
+	              + "from (select * from review_board where category=? and store_name like ? order by posting_no desc)) "
 	              + "where rnum>=? and rnum<=?"; 
 		
 		int startRow = (currentPage -1 )*limit+1;
@@ -555,11 +555,22 @@ public class ReviewBoardDao {
 		ResultSet rset = null;
 		ReviewBoard review = null;
 		
+		String query = "select * from "
+        + "(select rownum as rnum,posting_no,id,title,content,hits,posting_date,del_yn,location,category,address,store_name,likes,image_name,re_image_name,evaluation "
+        + "from (select * from review_board where id like ? order by posting_no desc)) "
+        + "where rnum>=? and rnum<=?"; 
+		
+		/*
 		String query = "select * from review_board where id like ?";
+		*/
+		int startRow = (currentPage -1 )*limit+1;
+		int endRow = startRow + limit -1;
 		
 		try{
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "%"+id+"%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			

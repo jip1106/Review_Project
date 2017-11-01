@@ -39,6 +39,7 @@ public class ComplainBoardSearchServlet extends HttpServlet {
 		String searchMenu = request.getParameter("searchMenu");	//제목, 작성자
 		String searchValue = request.getParameter("searchValue"); //검색 폼에 입력한 값.
 		
+		System.out.println("searchMenu : " + searchMenu);
 		int currentPage = 1;
 		
 		if(request.getParameter("page") !=null){

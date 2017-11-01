@@ -44,8 +44,7 @@ public class ComplainUpdate extends HttpServlet {
 		ComplainBoard.setTitle(request.getParameter("title"));
 		ComplainBoard.setContent(request.getParameter("content"));
 		
-		
-		System.out.println(ComplainBoard);
+	
 		// 처리결과에 따라 뷰 지정함
 		if(new ComplainBoardService().ComplainBoardUpdate(ComplainBoard) > 0) {
 			int bnum = ComplainBoard.getPostingNo();
