@@ -43,8 +43,8 @@
 				</div>
 				<div class="form-group">
 					<label for="content">Content</label>
-					<textarea cols="20" rows="20" name="content" class="form-control"  id="content" placeholder="content"
-						><%= Complainboard.getContent() %></textarea>
+					<textarea cols="20" rows="20" name="content" class="form-control"  id="content" placeholder="content"><%= Complainboard.getContent() %>
+					</textarea>
 					 <span class="help-block"></span>  
 				</div>
 				<!-- <div class="form-group">

@@ -49,7 +49,7 @@ public class ComplainUpdate extends HttpServlet {
 		// 처리결과에 따라 뷰 지정함
 		if(new ComplainBoardService().ComplainBoardUpdate(ComplainBoard) > 0) {
 			int bnum = ComplainBoard.getPostingNo();
-			response.sendRedirect("/review/cdetail?Page="+currentPage+"&bnum="+bnum);
+			response.sendRedirect("/review/cdetail?bnum="+bnum+"&Page="+currentPage);
 		}else
 			System.out.println("헤헤.. 내가 나와버림");
 	}
