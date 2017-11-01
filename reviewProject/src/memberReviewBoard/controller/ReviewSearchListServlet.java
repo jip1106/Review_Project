@@ -68,10 +68,11 @@ public class ReviewSearchListServlet extends HttpServlet {
          listCount = rservice.getReviewCategoryListCount(category,searchKeyWord);
          System.out.println(listCount);
          list = rservice.reviewCategorySearchList(currentPage,limit,category,searchKeyWord);
-      }else if(location != null && category != null){
+      }else{
          listCount = rservice.getReviewAllListCount(category,location,searchKeyWord);
          System.out.println(listCount);
          list = rservice.reviewAllSearchList(currentPage,limit,location,category,searchKeyWord);
+         System.out.println("둘다검색 리스트 : "+list);
       }
           
      
