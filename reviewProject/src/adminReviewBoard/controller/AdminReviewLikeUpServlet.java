@@ -36,22 +36,20 @@ public class AdminReviewLikeUpServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
-		String id = request.getParameter("id");
-		int postNo = Integer.parseInt(request.getParameter("postNo"));
+		String id = request.getParameter("id"); //좋아요를 누른 로그인한 회원
+		int postNo = Integer.parseInt(request.getParameter("postNo")); //리뷰게시판 게시글 번호
 		int currentPage = Integer.parseInt(request.getParameter("page"));
 		
 		ReviewBoardService rservice = new ReviewBoardService();
-		
-		//likes 테이블에 있는지 확인하고
+				
+		//likes 테이블에 있는지 확인 하기위한 변수
 		int checkLikesInsert= rservice.checkLikesInsert(id,postNo);
-		
-		//int checkLike = rservice.likeCheck(id,postNo);
-		//없으면 likes 테이블에 id,postNo, like_yn 인설트
 		
 		
 		RequestDispatcher view =null;
 		
 		if(checkLikesInsert==1){ //좋아요 테이블에 있으면
+			//알터창
 			view = request.getRequestDispatcher("views/admin/board/reviewboard/adminLikeUpFail.jsp");
 			request.setAttribute("page", currentPage);
 			request.setAttribute("postNo", postNo);

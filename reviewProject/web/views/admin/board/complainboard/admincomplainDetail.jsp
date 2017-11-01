@@ -137,7 +137,7 @@
 		
 	});
 	
-	function selectComment(){
+	function selectComment(){	/* Primary key 게시글 번호로 해당 게시글의 모든 댓글 불러오기*/
 		var boardPostNum = "<%=board.getPostingNo() %>";
 		
 		$.ajax({
@@ -163,8 +163,10 @@
     									"<br><div style='float:left; width: 10%'><font color='#4D81B0'>댓글내용 ▶</font></div>"+
     									"<div style='float:left; width: 90%'><input type='hidden' id='editComment" +json.list[i].commentNo+ "' value='"+decodeURIComponent(json.list[i].content)+"' ><p>"+decodeURIComponent(json.list[i].content).replace(/\+/gi, " ")+"</p>" +
     										"</div><div class='btn-group pull-right' role='group' aria-label='comment__actions'>"+
-    											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'><i class='fa fa-times'></i>Remove</a>"+ 
-    											"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'><i class='fa fa-edit'></i>Edit</a>"+ 
+    											"<a id='removeComment'class='btn btn-default btn-xs' onclick='return removeCommentFun("+json.list[i].commentNo+");'>"+
+    												"<i class='fa fa-times'></i>Remove</a>"+ 
+    											"<a id='editButton' class='btn btn-default btn-xs' onclick='viewEditCommentFun("+json.list[i].commentNo+");'>"
+    											+"<i class='fa fa-edit'></i>Edit</a>"+ 
     										"</div>"+	
     								"</div>" +
     								"<div id='updateWriteForm"+json.list[i].commentNo+"'>" + "</div>" +

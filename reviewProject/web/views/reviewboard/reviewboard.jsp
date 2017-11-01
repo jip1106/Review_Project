@@ -178,8 +178,13 @@ function inputPleaseMessage(){
 			
 	<br>
 	<h2>리뷰 게시판</h2> 
-	
-	
+		<div>
+			<caption>회원님의 소중한 리뷰를 남겨주세요</caption>
+		
+			<div id="ui_buttons" align="left">
+    	  		<a href="/review/views/reviewboard/reviewboardWriteForm.jsp" class="btn" style="background:red; color: white">글작성</a>
+			</div>
+		</div>	
 </div>
 <hr>
 

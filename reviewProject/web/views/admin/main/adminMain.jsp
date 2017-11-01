@@ -255,62 +255,62 @@
 		
 		<script type="text/javascript">
 	
-	$(function(){
-		selectWarningCountOverThreeMember();		
-	})
-	
-	function selectWarningCountOverThreeMember(){
-		$.ajax({
-			url: "/review/viewWarningCountOverThree.do",
-			type: "get",
-			dataType: "json",
-			success: function(data){
-				var jsonStr = JSON.stringify(data);
-				var json = JSON.parse(jsonStr);
-				var values = "";
-				
-				for(var i in json.list){
-					console.log("유저 아이디 : " + decodeURIComponent(json.list[i].id));
-					console.log("타입 : " + typeof decodeURIComponent(json.list[i].id));
-					values+="<tr>"+ 
-								"<td style='text-align:center'>" + decodeURIComponent(json.list[i].id) + "</td>"+
-								"<td style='text-align:center'>" + decodeURIComponent(json.list[i].name) + "</td>"+
-								"<input type='hidden' id='fdeleteEmail' value='"+decodeURIComponent(json.list[i].email)+"'>"+
-								"<td style='text-align:center'>" + decodeURIComponent(json.list[i].email) + "</td>"+
-								"<td style='text-align:center'><font color='red'>" + json.list[i].warningCount  +"</font></td>"+
-								"<td style='text-align:center'>"+
-									"<input type='hidden' id='fdelete' value='"+decodeURIComponent(json.list[i].id)+"'>"+
-										"<a class='btn' onclick='forceDelete()' style='background-color: #4D81B0; color: white'>삭제</a></td></tr>";
-								
-					
-				}
-				
-				$("#maxWarningCount").html(values);
-			}
-		});
-	}
-	
-	
-	 function forceDelete(){
-		var id = $("#fdelete").val();
-		var email =$("#fdeleteEmail").val(); 
-		if(confirm("정말 회원을 탈퇴 시키시겠습니까?")==false){
-			return false;
-		}else{
-			
-			$.ajax({
-				url:"/review/mainForceDelete.do",
-				data : {"id":id,"email":email},
-				type:"get",
-				async:false
+			$(function(){
+				selectWarningCountOverThreeMember();		
 			})
+	
+			function selectWarningCountOverThreeMember(){
+				$.ajax({
+					url: "/review/viewWarningCountOverThree.do",
+					type: "get",
+					dataType: "json",
+					success: function(data){
+						var jsonStr = JSON.stringify(data);
+						var json = JSON.parse(jsonStr);
+						var values = "";
+						
+						for(var i in json.list){
+						
+							values+="<tr>"+ 
+										"<td style='text-align:center'>" + decodeURIComponent(json.list[i].id) + "</td>"+
+										"<td style='text-align:center'>" + decodeURIComponent(json.list[i].name) + "</td>"+
+										"<input type='hidden' id='fdeleteEmail' value='"+decodeURIComponent(json.list[i].email)+"'>"+
+										"<td style='text-align:center'>" + decodeURIComponent(json.list[i].email) + "</td>"+
+										"<td style='text-align:center'><font color='red'>" + json.list[i].warningCount  +"</font></td>"+
+										"<td style='text-align:center'>"+
+											"<input type='hidden' id='fdelete' value='"+decodeURIComponent(json.list[i].id)+"'>"+
+												"<a class='btn' onclick='forceDelete()' style='background-color: #4D81B0; color: white'>" + 
+													"삭제</a></td></tr>";
+										
 							
-			selectWarningCountOverThreeMember();
-			
-			alert("탈퇴 되었습니다.");
-			return true;
+						}
+						
+						$("#maxWarningCount").html(values);
+					}
+				});
+			}
+	
+	
+		 function forceDelete(){
+			var id = $("#fdelete").val();
+			var email =$("#fdeleteEmail").val(); 
+			if(confirm("정말 회원을 탈퇴 시키시겠습니까?")==false){
+				return false;
+			}else{
+				
+				$.ajax({
+					url:"/review/mainForceDelete.do",
+					data : {"id":id,"email":email},
+					type:"get",
+					async:false
+				})
+								
+				selectWarningCountOverThreeMember();
+				
+				alert("탈퇴 되었습니다.");
+				return true;
+			}
 		}
-	}
  
 	
 	function noticeWrite(){

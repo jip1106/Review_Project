@@ -37,7 +37,7 @@ public class MemberForceDeleteMainJSPServlet extends HttpServlet {
 		
 		MemberAdminService maservice = new MemberAdminService();
 		
-		maservice.insertExileMember(email);
+		maservice.insertExileMember(email);	//탈퇴당한 회원 같은 이메일로 가입 못하도록
 		maservice.deleteMember(id);
 	}
 
