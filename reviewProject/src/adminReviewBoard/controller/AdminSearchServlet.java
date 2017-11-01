@@ -35,12 +35,15 @@ public class AdminSearchServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
-		String searchLocation = request.getParameter("searchLocation");
-		String searchCategory = request.getParameter("searchCategory");
-		String storeName = request.getParameter("storeName");
-		
+		String searchLocation = request.getParameter("searchLocation");		
+		String searchCategory = request.getParameter("searchCategory");	
+		String storeName =request.getParameter("storeName"); 
+		System.out.println("써치 서블릿 장소 " + searchLocation);
+		System.out.println("써치 서블릿 카테고리 " + searchCategory);
+		System.out.println("써치 서블릿 가게명 " + storeName);
+				
 		System.out.println("장소검색 : " + searchLocation + " 장소검색 길이 : " + searchLocation.length());
-		System.out.println("카테고리 검색  : " + searchCategory + "카테고리검색  길이: " +searchCategory.length());
+
 		
 		int listCount =0;
 		
@@ -51,26 +54,21 @@ public class AdminSearchServlet extends HttpServlet {
 		ReviewBoardService rservice = new ReviewBoardService();
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		
-		if(searchLocation.length()!=0 && searchCategory.length()==0){	//서울특별시... 없고 식당/카페/교통/숙박 으로 검색한 경우
+		if(searchLocation.length()!=0 && searchCategory.equals("") && storeName.length()!=0){	//장소검색
 			listCount = rservice.getSearchByLocationCount(searchLocation,storeName);
 			list = rservice.getSearchByLocationList(currentPage,limit,searchLocation, storeName);
-			System.out.println("장소 검색 리스트 : " + list);
-			System.out.println("장소 검색 카운트 : " + listCount);
-						
-		}else if(searchCategory.length()!=0 && searchLocation.length()==0){ //서울특별시...로 검색한 경우
-			listCount = rservice.getSearchByCategoryCount(searchCategory,storeName);
-			list = rservice.getSearchByCategoryList(currentPage,limit,searchCategory,storeName);System.out.println("장소 검색 카운트 : " + listCount);
-						
-			System.out.println("카테고리 검색 카운트 : " + listCount);
-			System.out.println("카테고리 검색 리스트 : " + list);
+			System.out.println("써치 서블릿 장소 검색 리스트 : " + list);
+			System.out.println("써치 서블릿 장소 검색 카운트 : " + listCount);
+		}
+	
 		
-		}else{ //둘다 선택하고 검색한 경우
+		/*if(searchCategory!=null && searchLocation!=null && storeName!=null){ //둘다 선택하고 검색한 경우
 			listCount = rservice.getSearchAllCount(searchCategory,searchLocation,storeName);
 			list = rservice.getSearchByAllList(currentPage,limit,searchCategory, searchLocation,storeName);
 			System.out.println("둘다 검색 카운트 : " + listCount);
 			System.out.println("둘다 검색 리스트 : " + list);
 			
-		}		
+		}		*/
 		
 		int maxPage = (int)((double)listCount/limit + 0.9);
 		

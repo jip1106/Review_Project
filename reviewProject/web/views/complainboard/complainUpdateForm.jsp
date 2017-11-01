@@ -53,9 +53,9 @@
 						class="help-block"></span>
 				</div> -->
 				<div align="center">
-					<button type="submit" class="btn btn-primary">수정하기</button>
-					<button type="reset" class="btn btn-primary">작성 취소</button>
-					<button  class="btn btn-primary" style="width: 160px; background: red;" onclick="javascript:history.go(-1); return false">뒤로가기</button>
+					<button type="submit"  class="btn btn-primary" style="width: 100px; background: red; color: white">수정하기</button>
+					<button type="reset" class="btn btn-primary" style="width: 100px; background: red; color: white">작성 취소</button>
+					<button  class="btn btn-primary" style="width: 100px; background: red; color: white" onclick="javascript:history.go(-1); return false">뒤로가기</button>
 				</div>
 			</form>
 

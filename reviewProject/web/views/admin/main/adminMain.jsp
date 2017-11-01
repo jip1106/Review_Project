@@ -133,11 +133,11 @@
 	<!-- </a> -->
 <!-- </div> -->
 
-<div class="" align="" ><!-- 공지사항 띄워 줄 공간 -->
-		<div align="left" style="margin-left: 1%; margin-right: 5%">
+
+<div align="left" style="margin-left: 1%; margin-right: 5%">
 		
 		<!-- 아코디언 메뉴 만들꺼임 -->
-<div class="accordionMenu" style="float: left; width: 20%">
+	<div class="accordionMenu" style="float: left; width: 20%">
 
 		<div id="review" class="menuSection">
 			<h2 align="center"><a href="#review"><label style="font-size: 15pt; text-align: center;">&nbsp;리뷰게시글관리&nbsp;</label></a></h2>
@@ -211,32 +211,37 @@
 				}
 				%>
 			</table>
-			</div>
 			<!-- 공지사항 끝 --><br><br>
 			<hr>
+
+	<!-- 삭제될 회원 시작 -->
+			<div style="float: left; width: 100%">
+				<h2>경고수 <font color="red">3회</font> 이상인 회원</h2>
+				<table class='table table-striped table-bordered'>
+					
+						<tr>
+							<th style="background-color: #4D81B0; color: white; text-align: center">회원Id</th>
+							<th style='background-color: #4D81B0; color: white; text-align: center'>이름</th>
+							<th style='background-color: #4D81B0; color: white; text-align: center' >이메일</th>
+							<th style='background-color: #4D81B0; color: white; text-align: center' >경고횟수</th>
+							<th style='background-color: #4D81B0; color: white; text-align: center' >삭제</th>
+							
+						</tr>
+					
+					<tbody id = "maxWarningCount">	<!-- 회원정보 찍어주는 자리 -->
+					
+					</tbody>
+									
+				</table>
+			</div>
+			
+			
+			
+			</div>
+			
 			
 			<!-- 삭제될 회원 시작 ajax 이용-->
-			
-				<div style="float: left; width: 80%">
-					<h2>경고수 3회 이상인 회원</h2>
-					<table class='table table-striped table-bordered'>
 						
-							<tr>
-								<th style="background-color: #4D81B0; color: white; text-align: center">회원Id</th>
-								<th style='background-color: #4D81B0; color: white; text-align: center'>이름</th>
-								<th style='background-color: #4D81B0; color: white; text-align: center' >이메일</th>
-								<th style='background-color: #4D81B0; color: white; text-align: center' >경고횟수</th>
-								<th style='background-color: #4D81B0; color: white; text-align: center' >삭제</th>
-								
-							</tr>
-						
-						<tbody id = "maxWarningCount">	<!-- 회원정보 찍어주는 자리 -->
-						
-						</tbody>
-										
-					</table>
-				</div>
-			</div>
 			
 			
 			<br>
@@ -245,7 +250,7 @@
 			<!-- 신고 게시판 최신글 3개 뽑아오기 -->
 			
 		</table>
-		</div>
+	</div>
 
 		
 		<script type="text/javascript">
