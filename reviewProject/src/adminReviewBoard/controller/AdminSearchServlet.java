@@ -54,22 +54,28 @@ public class AdminSearchServlet extends HttpServlet {
 		ReviewBoardService rservice = new ReviewBoardService();
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
 		
-		if(searchLocation.length()!=0 && searchCategory.equals("") && storeName.length()!=0){	//장소검색
+		if(searchCategory ==null || searchCategory.trim()=="" ){	//장소검색
 			listCount = rservice.getSearchByLocationCount(searchLocation,storeName);
 			list = rservice.getSearchByLocationList(currentPage,limit,searchLocation, storeName);
 			System.out.println("써치 서블릿 장소 검색 리스트 : " + list);
 			System.out.println("써치 서블릿 장소 검색 카운트 : " + listCount);
 		}
-	
 		
-		/*if(searchCategory!=null && searchLocation!=null && storeName!=null){ //둘다 선택하고 검색한 경우
-			listCount = rservice.getSearchAllCount(searchCategory,searchLocation,storeName);
-			list = rservice.getSearchByAllList(currentPage,limit,searchCategory, searchLocation,storeName);
-			System.out.println("둘다 검색 카운트 : " + listCount);
-			System.out.println("둘다 검색 리스트 : " + list);
+		if(searchLocation==null || searchLocation.trim()=="" ){	//카테고리 검색
+			listCount = rservice.getSearchByCategoryCount(searchCategory,storeName);
+			list = rservice.getSearchByCategoryList(currentPage,limit,searchCategory, storeName);
+			System.out.println("써치 서블릿 카테고리 검색 리스트 : " + list);
+			System.out.println("써치 서블릿 카테고리 검색 카운트 : " + listCount);
+		}
+		
+		if(searchLocation.trim()!="" && searchCategory.trim()!=""){
+			listCount = rservice.getSearchAllCount(searchCategory, searchLocation, storeName);
+			list = rservice.getSearchByAllList(currentPage, limit, searchCategory, searchLocation, storeName);
+			System.out.println("둘다 검색 : " + list);
+			System.out.println("둘다 검색 카운트: " + listCount);
+		}
 			
-		}		*/
-		
+			
 		int maxPage = (int)((double)listCount/limit + 0.9);
 		
 		int startPage = ((int)((double)currentPage / limit + 0.9) - 1) * limit + 1;

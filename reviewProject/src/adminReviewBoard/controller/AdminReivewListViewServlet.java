@@ -49,9 +49,9 @@ public class AdminReivewListViewServlet extends HttpServlet {
 		
 		ReviewBoardService rservice = new ReviewBoardService();
 		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
-			
-		
+					
 		int listCount = 0;
+	
 		
 		if(request.getParameter("searchLocation")==null && request.getParameter("searchCategory")==null && request.getParameter("storeName")== null &&request.getParameter("id")==null){
 			listCount = rservice.getReviewListCount();
