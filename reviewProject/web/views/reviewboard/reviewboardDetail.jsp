@@ -112,14 +112,14 @@ ArrayList<ReviewComment> commentList = (ArrayList<ReviewComment>)request.getAttr
 					<br><br>
 				<div class="panel-footer" align="center">
 						<%if(member.getId().equals(review.getId())){%>
-						<a href="/review/ReviewUpdateView?no=<%=review.getPosting_no()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">수정</a>&nbsp;
-						<a href="/review/reviewDelete?no=<%=review.getPosting_no()%>" class="btn btn-primary" style="width: 100px; background: red;">삭제</a>&nbsp;
-						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">좋아요</a>&nbsp;
-						<a href="/review/reviewList?Page=<%=currentPage %>" class="btn btn-primary" style="width: 100px; background: red;">목 록</a>
+							<a href="/review/ReviewUpdateView?no=<%=review.getPosting_no()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">수정</a>&nbsp;
+							<a href="/review/reviewDelete?no=<%=review.getPosting_no()%>" class="btn btn-primary" style="width: 100px; background: red;">삭제</a>&nbsp;
+							<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">좋아요</a>&nbsp;
+							<a href="/review/reviewList?Page=<%=currentPage %>" class="btn btn-primary" style="width: 100px; background: red;">목 록</a>
 						<%}else{%>
-						<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-primary" style="width: 100px; background: red;">신고</a>&nbsp;
-						<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">좋아요</a>&nbsp;
-						<a href="/review/reviewList?Page=<%=currentPage %>" class="btn btn-primary" style="width: 100px; background: red;">목 록</a>
+							<a href="/review/views/complainboard/complainboardWriteForm.jsp" class="btn btn-primary" style="width: 100px; background: red;">신고</a>&nbsp;
+							<a href="/review/reviewLikeUp?no=<%=review.getPosting_no()%>&writer=<%=member.getId()%>&page=<%=currentPage%>" class="btn btn-primary" style="width: 100px; background: red;">좋아요</a>&nbsp;
+							<a href="/review/reviewList?Page=<%=currentPage %>" class="btn btn-primary" style="width: 100px; background: red;">목 록</a>
 						<%} %>
 				</div>
 			</div>

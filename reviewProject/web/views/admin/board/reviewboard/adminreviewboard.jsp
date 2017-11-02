@@ -11,22 +11,32 @@
 	int endPage = ((Integer)request.getAttribute("endPage")).intValue();
 	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 	
-	String searchLocation = null;
-	String searchCategory = null;
-	String storeName = null;
+		
+
+	String searchLocation = request.getParameter("searchLocation");
+	
+	if(searchLocation==null){
+		searchLocation="";
+	}
+	
+	String searchCategory = request.getParameter("searchCategory");
+	
+	if(searchCategory==null){
+		searchCategory="";
+	}
+	String storeName = request.getParameter("storeName");
+	
+	if(storeName==null){
+		storeName = "";
+	}
+	
+	
 	String id = null;
 	
-	if(request.getParameter("searchLocation")!=null){
-		searchLocation = (String)request.getAttribute("searchLocation");
-	}
-	if(request.getParameter("searchCategory")!=null){
-		searchLocation = (String)request.getAttribute("searchCategory");
-	}
-	if(request.getParameter("storeName")!=null){
-		storeName = (String)request.getAttribute("storeName");
-	}
+
 	if(request.getParameter("id")!=null){
 		id = (String)request.getAttribute("id");
+	
 	}
 	
 	
@@ -130,6 +140,8 @@
 	<form class="form-inline topbar__search" role="form" action="/review/adminSearch" onsubmit="return inputPleaseMessage();">
 				<div style="float: left; width: 12%;">    
 					<input type = "hidden" name="page" value=<%=currentPage %>>
+					
+				
 					<select class="btn" id="findLocationType" name="searchLocation" style="color: white">
 						<option value="">지역별</option>
 						<option value="서울특별시">서울특별시</option>
@@ -143,6 +155,7 @@
 						<option value="제주도">제주도</option>
 						
 					</select> 
+					
 					</div>
 					<div style="float: left; width: 12%;">
 					<select class="btn" id="findCategoryType" name="searchCategory" style="color: white">
@@ -168,21 +181,21 @@
 				</div>
 			</form>
 			
-	<form class="form-inline topbar__search" role="form" action="/review/adminSearch" onsubmit="return inputPleaseMessage();">
-				<div style="float: left; width: 30%">    		
-						<div align="left">
-							<div class="input-group stylish-input-group">
-								<input type="text" class="form-control" placeholder="회원 id로 검색" name="id" id="searchId">
-								<input type="hidden" name="page" value="<%=currentPage%>">
-								<span class="input-group-addon">
-									<button type="submit">
-										<span class="glyphicon glyphicon-search"></span>
-									</button>
-								</span>
-							</div>
-						</div>
+	<form class="form-inline topbar__search" role="form" action="/review/adminReviewIdSearch" onsubmit="return idInputCheck();">
+		<div style="float: left; width: 30%">    		
+			<div align="left">
+				<div class="input-group stylish-input-group">
+					<input type="text" class="form-control" placeholder="회원 id로 검색" name="id" id="searchId">
+					<input type="hidden" name="page" value="<%=currentPage%>">
+					<span class="input-group-addon">
+						<button type="submit">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span>
 				</div>
-			</form>
+			</div>
+		</div>
+	</form>
 			<br>
 	<h2>리뷰 게시판</h2> 
 	<%if(searchLocation ==null && searchCategory ==null && storeName ==null && id==null){ %>
@@ -262,6 +275,7 @@
 <!-- / .container -->
 
 	<!-- paging -->
+	<%if(id==null && searchLocation.trim()=="" && searchCategory.trim()=="" &&storeName.trim()==""){ %>
       <div class="ui__section" id="ui_pagination" align="center">
          <nav>
             <ul class="pagination">
@@ -291,7 +305,139 @@
                <%} %>
             </ul>
          </nav>
+      </div>      
+      
+      <!-- id 검색한 경우 paging -->
+      <%}else if(id!=null){ %>
+      <div class="ui__section" id="ui_pagination" align="center">
+         <nav>
+            <ul class="pagination">
+               <!-- 이전페이지 처리 -->
+               <%if(currentPage<=1){ %> <!-- 현재 페이지가 1페이지면 이전페이지 못하게 -->
+                  <li><span aria-hidden="true">«««</span></li>
+               <%}else{ %>   <!-- 현재 페이지가 2페이지면 이전페이지 누룰 수 있음 할 수 있음 -->
+                  <li><a href="/review/adminReviewIdSearch?page=<%= currentPage-1 %>&id=<%=id %>" aria-label="Previous"><span
+                        aria-hidden="true">«««</span></a></li>   
+               <%} %>
+               
+               <!-- 페이지 보여주기 -->
+               <%for(int p = startPage; p<=endPage; p++){ 
+                  if(p==currentPage){%>
+                     <li class="active"><a><%=p %></a></li>               
+                  <%}else{ %> 
+                     <li><a href = "/review/adminReviewIdSearch?page=<%=p %>&id=<%=id%>"><%=p %></a></li>
+                  <%} %>
+               <%} %>
+               
+               <!-- 다음페이지 처리 -->
+               <%if(currentPage>=maxPage){ %>
+                  <li><span aria-hidden="true">»»»</span></li>               
+               <%}else{ %>
+                  <li><a href="/review/adminReviewIdSearch?page=<%=currentPage+1%>&id=<%=id %>" aria-label="Next">
+                     <span aria-hidden="true">»»»</span></a></li>
+               <%} %>
+            </ul>
+         </nav>
       </div>
+      <!-- 장소 검색한경우 paging -->
+      <%}else if(id==null && searchLocation.trim() !="" && searchCategory.trim() == "" && storeName.trim()!=""){%>	<!-- 로케이션으로 검색 -->
+     
+      <div class="ui__section" id="ui_pagination" align="center">
+         <nav>
+            <ul class="pagination">
+               <!-- 이전페이지 처리 -->
+               <%if(currentPage<=1){ %> <!-- 현재 페이지가 1페이지면 이전페이지 못하게 -->
+                  <li><span aria-hidden="true">«««</span></li>
+               <%}else{ %>   <!-- 현재 페이지가 2페이지면 이전페이지 누룰 수 있음 할 수 있음 -->
+                  <li><a href="/review/adminSearch?page=<%= currentPage-1 %>&searchLocation=<%=searchLocation %>&searchCategory=<%=searchCategory %>&storeName=<%=storeName %>" aria-label="Previous"><span
+                        aria-hidden="true">«««</span></a></li>   
+               <%} %>
+               
+               <!-- 페이지 보여주기 -->
+               <%for(int p = startPage; p<=endPage; p++){ 
+                  if(p==currentPage){%>
+                     <li class="active"><a><%=p %></a></li>               
+                  <%}else{ %> 
+                     <li><a href = "/review/adminSearch?page=<%=p %>&searchLocation=<%=searchLocation%>&searchCategory=<%=searchCategory%>&storeName=<%=storeName%>"><%=p %></a></li>
+                  <%} %>
+               <%} %>
+               
+               <!-- 다음페이지 처리 -->
+               <%if(currentPage>=maxPage){ %>
+                  <li><span aria-hidden="true">»»»</span></li>               
+               <%}else{%>
+                  <li><a href="/review/adminSearch?page=<%=currentPage+1%>&searchLocation=<%=searchLocation %>&searchLocation=<%=searchLocation %>&storeName=<%=storeName %>" aria-label="Next">
+                     <span aria-hidden="true">»»»</span></a></li>
+               <%} %>
+            </ul>
+         </nav>
+      </div>      
+      <!-- 카테고리 검색 -->
+      <%}else if(id==null && searchLocation.trim() =="" && searchCategory.trim() != "" && storeName.trim()!=""){ %>
+      	 <div class="ui__section" id="ui_pagination" align="center">
+         <nav>
+            <ul class="pagination">
+               <!-- 이전페이지 처리 -->
+               <%if(currentPage<=1){ %> <!-- 현재 페이지가 1페이지면 이전페이지 못하게 -->
+                  <li><span aria-hidden="true">«««</span></li>
+               <%}else{ %>   <!-- 현재 페이지가 2페이지면 이전페이지 누룰 수 있음 할 수 있음 -->
+                  <li><a href="/review/adminSearch?page=<%= currentPage-1 %>&searchLocation=<%=searchLocation %>&searchCategory=<%=searchCategory %>&storeName=<%=storeName %>" aria-label="Previous"><span
+                        aria-hidden="true">«««</span></a></li>   
+               <%} %>
+               
+               <!-- 페이지 보여주기 -->
+               <%for(int p = startPage; p<=endPage; p++){ 
+                  if(p==currentPage){%>
+                     <li class="active"><a><%=p %></a></li>               
+                  <%}else{ %> 
+                     <li><a href = "/review/adminSearch?page=<%=p %>&searchLocation=<%=searchLocation%>&searchCategory=<%=searchCategory%>&storeName=<%=storeName%>"><%=p %></a></li>
+                  <%} %>
+               <%} %>
+               
+               <!-- 다음페이지 처리 -->
+               <%if(currentPage>=maxPage){%>
+                  <li><span aria-hidden="true">»»»</span></li>               
+               <%}else{ System.out.println("다음페이지 넘어가는"+searchLocation);%>
+                  <li><a href="/review/adminSearch?page=<%=currentPage+1%>&searchLocation=<%=searchLocation %>&searchLocation=<%=searchLocation %>&storeName=<%=storeName %>" aria-label="Next">
+                     <span aria-hidden="true">»»»</span></a></li>
+               <%} %>
+            </ul>
+         </nav>
+      </div>      
+      <!-- 둘다검색 -->
+      <%}else if(id==null && searchLocation.trim() !="" && searchCategory.trim() != "" && storeName.trim()!=""){ %>
+      	 <div class="ui__section" id="ui_pagination" align="center">
+         <nav>
+            <ul class="pagination">
+               <!-- 이전페이지 처리 -->
+               <%if(currentPage<=1){ %> <!-- 현재 페이지가 1페이지면 이전페이지 못하게 -->
+                  <li><span aria-hidden="true">«««</span></li>
+               <%}else{ %>   <!-- 현재 페이지가 2페이지면 이전페이지 누룰 수 있음 할 수 있음 -->
+                  <li><a href="/review/adminSearch?page=<%= currentPage-1 %>&searchLocation=<%=searchLocation %>&searchCategory=<%=searchCategory %>&storeName=<%=storeName %>" aria-label="Previous"><span
+                        aria-hidden="true">«««</span></a></li>   
+               <%} %>
+               
+               <!-- 페이지 보여주기 -->
+               <%for(int p = startPage; p<=endPage; p++){ 
+                  if(p==currentPage){%>
+                     <li class="active"><a><%=p %></a></li>               
+                  <%}else{ %> 
+                     <li><a href = "/review/adminSearch?page=<%=p %>&searchLocation=<%=searchLocation%>&searchCategory=<%=searchCategory%>&storeName=<%=storeName%>"><%=p %></a></li>
+                  <%} %>
+               <%} %>
+               
+               <!-- 다음페이지 처리 -->
+               <%if(currentPage>=maxPage){%>
+                  <li><span aria-hidden="true">»»»</span></li>               
+               <%}else{%>
+                  <li><a href="/review/adminSearch?page=<%=currentPage+1%>&searchLocation=<%=searchLocation %>&searchLocation=<%=searchLocation %>&storeName=<%=storeName %>" aria-label="Next">
+                     <span aria-hidden="true">»»»</span></a></li>
+               <%} %>
+            </ul>
+         </nav>
+      </div>      
+      <%} %>
+      
       <%@ include file="../../../../footer.jsp"%>
 </body>
 </html>
